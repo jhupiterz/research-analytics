@@ -19,7 +19,7 @@ def scraper_api(query):
     """Uses scraperAPI to scrape Google Scholar for 
     papers' Title, Year, Citations returns a dataframe"""
     #query = get_key_words()
-    pages = np.arange(0,100,10)
+    pages = np.arange(0,20,10)
     papers = []
     for page in pages:
         print(f"Scraping page {int(page/10) + 1}")
@@ -47,11 +47,28 @@ def scraper_api(query):
                     citations = 0
             else:
                 citations = 0
-            papers.append({'title': title, 'year': year, 'citations': citations})
+            urls = paper.find("div", class_="gs_fl").find_all(href=True)
+            if urls:
+                for url in urls:
+                    print(url["href"])
+                    if "cites" in url["href"]:
+                        cited_url = url["href"]
+            else:
+                cited_url = "no citations"
+            papers.append({'title': title, 'year': year, 'citations': citations, 'cited_by_url': cited_url})
     papers_df = pd.DataFrame(papers)
     return papers_df
 
-# automation+container+terminal
+def set_id(query):
+    """sets the tag number of each paper, works like an Id"""
+    papers_df = scraper_api(query)
+    papers_df["tag"] = np.arange(1,len(papers_df)+1,1)
+    return papers_df
+
+def get_cited_by():
+    """sets the list of papers that cite each paper in papers_df
+       each paper has a unique tag. cited_by data is a list of tags"""
+    pass
 
 def serp_api(query):
     """Uses SerpAPI to request papers' Title, Year, Citations. Limited to 20 requests at a time..."""
