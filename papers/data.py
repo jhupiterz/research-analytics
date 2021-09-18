@@ -70,7 +70,7 @@ def scraper_api(query):
                         url_slices.append(url_slices[1][index_and+1:])
                         url_slices.append(url_slices[3][:23])
                         del url_slices[1]
-                        new_url = url_slices[0]+"start=0&hl=en&"+url_slices[3]+url_slices[1]+"scipsc="
+                        new_url = "https://scholar.google.com.tw"+url_slices[0]+"start=00&hl=en&"+url_slices[3]+url_slices[1]+"scipsc="
             else:
                 new_url = "no citations"
             # appends everything in a list of dictionaries    
@@ -79,21 +79,64 @@ def scraper_api(query):
     papers_df = pd.DataFrame(papers)
     return papers_df
 
-def set_id(query):
-    """sets the tag number of each paper, works like an Id"""
-    papers_df = scraper_api(query)
+def set_id(papers_df):
+    """sets the tag number of each paper, works like a unique Id"""
     papers_df["tag"] = np.arange(1,len(papers_df)+1,1)
     return papers_df
 
-def get_cited_by(query):
+def turn_page(url, page):
+    """small function to turn pages in cited by url"""
+    url_slices = []
+    index_page = url.index("=")
+    url_slices.append(url[:index_page+1])
+    url_slices.append(page)
+    url_slices.append(url[index_page+3:])
+    new_url = url_slices[0]+url_slices[1]+url_slices[2]
+    return new_url
+
+def get_cited_by(papers_df):
     """sets the list of papers that cite each paper in papers_df
-       each paper has a unique tag. cited_by data is a list of tags"""
-    papers_df = set_id(query)
+       each paper has a unique tag. cited_by data is a list of tags
+       not working for now, problem with .text"""
+    list_citing_papers = []
     for _, row in papers_df.iterrows():
         cited_url = row.cited_by_url
-        url = BASE_URL + cited_url
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, "html.parser")
+        citing_papers = []
+        #pages = np.arange(0,50,10)
+        for n_page in np.arange(1,5,1):
+            url = BASE_URL + cited_url
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, "html.parser")
+            for paper in soup.find_all("div", class_="gs_ri"):
+                # get the title of each paper
+                title = paper.find("h3", class_="gs_rt").find("a").text
+                if title == None:
+                    title = paper.find("h3", class_="gs_rt").find("span").text
+                # get the year of publication of each paper
+                txt_year = paper.find("div", class_="gs_a").text
+                year = re.findall('[0-9]{4}', txt_year)
+                if year:
+                    year = list(map(int,year))[0]
+                else:
+                    year = 0
+                # get number of citations for each paper
+                txt_cite = paper.find("div", class_="gs_fl").find_all("a")[2].string
+                if txt_cite:
+                    citations = re.findall('[0-9]+', txt_cite)
+                    if citations:
+                        citations = list(map(int,citations))[0]
+                    else:
+                        citations = 0
+                else:
+                    citations = 0
+                citing_papers.append({'title': title, 'year': year, 'citations': citations})
+            cited_url = turn_page(cited_url, str(n_page*10))
+        citing_papers_df = pd.DataFrame(citing_papers)
+        list_citing_papers.append(citing_papers_df)
+    papers_df["citing_papers"] = list_citing_papers
+    return papers_df
+
+def extract_keywords_from_title():
     pass
 
 def serp_api(query):
