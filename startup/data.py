@@ -3,7 +3,6 @@
 import requests
 import numpy as np
 import pandas as pd
-from serpapi import GoogleSearch
 import re
 from bs4 import BeautifulSoup
 
@@ -138,25 +137,3 @@ def get_cited_by(papers_df):
 
 def extract_keywords_from_title():
     pass
-
-def serp_api(query):
-    """Uses SerpAPI to request papers' Title, Year, Citations. Limited to 20 requests at a time..."""
-    params = {
-    "engine": "google_scholar",
-    "q": query,
-    "num": "15",
-    "api_key": "bd9ae4d322ca6af163e484036232d68bbfc7385d22eb5b3553fbdecb46509c20"
-    }
-    search = GoogleSearch(params)
-    results = search.get_dict()
-    organic_results = results['organic_results']
-
-    papers = []
-    for paper in organic_results:
-        title = paper["title"]
-        citations = paper["inline_links"]["cited_by"]["total"]
-        pub_info = paper["publication_info"]["summary"]
-        year = re.findall('[0-9]+', pub_info)
-        year = list(map(int,year))[0]
-        papers.append({'title': title, 'year': year, 'citations': citations})
-    return papers

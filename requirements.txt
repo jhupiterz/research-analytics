@@ -23,7 +23,6 @@ google-cloud-storage
 mlflow
 requests
 s3fs
-serpapi
 
 # utilities
 six>=1.14
