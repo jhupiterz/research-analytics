@@ -1,4 +1,4 @@
-from startup.data import scraper_api
+from startupjh.data import scraper_api
 import pandas as pd
 
 def test_scraper_api():
