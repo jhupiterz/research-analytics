@@ -8,6 +8,7 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+bs4
 
 # tests/linter
 black
@@ -20,10 +21,13 @@ yapf
 gcsfs
 google-cloud-storage
 mlflow
+requests
 s3fs
+serpapi
 
 # utilities
 six>=1.14
 joblib
 memoized-property
 termcolor
+re
