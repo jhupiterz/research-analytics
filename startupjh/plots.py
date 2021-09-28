@@ -28,4 +28,3 @@ def pub_per_year(topic):
     plt.xticks(np.arange(1980,2025,5))
     
     plt.show()
-    return df

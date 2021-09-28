@@ -1,7 +1,7 @@
 # Main code where other modules are called
 
 from startupjh.data import scraper_api
-from startupjh.reports import pub_per_year
+from startupjh.plots import pub_per_year
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
