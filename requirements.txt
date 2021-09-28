@@ -9,6 +9,7 @@ numpy
 pandas
 scikit-learn
 bs4
+matplotlib
 
 # tests/linter
 black
