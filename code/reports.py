@@ -1,5 +1,6 @@
 # Code to get the data from data.py and do some basic data visualization
 
+from code.data import scraper_api
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,10 +8,8 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-#topic_title = input("Enter key words: ")
-#topic = topic_title.replace(" ", "+")
-
-def pub_per_year(df, topic):
+def pub_per_year(topic):
+    df = scraper_api(topic)
     #plt.figure(figsize=(300, 150))
     plt.subplot(1,2,1)
     plt.plot(df.groupby("year").count()["title"])
