@@ -24,7 +24,7 @@ def pub_per_year(topic):
     plt.xlabel("Year")
     plt.ylabel("Number of publications")
     plt.title(f"Topic: {topic}")
-    plt.xlim((1975,2025))
+    plt.xlim((1980,2025))
     plt.xticks(np.arange(1980,2025,5))
     
     plt.show()
