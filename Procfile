@@ -1,1 +1,1 @@
-web: pip install . -U && startup-run 
+web: pip install . -U && startupjh-run

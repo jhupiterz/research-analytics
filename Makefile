@@ -5,10 +5,10 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* StartUp/*.py
+	@flake8 scripts/* startupjh/*.py
 
 black:
-	@black scripts/* StartUp/*.py
+	@black scripts/* startupjh/*.py
 
 test:
 	@coverage run -m pytest tests/test_*.py
@@ -22,8 +22,8 @@ clean:
 	@rm -f .coverage
 	@rm -fr */__pycache__ */*.pyc __pycache__
 	@rm -fr build dist
-	@rm -fr StartUp-*.dist-info
-	@rm -fr StartUp.egg-info
+	@rm -fr startupjh-*.dist-info
+	@rm -fr startupjh.egg-info
 
 install:
 	@pip install . -U
