@@ -1,1 +1,0 @@
-web: pip install . -U && scripts/startupjh-run
