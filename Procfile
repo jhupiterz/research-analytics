@@ -1,1 +1,1 @@
-web: pip install . -U && mlsharedproject-run
+web: pip install . -U && startup-run
