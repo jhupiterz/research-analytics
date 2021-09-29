@@ -19,7 +19,7 @@ def scraper_api(query):
     """Uses scraperAPI to scrape Google Scholar for 
     papers' Title, Year, Citations, Cited By url returns a dataframe"""
     #query = get_key_words()
-    pages = np.arange(0,20,10)
+    pages = np.arange(0,50,10)
     papers = []
     for page in pages:
         print(f"Scraping page {int(page/10) + 1}")
