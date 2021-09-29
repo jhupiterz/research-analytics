@@ -23,6 +23,7 @@ fig.update_layout(
     paper_bgcolor=colors['background'],
     font_color=colors['text']
 )
+fig.update_xaxes(range=[1990, 2025])
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     html.H1(children='Topic: Automation container terminal',
