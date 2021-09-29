@@ -19,7 +19,7 @@ def scraper_api(query):
     """Uses scraperAPI to scrape Google Scholar for 
     papers' Title, Year, Citations, Cited By url returns a dataframe"""
     #query = get_key_words()
-    pages = np.arange(0,50,10)
+    pages = np.arange(0,120,10)
     papers = []
     for page in pages:
         print(f"Scraping page {int(page/10) + 1}")
@@ -76,6 +76,7 @@ def scraper_api(query):
             papers.append({'title': title, 'year': year, 'citations': citations, 'cited_by_url': new_url})
     # converts the list of dict to a pandas df
     papers_df = pd.DataFrame(papers)
+    papers_df.to_csv('papers.csv',index=False)
     return papers_df
 
 def set_id(papers_df):
