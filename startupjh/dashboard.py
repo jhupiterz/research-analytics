@@ -14,16 +14,17 @@ colors = {
     'text': '#7FDBFF'
 }
 
-df = scraper_api("automation+container+terminal")
+df = pd.read_csv('papers.csv')
 
-fig = px.bar(df, x="year", y="citations", barmode="group")
+for template in "ggplot2":
+    fig = px.bar(df, x="year", y="citations", barmode="group")
 
-fig.update_layout(
-    plot_bgcolor=colors['background'],
-    paper_bgcolor=colors['background'],
-    font_color=colors['text']
-)
-fig.update_xaxes(range=[1990, 2025])
+    fig.update_layout(
+        plot_bgcolor=colors['background'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text']
+    )
+    fig.update_xaxes(range=[1995, 2025])
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     html.H1(children='Topic: Automation container terminal',
