@@ -17,34 +17,48 @@ colors = {
 df = pd.read_csv('papers.csv')
 
 for template in "ggplot2":
-    fig = px.bar(df, x="year", y="citations", barmode="group")
+    fig1 = px.bar(df, x="year", y="citations", barmode="group")
 
-    fig.update_layout(
+    fig1.update_layout(
         plot_bgcolor=colors['background'],
         paper_bgcolor=colors['background'],
         font_color=colors['text']
     )
-    fig.update_xaxes(range=[1995, 2025])
+    fig1.update_xaxes(range=[1995, 2025])
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.H1(children='Topic: Automation container terminal',
-            style={
-            'textAlign': 'center',
-            'color': colors['text']
-        }),
+for template in "ggplot2":
+    fig2 = px.bar(df.groupby("year").count().reset_index(inplace=False), x="year", y="title", barmode="group")
 
-    html.Div(children='''
-        Total number of citations per year
-    ''', style={
-        'textAlign': 'center',
-        'color': colors['text']
-    }),
-
-    dcc.Graph(
-        id='example-graph',
-        figure=fig
+    fig2.update_layout(
+        plot_bgcolor=colors['background'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text']
     )
+    fig2.update_xaxes(range=[1995, 2025])
+
+app.layout = html.Div([
+    html.H1("Topic: automation container terminal"),
+        html.Div(className="row",
+                 children = [
+                    html.Div(className= "six columns",
+                    children = [
+                        html.H3('Citations per year'),
+                        html.Div(
+                        dcc.Graph(id='fig1', figure=fig1)
+            )]),
+
+                    html.Div(className="six columns",
+                    children = [
+                        html.H3('Publications per year'),
+                        html.Div(
+                        dcc.Graph(id='fig2', figure=fig2)
+            )]),
+    ])
 ])
+
+app.css.append_css({
+    'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
+})
 
 if __name__ == '__main__':
     app.run_server(debug=True)
