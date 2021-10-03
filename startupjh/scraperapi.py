@@ -1,4 +1,6 @@
-# This code aims to collect data about scientific papers from Google Scholar API
+# This code aims to collect data about scientific papers using Scraper API 
+# https://www.scraperapi.com/
+# Sometimes works sometimes not, without any error messages...
 
 import requests
 import numpy as np
