@@ -28,15 +28,22 @@ def scraper_api(query, n_pages):
         webpage = f"https://scholar.google.com/scholar?start={page}&q={query}&hl=fr&as_sdt=0,5"
         print(webpage)
         url = BASE_URL + webpage
-        print(url)
+        #print(url)
         response = requests.get(url)
         print(response)
         soup = BeautifulSoup(response.content, "html.parser")
-        #print(soup)
-
+        
+        # Scrapes the list of journals
+        list_journals = []
+        for journals in soup.find_all("div", id="gs_citt"):
+            print(journals)
+            for journal in journals.find("div", class_="gs_citr").find("i").text:
+                print(journal)
+                list_journals.append(journal)
+        print(list_journals)
+        
         for paper in soup.find_all("div", class_="gs_ri"):
             # get the title of each paper
-            print(paper)
             title = paper.find("h3", class_="gs_rt").find("a").text
             if title == None:
                 title = paper.find("h3", class_="gs_rt").find("span").text
@@ -63,7 +70,6 @@ def scraper_api(query, n_pages):
             urls = paper.find("div", class_="gs_fl").find_all(href=True)
             if urls:
                 for url in urls:
-                    #print(url["href"])
                     if "cites" in url["href"]:
                         cited_url = url["href"]
                         index1 = cited_url.index("?")
@@ -79,13 +85,15 @@ def scraper_api(query, n_pages):
                         new_url = "https://scholar.google.com.tw"+url_slices[0]+"start=00&hl=en&"+url_slices[3]+url_slices[1]+"scipsc="
             else:
                 new_url = "no citations"
-            print(title, year, citations, new_url)
             # appends everything in a list of dictionaries    
             papers.append({'title': title, 'year': year, 'citations': citations, 'cited_by_url': new_url})
     # converts the list of dict to a pandas df
     papers_df = pd.DataFrame(papers)
-    papers_df.to_csv('papers.csv',index=False)
+    papers_df["journal"] = list_journals
+    #papers_df.to_csv('papers.csv',index=False)
     return papers_df
+
+scraper_api("automation+container+terminal", 1)
 
 def set_id(papers_df):
     """sets the tag number of each paper, works like a unique Id"""
@@ -146,3 +154,7 @@ def get_cited_by(papers_df):
 
 def extract_keywords_from_title():
     pass
+
+https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=automation+container+terminal&btnG=&oq=automation+container+term#d=gs_cit&u=:%2Fscholar%3Fq%3Dinfo%3Aqljx-SC6MYEJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D0%26hl%3Dfr
+    
+https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=automation+container+terminal&btnG=&oq=automation+container+term#d=gs_cit&u=%2Fscholar%3Fq%3Dinfo%3Awgi33W6YplUJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D1%26hl%3Dfr
