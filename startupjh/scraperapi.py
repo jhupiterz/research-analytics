@@ -154,7 +154,3 @@ def get_cited_by(papers_df):
 
 def extract_keywords_from_title():
     pass
-
-https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=automation+container+terminal&btnG=&oq=automation+container+term#d=gs_cit&u=:%2Fscholar%3Fq%3Dinfo%3Aqljx-SC6MYEJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D0%26hl%3Dfr
-    
-https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=automation+container+terminal&btnG=&oq=automation+container+term#d=gs_cit&u=%2Fscholar%3Fq%3Dinfo%3Awgi33W6YplUJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D1%26hl%3Dfr
