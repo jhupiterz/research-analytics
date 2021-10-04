@@ -5,18 +5,18 @@
 from serpapi import GoogleSearch
 import pandas as pd
 
-def get_key_words():
+def get_user_input():
     """get user input for topic to search"""
     search_query = input("Enter key words: ")
     return search_query
 
-def serpapi():
+def serpapi_og_results():
     """scrapes google scholar using SerpAPI
        output is a dataframe with following columns: 
        [title, result_id, link, snippet, resources_title, resources_link, 
         citation_count, cites_id, versions, cluster_id]"""
                                 
-    query = get_key_words()
+    query = get_user_input()
     
     params = {
         "engine": "google_scholar",
@@ -91,3 +91,6 @@ def serpapi_full_cite(df):
         full_citations.append(full_citation)
     df["full_citation"] = full_citations
     return df
+
+def serpapi_cited_by_list():
+    pass
