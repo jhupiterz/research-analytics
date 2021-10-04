@@ -166,8 +166,6 @@ def serpapi_cited_by_list(df):
             i = i + 1
         j = j + 1
         citing_papers.append(papers)
-        print(citing_papers)
-        flatList = [ item for elem in citing_papers for item in elem]
-        print(flatList)
+    flatList = [ item for elem in citing_papers for item in elem]
     citing_papers_df = pd.DataFrame(flatList)
     return citing_papers_df
