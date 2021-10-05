@@ -98,6 +98,7 @@ def serpapi_full_cite(df):
 
 def serpapi_cited_by_list(df):
     j = 0
+    i = 0
     citing_papers = []
     for _, row in df.iterrows():
         params = {
@@ -111,7 +112,6 @@ def serpapi_cited_by_list(df):
         organic_results = results['organic_results']
         
         papers = []
-        i = 0
 
         for paper in organic_results:
             paper_id = i
