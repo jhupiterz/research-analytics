@@ -1,6 +1,6 @@
 # Code to get the data from data.py and do some basic data visualization
 
-from startupjh.data import scraper_api
+from startupjh.scraperapi import scraper_api
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -151,6 +151,3 @@ def get_cited_by(papers_df):
         list_citing_papers.append(citing_papers_df)
     papers_df["citing_papers"] = list_citing_papers
     return papers_df
-
-def extract_keywords_from_title():
-    pass

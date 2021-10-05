@@ -1,6 +1,15 @@
-# This code aims to collect data about scientific papers using Serp API 
-# https://serpapi.com
-# Need to figure out how to scrape more than 1 page with SerpAPI
+#--------------------------------------------------------------------------#
+#      This code collects data about scientific papers using Serp API      # 
+#                         visit https://serpapi.com                        #
+#--------------------------------------------------------------------------#
+#                                 ---Usage---                              #
+# To get the primary results of a Google Scholar search run the following: #
+#                   primaryResults = serpapi_full_cite()                   #
+#      To get the papers citing the primary results run the following:     #
+#            citing_papers = serpapi_cited_by_list(primaryResults)         #
+#                                                                          #
+#    N.B. the second command will only run if the first one has been run   #
+#--------------------------------------------------------------------------#
 
 from serpapi import GoogleSearch
 import pandas as pd
@@ -77,10 +86,11 @@ def serpapi_og_results():
     papers_df = pd.DataFrame(papers)
     return papers_df
 
-def serpapi_full_cite(df):
+def serpapi_full_cite():
     """Scrapes Google scholar for full citations (Cite snippet)
        Iterates over a given df[result_id] and extracts full MLA citation
        Output is a dataframe with [full_citation] column"""
+    df = serpapi_og_results()
     full_citations = []
     for _, row in df.iterrows():
         params = {
