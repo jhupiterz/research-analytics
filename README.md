@@ -15,6 +15,8 @@
 
 ## Description of `startupjh`
 
+**Prefer using `serpapi.py` over `scraperapi.py` for data collection**
+
 ### `serpapi.py`
 
 Python script containing 4 methods:
