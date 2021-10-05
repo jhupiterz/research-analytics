@@ -34,9 +34,9 @@ def extract_key_words(df):
         text_tokens = word_tokenize(text)
 
         tokens_without_sw = [word for word in text_tokens if not word in stopwords.words()]
-        filtered_sentence = (", ").join(tokens_without_sw)
+        #filtered_sentence = (", ").join(tokens_without_sw)
 
-        key_words.append(filtered_sentence)
+        key_words.append(tokens_without_sw)
         
     df['key_words'] = key_words 
     
