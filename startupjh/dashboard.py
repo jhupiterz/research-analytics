@@ -5,17 +5,21 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
-from startupjh.data import scraper_api
+from startupjh.scraperapi import scraper_api
 
+# Instanciate web app with Dash
 app = dash.Dash(__name__)
 
+# Defines colors to be used in HTML or CSS below
 colors = {
     'background': '#111111',
     'text': '#7FDBFF'
 }
 
+# Load data
 df = pd.read_csv('papers.csv')
 
+# Plot graphs
 for template in "ggplot2":
     fig1 = px.bar(df, x="year", y="citations", barmode="group")
 
@@ -36,6 +40,7 @@ for template in "ggplot2":
     )
     fig2.update_xaxes(range=[1995, 2025])
 
+# Dashboard layout (basicall HTML written in python)
 app.layout = html.Div([
     html.H1("Topic: automation container terminal"),
         html.Div(className="row",
@@ -56,9 +61,11 @@ app.layout = html.Div([
     ])
 ])
 
+# CSS code - from external source (url template) or can write up our own
 app.css.append_css({
     'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
 })
 
+# Runs the app on local server
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -42,7 +42,7 @@ def extract_key_words(df):
     
     return df
 
-def extract_pub_info(primary_df):
+def extract_pub_info(df):
     """Extracts author(s), year, and pub_info from full_citation
        for now primary_df MUST have a ["full_citation"] column
        only works for primaryResults - will be updated for citingPapers
@@ -51,14 +51,23 @@ def extract_pub_info(primary_df):
     pub_info = []
     year = []
 
-    for _, row in primary_df.iterrows():
-        split_str = row.full_citation.split('"')
+    for i, row in df.iterrows():
+        find_year = re.search(r'[12]\d{3}', row.full_citation)
+        if find_year:
+            year.append(find_year.group(0))
+        else: 
+            year.append("no data")
+        if '"' not in row.full_citation:
+            split_str = row.full_citation.split('.')
+        else:
+            split_str = row.full_citation.split('"')
         authors.append(split_str[0].rstrip())
         pub_info.append(split_str[2].lstrip())
-        find_year = re.search(r'[12]\d{3}', split_str[2])
-        year.append(find_year.group(0))
-    primary_df["authors"] = authors
-    primary_df["pub_info"] = pub_info
-    primary_df["year"] = year
+        #find_year = re.search(r'[12]\d{3}', split_str[2])
+        #year.append(find_year.group(0))
+        print(f"extracted pub_info from paper {i}")
+    df["authors"] = authors
+    df["pub_info"] = pub_info
+    df["year"] = year
     
-    return primary_df
+    return df
