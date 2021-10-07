@@ -3,61 +3,78 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.express as px
+import dash_table
+
 import pandas as pd
-from startupjh.scraperapi import scraper_api
+
+from startupjh import utils
+from startupjh import plots
 
 # Instanciate web app with Dash
 app = dash.Dash(__name__)
 
 # Defines colors to be used in HTML or CSS below
-colors = {
-    'background': '#111111',
-    'text': '#7FDBFF'
-}
+# colors = {
+#     'background': '#111111',
+#     'text': '#7FDBFF'
+# }
 
 # Load data
-df = pd.read_csv('papers.csv')
+papers_df = utils.load_from_csv("../data/more_papers.csv")
+citing_papers_df = utils.load_from_csv("../data/more_citing_papers.csv")
 
-# Plot graphs
-for template in "ggplot2":
-    fig1 = px.bar(df, x="year", y="citations", barmode="group")
+# Get most cited papers
+most_cited_papers_df = pd.DataFrame(papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].authors + " " + papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].year.apply(str))
+most_cited_papers_df["Citations"] = papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].citation_count
+most_cited_papers_df.columns = ["Citation", "Number of citations"]
 
-    fig1.update_layout(
-        plot_bgcolor=colors['background'],
-        paper_bgcolor=colors['background'],
-        font_color=colors['text']
-    )
-    fig1.update_xaxes(range=[1995, 2025])
-
-for template in "ggplot2":
-    fig2 = px.bar(df.groupby("year").count().reset_index(inplace=False), x="year", y="title", barmode="group")
-
-    fig2.update_layout(
-        plot_bgcolor=colors['background'],
-        paper_bgcolor=colors['background'],
-        font_color=colors['text']
-    )
-    fig2.update_xaxes(range=[1995, 2025])
+# Create plots
+fig1 = plots.plot_citations_per_year(papers_df, citing_papers_df)
+fig2 = plots.plot_publications_per_year(papers_df, citing_papers_df)
+fig3 = plots.plot_most_common_words(papers_df, citing_papers_df)
 
 # Dashboard layout (basicall HTML written in python)
 app.layout = html.Div([
-    html.H1("Topic: automation container terminal"),
+    html.H1("Topic: automation container terminal", style={'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
         html.Div(className="row",
+                 style={'backgroundColor': '#202020'},
                  children = [
-                    html.Div(className= "six columns",
+                     html.Div(className= "six columns",
+                             style={'backgroundColor': '#202020'},
                     children = [
-                        html.H3('Citations per year'),
+                        html.H3('Most cited papers', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
+                        html.Div(
+                        dash_table.DataTable(
+                                            id='table',
+                                            columns=[{"name": i, "id": i} for i in most_cited_papers_df.columns],
+                                            data=most_cited_papers_df.to_dict('records'),
+                                            fill_width=False
+                                        )
+            )]),
+                     
+                    html.Div(className= "six columns",
+                             style={'backgroundColor': '#202020'},
+                    children = [
+                        html.H3('Citations per year', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
                         html.Div(
                         dcc.Graph(id='fig1', figure=fig1)
             )]),
 
                     html.Div(className="six columns",
+                             style={'backgroundColor': '#202020'},
                     children = [
-                        html.H3('Publications per year'),
+                        html.H3('Publications per year', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
                         html.Div(
                         dcc.Graph(id='fig2', figure=fig2)
             )]),
+
+                    html.Div(className="six columns",
+                             style={'backgroundColor': '#202020'},
+                    children = [
+                        html.H3('Most common words', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
+                        html.Div(
+                        dcc.Graph(id='fig3', figure=fig3)
+            )])
     ])
 ])
 

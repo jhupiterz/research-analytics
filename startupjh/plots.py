@@ -18,13 +18,21 @@ def plot_publications_per_year(df1, df2):
 
     fig.add_trace(
         go.Bar(x=df1.groupby("year", as_index=False).count()['year'],
-               y=df1.groupby("year", as_index=False).count()['paper_id']),
+               y=df1.groupby("year", as_index=False).count()['paper_id'],
+               marker=dict(
+                            color='rgba(127, 0, 255, 0.6)',
+                            line=dict(color='rgba(127, 0, 255, 1.0)', width=3)
+                          )),
                row=1, col=1
     )
 
     fig.add_trace(
         go.Bar(x=df2.groupby("year", as_index=False).count()['year'],
-               y=df2.groupby("year", as_index=False).count()['paper_id']),
+               y=df2.groupby("year", as_index=False).count()['paper_id'],
+               marker=dict(
+                            color='rgba(255, 255, 51, 0.6)',
+                            line=dict(color='rgba(255, 255, 51, 1.0)', width=3)
+                          )),
                row=1, col=2
     )
 
@@ -38,7 +46,13 @@ def plot_publications_per_year(df1, df2):
 
     fig.update_yaxes(ticks = 'outside')
 
-    fig.update_layout(showlegend=False, template="seaborn")
+    fig.update_layout(showlegend=False, template="seaborn", 
+                      paper_bgcolor='#202020', 
+                      plot_bgcolor='#202020',
+                      font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      font_color="white",
+                      title_font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      title_font_color="#22E4EB")
 
     return fig
 
@@ -50,13 +64,21 @@ def plot_citations_per_year(df1, df2):
 
     fig.add_trace(
         go.Bar(x=df1.groupby(["year"], as_index=False).citation_count.sum()["year"],
-               y=df1.groupby(["year"], as_index=False).citation_count.sum()["citation_count"]),
+               y=df1.groupby(["year"], as_index=False).citation_count.sum()["citation_count"],
+                marker=dict(
+                            color='rgba(127, 0, 255, 0.6)',
+                            line=dict(color='rgba(127, 0, 255, 1.0)', width=3)
+                          )),
                row=1, col=1
     )
 
     fig.add_trace(
         go.Bar(x=df2.groupby(["year"], as_index=False).citation_count.sum()["year"],
-               y=df2.groupby(["year"], as_index=False).citation_count.sum()["citation_count"]),
+               y=df2.groupby(["year"], as_index=False).citation_count.sum()["citation_count"],
+               marker=dict(
+                            color='rgba(255, 255, 51, 0.6)',
+                            line=dict(color='rgba(255, 255, 51, 1.0)', width=3)
+                          )),
                row=1, col=2
     )
 
@@ -70,7 +92,14 @@ def plot_citations_per_year(df1, df2):
 
     fig.update_yaxes(ticks = 'outside')
 
-    fig.update_layout(showlegend=False, template="seaborn")
+    fig.update_layout(showlegend=False, 
+                      template="seaborn", 
+                      paper_bgcolor='#202020', 
+                      plot_bgcolor='#202020',
+                      font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      font_color="white",
+                      title_font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      title_font_color="#22E4EB")
 
     return fig
 
@@ -89,8 +118,8 @@ def plot_most_common_words(df1, df2):
         go.Bar(x= key_words_papers_df[key_words_papers_df["occurence"] > 1]["key_word"],
                y= key_words_papers_df[key_words_papers_df["occurence"] > 1]["occurence"],
                marker=dict(
-                            color='rgba(247, 129, 191, 0.6)',
-                            line=dict(color='rgba(246, 78, 139, 1.0)', width=3)
+                            color='rgba(127, 0, 255, 0.6)',
+                            line=dict(color='rgba(127, 0, 255, 1.0)', width=3)
                           )),
                row=1, col=1
     )
@@ -99,8 +128,8 @@ def plot_most_common_words(df1, df2):
         go.Bar(x= key_words_citing_papers_df[key_words_citing_papers_df["occurence"] > 5]["key_word"],
                y= key_words_citing_papers_df[key_words_citing_papers_df["occurence"] > 5]["occurence"],
                marker=dict(
-                            color='rgba(51, 51, 255, 0.6)',
-                            line=dict(color='rgb(51, 51, 255, 1.0)', width=3)
+                            color='rgba(255, 255, 51, 0.6)',
+                            line=dict(color='rgb(255, 255, 51, 1.0)', width=3)
                           )),
                row=1, col=2
     )
@@ -115,7 +144,11 @@ def plot_most_common_words(df1, df2):
     fig.update_layout(showlegend=False,
                       template="seaborn",
                       width=1200, height=600,
-                      plot_bgcolor = "rgb(204,204,204)",
-                      title_text = "Most common key words")
+                      paper_bgcolor='#202020', plot_bgcolor='#202020',
+                      #title_text = "Most common key words",
+                      font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      font_color="white",
+                      title_font_family="Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif",
+                      title_font_color="#22E4EB")
 
     return fig
