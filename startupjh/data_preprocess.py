@@ -10,6 +10,7 @@
 #    N.B. the second command will only run if the first one has been run   #
 #--------------------------------------------------------------------------#
 
+import ast
 import nltk
 from nltk.corpus import stopwords
 nltk.download('stopwords')
@@ -37,8 +38,7 @@ def extract_key_words(df):
         #filtered_sentence = (", ").join(tokens_without_sw)
 
         key_words.append(tokens_without_sw)
-        
-    df['key_words'] = key_words 
+    df['key_words'] = key_words
     
     return df
 
@@ -70,4 +70,13 @@ def extract_pub_info(df):
     df["pub_info"] = pub_info
     df["year"] = year
     
+    return df
+
+def convert_strlist_to_list(df):
+    """method to convert a STR representation of LIST into a proper LIST"""
+    key_words = []
+    for _, row in df.iterrows():
+        key_words.append(ast.literal_eval(row.key_words))
+    print(type(key_words))
+    df.key_words = key_words
     return df
