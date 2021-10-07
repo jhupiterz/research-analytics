@@ -10,8 +10,8 @@
 #    N.B. the second command will only run if the first one has been run   #
 #--------------------------------------------------------------------------#
 
-import ast
 import nltk
+from collections import Counter
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
@@ -71,3 +71,17 @@ def extract_pub_info(df):
     df["year"] = year
     
     return df
+
+def get_most_common_key_words(df):
+    """Sorts the key words of all papers in df according to their occurence.
+       Input: df that MUST contain a "key_word" column
+       Outpu: a new df with "key_word" and "occurence" columns """
+    list_key_words = []
+    for _, row in df.iterrows():
+        for word in row.key_words:
+            list_key_words.append(word)
+    key_words_sorted = Counter(list_key_words).most_common()
+    key_words_sorted_df = pd.DataFrame(key_words_sorted, columns=["key_word", "occurence"])
+    index_names_kw = key_words_sorted_df[(key_words_sorted_df['key_word'] == "container") | (key_words_sorted_df['key_word'] == "automation") | (key_words_sorted_df['key_word'] == "terminal")].index
+    key_words_sorted_df.drop(axis = 0, index = index_names_kw, inplace = True)
+    return key_words_sorted_df

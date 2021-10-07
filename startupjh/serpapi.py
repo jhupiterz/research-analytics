@@ -12,12 +12,8 @@
 #--------------------------------------------------------------------------#
 
 from serpapi import GoogleSearch
+from utils import get_user_input
 import pandas as pd
-
-def get_user_input():
-    """get user input for topic to search"""
-    search_query = input("Enter key words: ")
-    return search_query
 
 def serpapi_og_results():
     """scrapes google scholar using SerpAPI
