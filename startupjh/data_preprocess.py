@@ -71,12 +71,3 @@ def extract_pub_info(df):
     df["year"] = year
     
     return df
-
-def convert_strlist_to_list(df):
-    """method to convert a STR representation of LIST into a proper LIST"""
-    key_words = []
-    for _, row in df.iterrows():
-        key_words.append(ast.literal_eval(row.key_words))
-    print(type(key_words))
-    df.key_words = key_words
-    return df
