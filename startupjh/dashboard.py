@@ -9,6 +9,7 @@ import pandas as pd
 
 from startupjh import utils
 from startupjh import plots
+from startupjh import data_preprocess
 
 # Instanciate web app with Dash
 app = dash.Dash(__name__)
@@ -28,6 +29,12 @@ most_cited_papers_df = pd.DataFrame(papers_df.sort_values(by="citation_count", a
 most_cited_papers_df["Citations"] = papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].citation_count
 most_cited_papers_df.columns = ["Citation", "Number of citations"]
 
+#Get most active journals
+active_journals_primary = data_preprocess.get_most_active_journal(papers_df).head(2)
+active_journals_citing = data_preprocess.get_most_active_journal(citing_papers_df).head(4)
+most_active_journals_primary = active_journals_primary[active_journals_primary["occurence"] == max(active_journals_primary.occurence)]
+most_active_journals_citing = active_journals_citing[active_journals_citing["occurence"] == max(active_journals_citing.occurence)]
+
 # Create plots
 fig1 = plots.plot_citations_per_year(papers_df, citing_papers_df)
 fig2 = plots.plot_publications_per_year(papers_df, citing_papers_df)
@@ -45,9 +52,33 @@ app.layout = html.Div([
                         html.H3('Most cited papers', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
                         html.Div(
                         dash_table.DataTable(
-                                            id='table',
+                                            id='table1',
                                             columns=[{"name": i, "id": i} for i in most_cited_papers_df.columns],
                                             data=most_cited_papers_df.to_dict('records'),
+                                            fill_width=False
+                                        )
+            )]),
+                        html.Div(className= "six columns",
+                                style={'backgroundColor': '#202020'},
+                    children = [
+                        html.H3('Most publishing journals - primary results', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
+                        html.Div(
+                        dash_table.DataTable(
+                                            id='table2',
+                                            columns=[{"name": i, "id": i} for i in most_active_journals_primary.columns],
+                                            data=most_active_journals_primary.to_dict('records'),
+                                            fill_width=False
+                                        )
+            )]),
+                        html.Div(className= "six columns",
+                                style={'backgroundColor': '#202020'},
+                    children = [
+                        html.H3('Most publishing journals - citing papers', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
+                        html.Div(
+                        dash_table.DataTable(
+                                            id='table3',
+                                            columns=[{"name": i, "id": i} for i in most_active_journals_citing.columns],
+                                            data=most_active_journals_citing.to_dict('records'),
                                             fill_width=False
                                         )
             )]),
