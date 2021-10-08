@@ -15,11 +15,11 @@ from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 
-import utils
+from startupjh import utils
 
 from collections import Counter
 import pandas as pd
-import numpy as np
+from string import digits
 import re
 import string
 
@@ -108,3 +108,34 @@ def get_most_active_author(df):
     authors_sorted_df = pd.DataFrame(authors_sorted, columns=["author", "occurence"])
     
     return authors_sorted_df
+
+def get_most_active_journal(df):
+    pub_info_list = df.pub_info
+    # Get rid of any pub_info that is NOT a STR or that doesn't start with a letter
+    indices_to_remove = []
+    for index, e in pub_info_list.iteritems():
+        if type(e) == str:
+            if bool(re.match(r'\w', e)) != True:
+                indices_to_remove.append(index)
+            elif len(e) == 0:
+                indices_to_remove.append(index)
+        else:
+            indices_to_remove.append(index)
+    for i in indices_to_remove:
+        del pub_info_list[i]
+    # Get rid of the year and any thing after it
+    list_journals = []
+    for _, e in pub_info_list.iteritems():
+        list_journals.append(re.split(r'\(\d{4}\)', e)[0])
+    # Splitting by "." if any
+    journals = []
+    for e in list_journals:
+        journals.append(re.split(r'\.', e)[0])
+    # Get rid of all ENDING digits if any
+    for i in range(len(journals)):
+        #if bool(re.match(r'.+\d', e)):
+        journals[i] = journals[i].strip().rstrip(digits).strip()
+    # Sort journals by occurence and store in dataframe
+    journals_sorted = Counter(journals).most_common()
+    journals_sorted_df = pd.DataFrame(journals_sorted, columns=["journal", "occurence"])
+    return journals_sorted_df
