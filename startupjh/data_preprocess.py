@@ -11,11 +11,13 @@
 #--------------------------------------------------------------------------#
 
 import nltk
-from collections import Counter
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 
+import utils
+
+from collections import Counter
 import pandas as pd
 import numpy as np
 import re
@@ -85,3 +87,24 @@ def get_most_common_key_words(df):
     index_names_kw = key_words_sorted_df[(key_words_sorted_df['key_word'] == "container") | (key_words_sorted_df['key_word'] == "automation") | (key_words_sorted_df['key_word'] == "terminal")].index
     key_words_sorted_df.drop(axis = 0, index = index_names_kw, inplace = True)
     return key_words_sorted_df
+
+def get_most_active_author(df):
+    # Separates authors from authors list for each paper
+    authors_list = []
+    for _, row in df.iterrows():
+        authors_list.append(row.authors.split(","))
+    # Flatten the list
+    flat_authors_list = utils.flatten_list(authors_list)
+    # Strip authors from blank spaces
+    stripped_list = list(map(str.strip, flat_authors_list))
+    # Remove "et al." from list
+    words_to_remove = ["et al.", "and "]
+    result = filter(lambda val: val != words_to_remove[0], stripped_list)
+    list_authors = list(result)
+    # Remove "and" from authors
+    final_author_list = [i.strip("and ") for i in list_authors]
+    # Count each author occurence and store in dataframe
+    authors_sorted = Counter(final_author_list).most_common()
+    authors_sorted_df = pd.DataFrame(authors_sorted, columns=["author", "occurence"])
+    
+    return authors_sorted_df

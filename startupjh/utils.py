@@ -17,3 +17,10 @@ def load_from_csv(data_path):
     df = pd.read_csv(data_path)
     df["key_words"] = df["key_words"].apply(literal_eval)
     return df
+
+def flatten_list(list_to_flatten):
+    flat_list = []
+    for sublist in list_to_flatten:
+        for e in sublist:
+            flat_list.append(e)
+    return flat_list
