@@ -12,7 +12,11 @@ from startupjh import plots
 from startupjh import data_preprocess
 
 # Instanciate web app with Dash
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],
+)
+app.title = "Research Intelligence"
+server = app.server
 
 # Defines colors to be used in HTML or CSS below
 # colors = {
