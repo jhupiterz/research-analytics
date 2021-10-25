@@ -6,6 +6,8 @@ import dash_html_components as html
 import dash_table
 
 import pandas as pd
+import base64
+import os
 
 from startupjh import utils
 from startupjh import plots
@@ -44,9 +46,36 @@ fig1 = plots.plot_citations_per_year(papers_df, citing_papers_df)
 fig2 = plots.plot_publications_per_year(papers_df, citing_papers_df)
 fig3 = plots.plot_most_common_words(papers_df, citing_papers_df)
 
+# Encode local images
+image_filename = os.path.join(os.getcwd(), '../pictures/ri-logo.png')
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+
 # Dashboard layout (basicall HTML written in python)
 app.layout = html.Div([
-    html.H1("Topic: automation container terminal", style={'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
+    dcc.Store(id="aggregate_data"),
+    html.Div(id="output-clientside"),
+    html.Div([
+        html.Div([
+            html.Img(
+                            src='data:image/png;base64,{}'.format(encoded_image.decode()),
+                            id="ri-image",
+                            style={
+                                "height": "60px",
+                                "width": "auto",
+                                "margin-bottom": "25px",
+                            },
+                        )
+                    ],
+                    className="one-third column",
+                ),
+    html.Div([
+        html.Div([       
+            html.H1("Automation Container Terminal", style={'margin-top': '0px', 'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
+            html.H2("Topic overview", style={'margin-top': '0px', 'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
+                ]
+            )
+        ]
+    ),
         html.Div(className="row",
                  style={'backgroundColor': '#202020'},
                  children = [
@@ -110,6 +139,7 @@ app.layout = html.Div([
                         html.Div(
                         dcc.Graph(id='fig3', figure=fig3)
             )])
+        ])
     ])
 ])
 
