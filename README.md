@@ -1,7 +1,8 @@
-<img src="pictures/ri-logo.png"
-     width="100" />
-     
 # The Research Intelligence Platform
+
+<img src="pictures/ri-logo.png"
+     align = "center"
+     width="100" />
 
 ## 1. Problem statement & current situation
 
