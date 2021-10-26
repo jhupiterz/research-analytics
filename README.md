@@ -1,6 +1,6 @@
 # The Research Intelligence Platform
 
-🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 
+🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠
 
 ## 1. Problem statement & current situation
 
