@@ -1,3 +1,6 @@
+<img src="pictures/ri-logo.png"
+     alt="TRIP logo" />
+     
 # The Research Intelligence Platform
 
 ## 1. Problem statement & current situation
