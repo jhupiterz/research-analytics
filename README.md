@@ -1,8 +1,6 @@
 # The Research Intelligence Platform
 
-<img src="pictures/ri-logo.png"
-     align = "center"
-     width="100" />
+:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-:brain:-:boom:-
 
 ## 1. Problem statement & current situation
 
