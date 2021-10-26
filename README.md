@@ -1,6 +1,6 @@
 # The Research Intelligence Platform
 
-:brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom: - :brain: - :boom:
+🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 - 🧠 - 🤖 
 
 ## 1. Problem statement & current situation
 
