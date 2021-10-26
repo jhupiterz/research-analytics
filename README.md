@@ -1,5 +1,5 @@
 <img src="pictures/ri-logo.png"
-     alt="TRIP logo" />
+     width="100" />
      
 # The Research Intelligence Platform
 
