@@ -1,5 +1,5 @@
 <h1 align = "center" style="font-size:40px">🧠 🤖</h1>
-<h1 align = "center" style="font-size:40px">The Research Intelligence Platform 🧠 🤖</h1>
+<h1 align = "center" style="font-size:40px">The Research Intelligence Platform</h1>
 <h1 align = "center" style="font-size:40px">🧠 🤖</h1>
 
 --------------------------------------------------------------------------------------------------------------------------------------
