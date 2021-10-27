@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------
 
-## 1. Problem statement & current situation 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢
+## 1. Problem statement & current situation 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢 - 💢
 
 ### 1.1 A long lasting "publication crisis"
 
@@ -24,7 +24,7 @@ In summary, academic research suffers from three pain points:
 2. Restrained accessibility
 3. Low prioritisation
 
-## 2. Project goal 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯
+## 2. Project goal 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯 - 🎯
 
 The Research Intelligence Platform (TRIP) aims to address the above pain points by automating the research process with topic-specific intelligence. 
 
@@ -43,7 +43,7 @@ Through NLP- and NLG-powered summaries (or key points, to be detemrined), TRIP a
 
 Following global institution guidelines, TRIP identifies high-priority research areas, thus becoming the first automated research prioritisation system. 
 
-## 3. Definition 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎
+## 3. Definition 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎 - 💎
 
 The Research Intelligence Platform is an analytics service distributed as a SaaS (Software as a Service) and provided in the form of a web application.
 
@@ -69,7 +69,7 @@ Users are frequent academic research consumers*. Four groups have been identifie
 
 Each group has specific needs that have to be precisely identified through in-depth market research.
 
-## 4. Main tasks 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️
+## 4. Main tasks 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️ - 🛠️
 
 To ensure consistent and healthy growth of the project, five main tasks have been identified:
 
@@ -79,7 +79,7 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 * Data infrastructure ------------ set up of the data infrastructures and pipelines
 * Outreaching ------------------- all processes related to outreach activities (i.e. marketing, funding etc.)
 
-## 5. Potential competitors 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲
+## 5. Potential competitors 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲
 
 [Publish or perish software](https://harzing.com/resources/publish-or-perish)
 
@@ -89,7 +89,7 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 
 [PlumX](https://plumanalytics.com/learn/about-metrics/)
 
-## 6. References & resources 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚
+## 6. References & resources 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚
 
 ### 6.1 News and blog posts
 
