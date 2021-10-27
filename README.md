@@ -2,7 +2,7 @@
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
-<p align = "center" style = "font-size:16px"><b>Disclaimer:</b> the following information must remain in the frame of The Research Intelligence Platform project and should not be distributed.</p> 
+<p align = "center" style = "font-size:12px"><b>Disclaimer:</b> the following information must remain in the frame of The Research Intelligence Platform project and should not be distributed.</p> 
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
