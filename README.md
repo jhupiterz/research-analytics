@@ -112,7 +112,7 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 
 [The Vox - Paywalls](https://www.vox.com/the-highlight/2019/6/3/18271538/open-access-elsevier-california-sci-hub-academic-paywalls)
 
-[The Vox - Replication crisis](https://www.vox.com/future-perfect/21504366/science-replication-crisis-peer-review-statistics)
+[Paywall - the business of scholarship](https://www.youtube.com/watch?v=HM_nWsdbNvQ)
 
 ### 6.2 Peer-reviewed articles
 
