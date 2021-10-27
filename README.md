@@ -19,9 +19,9 @@ Many international institutions (UN, WHO, WEF, etc) recommend to adopt research 
 
 In summary, academic research suffers from three pain points:
 
-1. Low impact publications
-2. Hardly accessible research
-3. Low prioritisation of research
+1. Low impact
+2. Restrained accessibility
+3. Low prioritisation
 
 ## 2. Project goal
 
