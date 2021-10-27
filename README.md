@@ -1,6 +1,8 @@
 <h1 align = "center" style="font-size:40px">🧠 🤖 The Research Intelligence Platform 🧠 🤖</h1>
 
 --------------------------------------------------------------------------------------------------------------------------------------
+Disclaimer: the following information must remain in the frame of The Research Intelligence Platform project and should not be distributed. 
+--------------------------------------------------------------------------------------------------------------------------------------
 
 <h2 align = "center" style="font-size:32px"> 💢 - 💢 - 💢 1. Problem statement & current situation 💢 - 💢 - 💢 </h2>
 
