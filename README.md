@@ -99,7 +99,7 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 
 [The Vox - Replication crisis](https://www.vox.com/future-perfect/21504366/science-replication-crisis-peer-review-statistics)
 
-### 6.2 Peer-reviewd articles
+### 6.2 Peer-reviewed articles
 
 [Kiesslich et al. 2021](https://link.springer.com/article/10.1007/s11192-020-03812-y)
 
