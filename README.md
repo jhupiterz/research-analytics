@@ -25,33 +25,34 @@ In summary, academic research suffers from three pain points:
 
 ## 2. Project goal
 
-The Research Intelligence Platform aims to address the above pain points by automating the research process with topic-specific intelligence. 
+The Research Intelligence Platform (TRIP) aims to address the above pain points by automating the research process with topic-specific intelligence. 
 
 ### 2.1 Impactfulness
 
-TRIP drives impactful publication through ML-determined Individual* Impact Factors.* as opposed to Journal Impact Factors
+TRIP drives impactful publication by systematically assessing the impact of academic papers via an AI-determined Individual Impact Factor, as opposed to a Journal Impact Factor.
 
 ### 2.2 Accessibility
 
-TRIP is the only platform that research consumers need to go to to have access to academic resources, analytics, and (innovation) recommendations. Access is provided through open access platforms such as Unpaywall, SciHub, Academia etc.
+TRIP is the only platform that research consumers* need to go to to have open access to academic resources (e.g. Academia.edu, Unpaywall, Sci-Hub, etc.).
+Through NLP- and NLG-powered summaries (or key points, to be detemrined), TRIP also guarantees the efficient communication of research papers.
+
+* *direct consumers (i.e. producers and readers)
 
 ### 2.3  Prioritisation
 
-Considering global institutional guidelines, TRIP’s algorithms identify high-priority knowledge gaps, thus becoming the first automated research prioritisation system. 
+Following global institution guidelines, TRIP identifies high-priority research areas, thus becoming the first automated research prioritisation system. 
 
 ## 3. Definition
 
-The Research Intelligence Platform is an analytics service distributed as a SaaS (Software as a Service) and provided in the format of a web application.
+The Research Intelligence Platform is an analytics service distributed as a SaaS (Software as a Service) and provided in the form of a web application.
 
 ### 3.1 What does it do
 
 Users research a specific research topic (e.g. “automation container terminal”) through a search bar. The application then returns a highly interactive analytics dashboard displaying research intelligence on the topic including, but not limited to: 
 
-* KPIs (key authors, journals, citations, funding etc.)
-* Metrics (citations per year, publications per year etc.)
-* Research web (see section ???)
-* Most frequent key words
-* Topic summary (key findings - see section ???)
+* KPIs (key authors, journals, citation metrics, funding, Individual Impact Factors etc.)
+* The research web (paper clustering with topic recognition)
+* Topic summaries (NLG-generated key findings)
 * etc
 
 ### 3.2 Who is it for?
@@ -63,16 +64,16 @@ Users are frequent academic research consumers*. Four groups have been identifie
 * Industry workers (small and medium businesses and corporations)
 * Students
 
-*direct consumers (i.e. producers and readers)
+* *direct consumers (i.e. producers and readers)
 
-Each group has specific needs that have to be precisely identified through in-depth research.
+Each group has specific needs that have to be precisely identified through in-depth market research.
 
 ## 4. Main tasks
 
 To ensure consistent and healthy growth of the project, five main tasks have been identified:
 
-* Researching ------------------ all processes related to acquiring knowledge 
-* Coding ----------------------- development of the software’s backend 
-* UI & UX ---------------------- development of the software’s frontend
-* Building data infrastructure --- set up of the data infrastructures and pipelines
-* Outreaching ------------------ all processes related to outreach activities (i.e. marketing, funding etc.)
+* Researching -------------------- all processes related to acquiring knowledge (from KPIs to market research)
+* Backend ------------------------ development of the software’s backend 
+* UI & UX ------------------------ development of the software’s frontend
+* Data infrastructure ------------ set up of the data infrastructures and pipelines
+* Outreaching ------------------- all processes related to outreach activities (i.e. marketing, funding etc.)
