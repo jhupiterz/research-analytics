@@ -81,39 +81,39 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 
 ## 5. Potential competitors 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲 - 🎲
 
-Publish or perish software - https://harzing.com/resources/publish-or-perish
+[Publish or perish software](https://harzing.com/resources/publish-or-perish)
 
-Altmetric - https://www.altmetric.com/
+[Altmetric](https://www.altmetric.com/)
 
-Scholarcy - https://www.scholarcy.com/
+[Scholarcy](https://www.scholarcy.com/)
 
-PlumAnalytics - https://plumanalytics.com/learn/about-metrics/
+[PlumX](https://plumanalytics.com/learn/about-metrics/)
 
 ## 6. References & resources 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚 - 📚
 
 ### 6.1 News and blog posts
 
-https://www.universityworldnews.com/post.php?story=20180905095203579
+[University World News](https://www.universityworldnews.com/post.php?story=20180905095203579)
 
-https://www.vox.com/the-highlight/2019/6/3/18271538/open-access-elsevier-california-sci-hub-academic-paywalls
+[The Vox - Paywalls](https://www.vox.com/the-highlight/2019/6/3/18271538/open-access-elsevier-california-sci-hub-academic-paywalls)
 
-https://www.vox.com/future-perfect/21504366/science-replication-crisis-peer-review-statistics
+[The Vox - Replication crisis](https://www.vox.com/future-perfect/21504366/science-replication-crisis-peer-review-statistics)
 
 ### 6.2 Peer-reviewd articles
 
-https://link.springer.com/article/10.1007/s11192-020-03812-y
+[Kiesslich et al. 2021](https://link.springer.com/article/10.1007/s11192-020-03812-y)
 
-https://link.springer.com/article/10.1186/s40900-020-0182-y
+[Day et al. 2020](https://link.springer.com/article/10.1186/s40900-020-0182-y)
 
-https://link.springer.com/article/10.1007/s10734-020-00589-0
+[Lee and Haupt 2021](https://link.springer.com/article/10.1007/s10734-020-00589-0)
 
 ### 6.3 Global reports
 
-https://www.un.org/en/coronavirus/communication-resources/un-research-roadmap-covid-19-recovery
+[UN Research Roadmap](https://www.un.org/en/coronavirus/communication-resources/un-research-roadmap-covid-19-recovery)
 
-https://apps.who.int/iris/bitstream/handle/10665/334408/9789240009622-eng.pdf?sequence=1&isAllowed=y
+[WHO Research Priorities](https://apps.who.int/iris/bitstream/handle/10665/334408/9789240009622-eng.pdf?sequence=1&isAllowed=y)
 
-https://warwick.ac.uk/fac/arts/schoolforcross-facultystudies/gsd/engagement/grp/
+[Warwick University Global Research Priorities](https://warwick.ac.uk/fac/arts/schoolforcross-facultystudies/gsd/engagement/grp/)
 
 
 
