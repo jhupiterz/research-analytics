@@ -7,8 +7,9 @@
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
-
-<h2 align = "center" style="font-size:32px"> 💢 - 💢 - 💢 1. Problem statement & current situation 💢 - 💢 - 💢 </h2>
+<h2 align = "center" style="font-size:32px"> 💢 - 💢 - 💢</h2>
+<h2 align = "center" style="font-size:32px"> 1. Problem statement & current situation </h2>
+<h2 align = "center" style="font-size:32px"> 💢 - 💢 - 💢</h2>
 
 ### 1.1 A long lasting "publication crisis"
 
@@ -30,8 +31,9 @@ In summary, academic research suffers from three pain points:
 3. Low prioritisation
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
-<h2 align = "center" style="font-size:32px"> 🎯 - 🎯 - 🎯 2. Project goal 🎯 - 🎯 - 🎯 </h2> 
+<h2 align = "center" style="font-size:32px"> 🎯 - 🎯 - 🎯</h2>
+<h2 align = "center" style="font-size:32px"> 2. Project goal  </h2> 
+<h2 align = "center" style="font-size:32px"> 🎯 - 🎯 - 🎯</h2>
 
 The Research Intelligence Platform (TRIP) aims to address the above pain points by automating the research process with topic-specific intelligence. 
 
@@ -51,8 +53,9 @@ Through NLP- and NLG-powered summaries (or key points, to be detemrined), TRIP a
 Following global institution guidelines, TRIP identifies high-priority research areas, thus becoming the first automated research prioritisation system. 
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
-<h2 align = "center" style="font-size:32px"> 💎 - 💎 - 💎 3. Definition 💎 - 💎 - 💎 </h2>
+<h2 align = "center" style="font-size:32px"> 💎 - 💎 - 💎</h2>
+<h2 align = "center" style="font-size:32px"> 3. Definition  </h2>
+<h2 align = "center" style="font-size:32px"> 💎 - 💎 - 💎</h2>
 
 The Research Intelligence Platform is an analytics service distributed as a SaaS (Software as a Service) and provided in the form of a web application.
 
@@ -79,8 +82,9 @@ Users are frequent academic research consumers*. Four groups have been identifie
 Each group has specific needs that have to be precisely identified through in-depth market research.
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
-<h2 align = "center" style="font-size:32px"> 🛠️ - 🛠️ - 🛠️ 4. Main tasks 🛠️ - 🛠️ - 🛠️ </h2>
+<h2 align = "center" style="font-size:32px"> 🛠️ - 🛠️ - 🛠️</h2>
+<h2 align = "center" style="font-size:32px">  4. Main tasks </h2>
+<h2 align = "center" style="font-size:32px"> 🛠️ - 🛠️ - 🛠️</h2>
 
 To ensure consistent and healthy growth of the project, five main tasks have been identified:
 
@@ -91,8 +95,9 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 * Outreaching ------------------- all processes related to outreach activities (i.e. marketing, funding etc.)
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
-<h2 align = "center" style="font-size:32px"> 🎲 - 🎲 - 🎲 5. Potential competitors 🎲 - 🎲 - 🎲 </h2>
+<h2 align = "center" style="font-size:32px"> 🎲 - 🎲 - 🎲</h2>
+<h2 align = "center" style="font-size:32px">  5. Potential competitors </h2>
+<h2 align = "center" style="font-size:32px"> 🎲 - 🎲 - 🎲</h2>
 
 [Publish or perish software](https://harzing.com/resources/publish-or-perish)
 
@@ -103,8 +108,9 @@ To ensure consistent and healthy growth of the project, five main tasks have bee
 [PlumX](https://plumanalytics.com/learn/about-metrics/)
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
-<h2 align = "center" style="font-size:32px"> 📚 - 📚 - 📚 6. References & resources 📚 - 📚 - 📚 </h2>
+<h2 align = "center" style="font-size:32px"> 📚 - 📚 - 📚</h2>
+<h2 align = "center" style="font-size:32px">  6. References & resources </h2>
+<h2 align = "center" style="font-size:32px"> 📚 - 📚 - 📚</h2>
 
 ### 6.1 News and blog posts
 
