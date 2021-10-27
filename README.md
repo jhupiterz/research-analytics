@@ -4,17 +4,24 @@
 
 ## 1. Problem statement & current situation
 
-Over 2 million papers are being published every year and still growing → known as “publication crisis” leading to “lower-impact” publications
+### 1.1 A long lasting "publication crisis"
 
-Papers are written by and for academics, hardly accessible outside academia both in terms of comprehensiveness and resource accessibility (i.e. paywalls).
+Over 2 million papers are being published every year and the number is still growing → known as the “publish or perish” phenomenon.
 
-Given the global issues that we are facing, many international institutions (UN, WHO, WEF, etc) recommend to adopt PRIORITISATION of research
+Authors are heavily encouraged to publish in journals that have a high "Journal Impact Factor". Therefore, papers are judged by the journal in which they are published and not by their content. There are no standard metric to judge a paper's impact.
 
-From the above, three pain points need to be addressed in academic research:
+### 1.2 By academics for academics
 
-* IMPACTFULNESS
-* ACCESSIBILITY
-* PRIORITISATION
+Academic papers are written by and for academics, hardly accessible outside academia both in terms of comprehensiveness and resource accessibility (i.e. paywalls).
+Therefore, industries often fund their own "in-house" research, without sharing it to the wider research community.
+
+Many international institutions (UN, WHO, WEF, etc) recommend to adopt research shcemes that are (i) open access, and (ii) prioritised to make sure that high-priority research (e.g. global health, food security, climate change etc.) is shared and communicated efficiently.
+
+In summary, academic research suffers from three pain points:
+
+1. Low impact publications
+2. Hardly accessible research
+3. Low prioritisation of research
 
 ## 2. Project goal
 
