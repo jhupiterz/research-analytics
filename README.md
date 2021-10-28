@@ -29,6 +29,10 @@ In summary, academic research suffers from three pain points:
 2. Restrained accessibility
 3. Low prioritisation
 
+### 1.3 Time frame
+
+While the impactfulness and accessibility of research may be adressed on a relatively short timescale (months to few years), prioritising research is a much longer-term objective (>5 years).
+
 --------------------------------------------------------------------------------------------------------------------------------------
 <h2 align = "center" style="font-size:32px"> 🎯 - 🎯 - 🎯</h2>
 <h2 align = "center" style="font-size:32px"> 2. Project goal  </h2> 
