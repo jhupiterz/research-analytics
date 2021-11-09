@@ -3,7 +3,8 @@
 #                 visit https://unpaywall.org/products/api                 #
 #--------------------------------------------------------------------------#
 #                                 ---Usage---                              #
-#                                                                          #
+#            Just run the method unpaywall_api() and it will ask for       #
+#                  user input and return a 50 paper dataframe              #                                         #
 #--------------------------------------------------------------------------#
 
 from startupjh.utils import get_user_input
