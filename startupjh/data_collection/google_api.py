@@ -19,7 +19,7 @@ def serpapi_og_results():
     """scrapes google scholar using SerpAPI
        output is a dataframe with following columns: 
        [title, result_id, link, snippet, resources_title, resources_link, 
-        citation_count, cites_id, versions, cluster_id]"""
+       citation_count, cites_id, versions, cluster_id]"""
                                 
     query = get_user_input()
     
