@@ -1,9 +1,10 @@
 #--------------------------------------------------------------------------#
-#    This code collects data about scientific papers using Unpaywall API   # 
+#      This code collects data about scientific papers using DOAJ API      # 
 #                 visit https://unpaywall.org/products/api                 #
 #--------------------------------------------------------------------------#
 #                                 ---Usage---                              #
-#                                                                          #
+#               Just run the method doaj_api() and it will ask for         #
+#               user input and return a up to 50 paper dataframe           #                                         #
 #--------------------------------------------------------------------------#
 
 from startupjh.utils import get_user_input
