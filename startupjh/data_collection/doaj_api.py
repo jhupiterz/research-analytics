@@ -107,7 +107,6 @@ def doaj_api():
                         "start_page": start_page,
                         "end_page": end_page,
                         "abstract": abstract}
-        print(paper_dict)
         papers.append(paper_dict)
     papers_df = pd.DataFrame(papers)
     return papers_df

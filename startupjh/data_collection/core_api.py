@@ -19,8 +19,7 @@ def core_api():
 
     API_KEY = "BX8LxuP2c6CUn0tEIVlrJvisFqMdYehZ"
     entityType = "outputs"
-    url = f"https://api.core.ac.uk/v3/search/{entityType}?q={search_query}&limit=50&apiKey={API_KEY}"
-
+    url = f"https://api.core.ac.uk/v3/search/{entityType}?q={search_query}&limit=5&stats=true&apiKey={API_KEY}"
     response = requests.get(url).json()
     results = response['results']
 
