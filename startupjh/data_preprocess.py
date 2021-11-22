@@ -67,7 +67,7 @@ def extract_pub_info(df):
         pub_info.append(split_str[2].lstrip())
         #find_year = re.search(r'[12]\d{3}', split_str[2])
         #year.append(find_year.group(0))
-        print(f"extracted pub_info from paper {i}")
+        #print(f"extracted pub_info from paper {i}")
     df["authors"] = authors
     df["pub_info"] = pub_info
     df["year"] = year

@@ -12,7 +12,7 @@
 #--------------------------------------------------------------------------#
 
 from serpapi import GoogleSearch
-from utils import get_user_input
+from startupjh import utils
 import pandas as pd
 
 def serpapi_og_results():
@@ -21,7 +21,7 @@ def serpapi_og_results():
        [title, result_id, link, snippet, resources_title, resources_link, 
        citation_count, cites_id, versions, cluster_id]"""
                                 
-    query = get_user_input()
+    query = utils.get_user_input()
     
     params = {
         "engine": "google_scholar",
@@ -83,11 +83,11 @@ def serpapi_og_results():
     papers_df = pd.DataFrame(papers)
     return papers_df
 
-def serpapi_full_cite(df):
+def serpapi_full_cite():
     """Scrapes Google scholar for full citations (Cite snippet)
        Iterates over a given df[result_id] and extracts full MLA citation
        Output is a dataframe with [full_citation] column"""
-    #df = serpapi_og_results()
+    df = serpapi_og_results()
     full_citations = []
     for _, row in df.iterrows():
         params = {
