@@ -6,6 +6,8 @@
 #                 consolidated_df in data_collection module                #
 #--------------------------------------------------------------------------#
 
+from startupjh.utils import convert_to_datetime
+
 import pandas as pd
 import numpy as np
 
@@ -13,7 +15,7 @@ def clean_df(df):
     """Cleans the consolidated dataframe obtained with
        consolidated_df in data_collection module"""
     # Converts timestamp (str) to datetime
-    df['published_date'] =  pd.to_datetime(df['published_date'])
+    df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
     # Converts list of authors to one single str of authors
     authors = []
     for index, row in df.iterrows():

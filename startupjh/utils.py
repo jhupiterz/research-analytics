@@ -3,6 +3,7 @@
 #--------------------------------------------------------------------------#
 
 import pandas as pd
+from datetime import datetime
 from ast import literal_eval
 
 def get_user_input():
@@ -16,6 +17,12 @@ def format_user_input(user_input):
     search_query = lower_user_input.replace(" ", "%20")
     return search_query
     
+def convert_to_datetime(string):
+    if string == 'no data':
+        datetimeobj = 'no data'
+    else:
+        datetimeobj = datetime.strptime(string,"%Y-%m-%d")
+    return datetimeobj
 
 def load_from_csv(data_path):
     """Loads a csv file and converts STR representation of list to a LIST
