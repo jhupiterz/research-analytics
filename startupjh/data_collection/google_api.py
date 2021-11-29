@@ -12,16 +12,20 @@
 #--------------------------------------------------------------------------#
 
 from serpapi import GoogleSearch
+
 from startupjh import utils
+from startupjh.data_preprocess import extract_key_words
+from startupjh.data_preprocess import extract_pub_info
+
 import pandas as pd
 
-def serpapi_og_results():
+def serpapi_og_results(query):
     """scrapes google scholar using SerpAPI
        output is a dataframe with following columns: 
        [title, result_id, link, snippet, resources_title, resources_link, 
        citation_count, cites_id, versions, cluster_id]"""
                                 
-    query = utils.get_user_input()
+    #query = utils.get_user_input()
     
     params = {
         "engine": "google_scholar",
@@ -83,11 +87,11 @@ def serpapi_og_results():
     papers_df = pd.DataFrame(papers)
     return papers_df
 
-def serpapi_full_cite():
+def serpapi_full_cite(query):
     """Scrapes Google scholar for full citations (Cite snippet)
        Iterates over a given df[result_id] and extracts full MLA citation
        Output is a dataframe with [full_citation] column"""
-    df = serpapi_og_results()
+    df = serpapi_og_results(query)
     full_citations = []
     for _, row in df.iterrows():
         params = {
@@ -101,6 +105,23 @@ def serpapi_full_cite():
         full_citation = results['citations'][0]["snippet"]
         full_citations.append(full_citation)
     df["full_citation"] = full_citations
+    df = extract_key_words(df)
+    df = extract_pub_info(df)
+    journal_name = []
+    for element in df.pub_info:
+        if ' (' in element:
+            split_info = element.split(' (')
+        else:
+            split_info = element.split('. ')
+        journal_name.append(split_info[0])
+    df['journal_name'] = journal_name
+    published_date = []
+    for pub_year in df.year:
+        date = pub_year+"-06-01"
+        published_date.append(date)
+    df['published_date'] = published_date
+    df.drop(labels=["versions", "cluster_id", "pub_info", 'paper_id', 'year', 'result_id', 'resources_title', 'resources_link'], axis=1, inplace = True)
+    df = df.rename(columns={'resources_link':'link'})
     return df
 
 def serpapi_cited_by_list(df):

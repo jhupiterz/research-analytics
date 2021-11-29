@@ -9,13 +9,14 @@
 
 from startupjh.utils import get_user_input
 from startupjh.utils import format_user_input
+from startupjh.data_preprocess import extract_key_words
 
 import pandas as pd
 import requests
 
-def core_api():
-    query = get_user_input()
-    search_query = format_user_input(query)
+def core_api(search_query):
+    # query = get_user_input()
+    # search_query = format_user_input(query)
 
     API_KEY = "BX8LxuP2c6CUn0tEIVlrJvisFqMdYehZ"
     entityType = "outputs"
@@ -88,4 +89,22 @@ def core_api():
         }
         papers.append(paper_dict)
     papers_df = pd.DataFrame(papers)
+    authors = []
+    for index, row in papers_df.iterrows():
+        author_list = []
+        for author in row.authors:
+            if "," in author['name']:
+                author_fullname = author['name'].split(",")
+                author_name = author_fullname[1].strip()+" "+author_fullname[0]
+            else:
+                author_name = author['name']
+            author_list.append(author_name)
+        authors.append(author_list)
+    papers_df.authors = authors
+    f = lambda x: x.rstrip('T00:00:00+00:00')
+    published_date = papers_df.published_date.apply(f)
+    papers_df.published_date = published_date
+    papers_df = extract_key_words(papers_df)
+    papers_df = papers_df.rename(columns={'download_url':'link'})
+    papers_df.drop(labels=['tags'], axis=1, inplace=True)
     return papers_df

@@ -13,9 +13,9 @@ from startupjh.utils import format_user_input
 import pandas as pd
 import requests
 
-def doaj_api():
-    query = get_user_input()
-    search_query = format_user_input(query)
+def doaj_api(search_query):
+    # query = get_user_input()
+    # search_query = format_user_input(query)
 
     url = f"https://doaj.org/api/search/articles/{search_query}?page=1&pageSize=60"
     response = requests.get(url).json()
@@ -109,4 +109,50 @@ def doaj_api():
                         "abstract": abstract}
         papers.append(paper_dict)
     papers_df = pd.DataFrame(papers)
+    authors = []
+    affiliations = []
+    for index, row in papers_df.iterrows():
+        author_list = []
+        affiliation_list = []
+        for author in row.author:
+            author_list.append(author['name'])
+            affiliation_list.append(author['affiliation'])
+        authors.append(author_list)
+        affiliations.append(affiliation_list)
+    papers_df.author = authors
+    papers_df['affiliations'] = affiliations
+    journal_name = []
+    journal_is_oa = []
+    publisher = []
+    for index, row in papers_df.iterrows():
+        journal_name.append(row.journal['title'])
+        journal_is_oa.append(row.journal['is_oa'])
+        publisher.append(row.journal['publisher'])
+    papers_df['journal_name'] = journal_name
+    papers_df['journal_is_oa'] = journal_is_oa
+    papers_df['publisher'] = publisher
+    # Get published date, by default the day of the month is set to 1
+    published_date = []
+    for index, row in papers_df.iterrows():
+        if row.pub_month:
+            if len(row.pub_month) == 1:
+                month = "0"+row.pub_month
+            else: 
+                month = row.pub_month
+        else:
+            month = "06"
+        date = row.pub_year+"-"+month+"-"+"01"
+        published_date.append(date)
+    papers_df['published_date'] = published_date
+    # Get number of pages
+    number_of_pages = []
+    for index, row in papers_df.iterrows():
+        if (row.start_page) and (row.end_page):
+            number_pages = int(row.end_page) - int(row.start_page)
+        else:
+            number_pages = ""
+        number_of_pages.append(number_pages)
+    papers_df['number_of_pages'] = number_of_pages
+    papers_df.drop(labels = ['pub_year', 'pub_month', 'start_page', 'end_page', 'journal'], axis=1, inplace = True)
+    papers_df = papers_df.rename(columns={'keywords': 'key_words', 'author': 'authors'})
     return papers_df
