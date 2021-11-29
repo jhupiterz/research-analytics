@@ -9,6 +9,7 @@
 
 from serpapi import GoogleSearch
 import pandas as pd
+import numpy as np
 
 def get_citation_count(df):
     """Queries SerpAPI for Google Scholar results and only returns 
@@ -39,7 +40,7 @@ def get_citation_count(df):
                     else: 
                         citations = 0
             else:
-                citations = 'no data'
+                citations = np.nan
         citation_count.append(citations)
     df['citation_count'] = citation_count
     return df
