@@ -101,8 +101,13 @@ def core_api(search_query):
             author_list.append(author_name)
         authors.append(author_list)
     papers_df.authors = authors
-    f = lambda x: x.rstrip('T00:00:00+00:00')
-    published_date = papers_df.published_date.apply(f)
+    published_date = []
+    for index, row in papers_df.iterrows():
+        if row.published_date:
+            date = row.published_date.rstrip('T00:00:00+00:00')
+        else:
+            date = ""
+        published_date.append(date)
     papers_df.published_date = published_date
     papers_df = extract_key_words(papers_df)
     papers_df = papers_df.rename(columns={'download_url':'link'})

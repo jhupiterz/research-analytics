@@ -116,7 +116,10 @@ def doaj_api(search_query):
         affiliation_list = []
         for author in row.author:
             author_list.append(author['name'])
-            affiliation_list.append(author['affiliation'])
+            if 'affiliation' in author:
+                affiliation_list.append(author['affiliation'])
+            else:
+                affiliation_list.append("")
         authors.append(author_list)
         affiliations.append(affiliation_list)
     papers_df.author = authors
@@ -148,7 +151,8 @@ def doaj_api(search_query):
     number_of_pages = []
     for index, row in papers_df.iterrows():
         if (row.start_page) and (row.end_page):
-            number_pages = int(row.end_page) - int(row.start_page)
+            if (row.start_page.isdigit()) and (row.end_page.isdigit()):
+                number_pages = int(row.end_page) - int(row.start_page)
         else:
             number_pages = ""
         number_of_pages.append(number_pages)
