@@ -24,7 +24,7 @@ def get_consolidated_df():
     consolidated_df = pd.concat([df_unpaywall, df_doaj, df_core, df_google]).reset_index(drop=True)
     consolidated_df.drop(labels=['doi', 'affiliations', 'genre', 'is_oa', 'link', 'abstract', 'number_of_pages', 
                                 'document_type', 'full_text', 'language', 'references', 
-                                'snippet', 'citation_count', 'cites_id', 'full_citation'], axis=1, inplace=True)
+                                'snippet', 'cites_id', 'full_citation'], axis=1, inplace=True)
     
     return consolidated_df
 

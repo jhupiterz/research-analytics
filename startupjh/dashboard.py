@@ -11,7 +11,7 @@ import os
 
 from startupjh import utils
 from startupjh import plots
-from startupjh import data_preprocess
+from startupjh.data_preprocessing import data_preprocess
 
 # Instanciate web app with Dash
 app = dash.Dash(
