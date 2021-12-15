@@ -35,5 +35,7 @@ def clean_df(df):
     # Replace missing values with 'no data'
     df['journal_is_oa'] = df.journal_is_oa.replace(['', np.nan], 'no data')
     df['published_date'] = df['published_date'].replace(np.datetime64('NaT'), 'no data')
+    df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
+    df['published_year'] = pd.DatetimeIndex(df['published_date']).year
     df['publisher'] = df.publisher.replace([None, np.nan], 'no data')
     return df

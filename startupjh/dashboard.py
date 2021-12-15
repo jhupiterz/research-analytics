@@ -1,153 +1,79 @@
 # Code creating a dashboard using plotly.dash
 
+from startupjh.data_collection import consolidated_df
+from startupjh import plots
+from startupjh.data_preprocessing import data_cleaning, data_enrichment
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import dash_table
+from dash.dependencies import Input, Output
 
-import pandas as pd
-import base64
-import os
+# Data loading and cleaning - takes a while...
+df = consolidated_df.get_consolidated_df()
+df = data_cleaning.clean_df(df)
+df = data_enrichment.get_citation_count(df)
+print(df.columns)
 
-from startupjh import utils
-from startupjh import plots
-from startupjh.data_preprocessing import data_preprocess
+# Dash app
 
-# Instanciate web app with Dash
-app = dash.Dash(
-    __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],
-)
+app = dash.Dash(__name__)
+
 app.title = "Research Intelligence"
-server = app.server
 
-# Defines colors to be used in HTML or CSS below
-# colors = {
-#     'background': '#111111',
-#     'text': '#7FDBFF'
-# }
-
-# Load data
-papers_df = utils.load_from_csv("../data/more_papers.csv")
-citing_papers_df = utils.load_from_csv("../data/more_citing_papers.csv")
-
-# Get most cited papers
-most_cited_papers_df = pd.DataFrame(papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].authors + " " + papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].year.apply(str))
-most_cited_papers_df["Citations"] = papers_df.sort_values(by="citation_count", ascending=False).iloc[0:3].citation_count
-most_cited_papers_df.columns = ["Citation", "Number of citations"]
-
-#Get most active journals
-active_journals_primary = data_preprocess.get_most_active_journal(papers_df).head(2)
-active_journals_citing = data_preprocess.get_most_active_journal(citing_papers_df).head(4)
-most_active_journals_primary = active_journals_primary[active_journals_primary["occurence"] == max(active_journals_primary.occurence)]
-most_active_journals_citing = active_journals_citing[active_journals_citing["occurence"] == max(active_journals_citing.occurence)]
-
-# Create plots
-fig1 = plots.plot_citations_per_year(papers_df, citing_papers_df)
-fig2 = plots.plot_publications_per_year(papers_df, citing_papers_df)
-fig3 = plots.plot_most_common_words(papers_df, citing_papers_df)
-
-# Encode local images
-image_filename = os.path.join(os.getcwd(), '../pictures/ri-logo.png')
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
-
-# Dashboard layout (basicall HTML written in python)
+# App layout
 app.layout = html.Div([
-    dcc.Store(id="aggregate_data"),
-    html.Div(id="output-clientside"),
+
+    html.H1("research intelligence", style={'text-align': 'center'}),
+
+    html.Br(),
+    
     html.Div([
         html.Div([
-            html.Img(
-                            src='data:image/png;base64,{}'.format(encoded_image.decode()),
-                            id="ri-image",
-                            style={
-                                "height": "60px",
-                                "width": "auto",
-                                "margin-bottom": "25px",
-                            },
-                        )
-                    ],
-                    className="one-third column",
-                ),
+            dcc.Graph(
+                id='first_pub_box',
+                figure=plots.make_first_pub_box(df)
+            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'}),
+
+        html.Div([
+            dcc.Graph(
+                id='latest_pub_box',
+                figure=plots.make_latest_pub_box(df)
+            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'}),
+
+        html.Div([
+            dcc.Graph(
+                id='top_pub_box',
+                figure=plots.make_top_pub_box()
+            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'})
+    ], style = {'backgroundColor':'#d8b3ff','width': '100%', 'display': 'flex', 'align-items': 'center', 'justify-content': 'center', "margin-bottom": "100px"}),
+    
     html.Div([
-        html.Div([       
-            html.H1("Automation Container Terminal", style={'margin-top': '0px', 'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
-            html.H2("Topic overview", style={'margin-top': '0px', 'backgroundColor': '#202020', 'text-align': 'center', 'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white'}),
-                ]
-            )
-        ]
-    ),
-        html.Div(className="row",
-                 style={'backgroundColor': '#202020'},
-                 children = [
-                     html.Div(className= "six columns",
-                             style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Most cited papers', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dash_table.DataTable(
-                                            id='table1',
-                                            columns=[{"name": i, "id": i} for i in most_cited_papers_df.columns],
-                                            data=most_cited_papers_df.to_dict('records'),
-                                            fill_width=False
-                                        )
-            )]),
-                        html.Div(className= "six columns",
-                                style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Most publishing journals - primary results', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dash_table.DataTable(
-                                            id='table2',
-                                            columns=[{"name": i, "id": i} for i in most_active_journals_primary.columns],
-                                            data=most_active_journals_primary.to_dict('records'),
-                                            fill_width=False
-                                        )
-            )]),
-                        html.Div(className= "six columns",
-                                style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Most publishing journals - citing papers', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dash_table.DataTable(
-                                            id='table3',
-                                            columns=[{"name": i, "id": i} for i in most_active_journals_citing.columns],
-                                            data=most_active_journals_citing.to_dict('records'),
-                                            fill_width=False
-                                        )
-            )]),
-                     
-                    html.Div(className= "six columns",
-                             style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Citations per year', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dcc.Graph(id='fig1', figure=fig1)
-            )]),
+        dcc.Graph(
+            id='keywords_graph',
+            figure=plots.make_top_key_words(df)
+        ),
+        dcc.Graph(
+                id='publication_graph',
+                figure=plots.make_pub_per_year(df)
+            ),
+        ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"}),
+    
+    html.Div([
+        dcc.Graph(
+                id='accessibility_pie',
+                figure=plots.make_access_pie(df)
+        ),
+        dcc.Graph(
+                id='citations_graph',
+                figure=plots.make_citations_per_year(df)
+        ),
+    ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"})
 
-                    html.Div(className="six columns",
-                             style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Publications per year', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dcc.Graph(id='fig2', figure=fig2)
-            )]),
-
-                    html.Div(className="six columns",
-                             style={'backgroundColor': '#202020'},
-                    children = [
-                        html.H3('Most common words', style={'font-family': 'Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif', 'color': 'white', 'text_align': 'center'}),
-                        html.Div(
-                        dcc.Graph(id='fig3', figure=fig3)
-            )])
-        ])
-    ])
 ])
 
-# CSS code - from external source (url template) or can write up our own
-app.css.append_css({
-    'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
-})
-
-# Runs the app on local server
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, use_reloader=False)
+
+
+
