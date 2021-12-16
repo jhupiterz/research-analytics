@@ -20,7 +20,7 @@ def get_citation_count(df):
         if pd.notna(row.citation_count):
             citations = row.citation_count
         else:
-            query = row.title + " " + row.authors
+            query = row.title + " " + str(' '.join(row.authors))
 
             params = {
                     "engine": "google_scholar",

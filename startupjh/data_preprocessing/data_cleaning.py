@@ -25,6 +25,7 @@ def clean_df(df):
             str_authors = row.authors
         authors.append(str_authors)
     df['authors'] = authors
+    df['authors'] = df['authors'].str.lstrip()
     # Converts list of key_words to tuple of kw
     key_words = []
     for index, row in df.iterrows():
@@ -32,6 +33,8 @@ def clean_df(df):
     df['key_words'] = key_words
     # Drop duplicates if any
     df.drop_duplicates(inplace=True)
+    # Once duplicates have been dropped, make a list out of authors again
+    df['authors'] = df.authors.str.split(', ')
     # Replace missing values with 'no data'
     df['journal_is_oa'] = df.journal_is_oa.replace(['', np.nan], 'no data')
     df['published_date'] = df['published_date'].replace(np.datetime64('NaT'), 'no data')
@@ -43,3 +46,14 @@ def clean_df(df):
     # Strip volume numbers from journal name
     df['journal_name'] = df['journal_name'].str.rstrip('1234567890.-').str.strip()
     return df
+
+def clean_authors_list(df):
+    cleaned_authors_list = []
+    for element in df.authors:
+        new_authors = []
+        for author in element:
+            if ' and ' in author:
+                author = author.lstrip(' and ')
+            new_authors.append(author)
+        cleaned_authors_list.append(new_authors)
+    return cleaned_authors_list

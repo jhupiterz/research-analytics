@@ -31,8 +31,10 @@ def get_consolidated_df():
     return consolidated_df, query
 
 def get_final_df():
-    df = get_consolidated_df()
+    df, query_keywords = get_consolidated_df()
+    query = tuple(query_keywords.split())
     df = data_cleaning.clean_df(df)
     df = data_enrichment.get_citation_count(df)
-    return df
+    df['authors'] = data_cleaning.clean_authors_list(df)
+    return df, query
 

@@ -15,6 +15,8 @@ from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 
+from startupjh import utils
+
 import re
 import string
 
@@ -64,6 +66,8 @@ def extract_pub_info(df):
         #year.append(find_year.group(0))
         #print(f"extracted pub_info from paper {i}")
     df["authors"] = authors
+    authors_list = utils.clean_google_authors(df)
+    df["authors"] = authors_list
     df["pub_info"] = pub_info
     df["year"] = year
     return df

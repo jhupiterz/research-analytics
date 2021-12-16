@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Haley M. Sapers", "label": "Haley M. Sapers", "shape": "dot", "size": 10}, {"id": "Jan P. Amend", "label": "Jan P. Amend", "shape": "dot", "size": 10}, {"id": "Joseph Razzell Hollis", "label": "Joseph Razzell Hollis", "shape": "dot", "size": 10}, {"id": "Rohit Bhartia", "label": "Rohit Bhartia", "shape": "dot", "size": 10}, {"id": "Luther W. Beegle", "label": "Luther W. Beegle", "shape": "dot", "size": 10}, {"id": "Victoria J. Orphan", "label": "Victoria J. Orphan", "shape": "dot", "size": 10}, {"id": "Frances Westall", "label": "Frances Westall", "shape": "dot", "size": 10}, {"id": "Jorge L. Vago", "label": "Jorge L. Vago", "shape": "dot", "size": 10}, {"id": "Damien Loizeau", "label": "Damien Loizeau", "shape": "dot", "size": 10}, {"id": "Gerhard Kminek", "label": "Gerhard Kminek", "shape": "dot", "size": 10}, {"id": "Oleg Korablev", "label": "Oleg Korablev", "shape": "dot", "size": 10}, {"id": "Jean-Pierre Bibring", "label": "Jean-Pierre Bibring", "shape": "dot", "size": 10}, {"id": "Fr\u00e9d\u00e9ric Foucher", "label": "Fr\u00e9d\u00e9ric Foucher", "shape": "dot", "size": 10}, {"id": "Magnus Ivarsson", "label": "Magnus Ivarsson", "shape": "dot", "size": 10}, {"id": "Diana-Thean Carlsson", "label": "Diana-Thean Carlsson", "shape": "dot", "size": 10}, {"id": "Liane Loiselle", "label": "Liane Loiselle", "shape": "dot", "size": 10}, {"id": "Gordon Southam", "label": "Gordon Southam", "shape": "dot", "size": 10}, {"id": "Richard L\u00e9veill\u00e9", "label": "Richard L\u00e9veill\u00e9", "shape": "dot", "size": 10}, {"id": "Roger E. Summons", "label": "Roger E. Summons", "shape": "dot", "size": 10}, {"id": "Dawn Y. Sumner", "label": "Dawn Y. Sumner", "shape": "dot", "size": 10}, {"id": "Sherry L. Cady", "label": "Sherry L. Cady", "shape": "dot", "size": 10}, {"id": "Jeffrey Moersch", "label": "Jeffrey Moersch", "shape": "dot", "size": 10}, {"id": "Nora Noffke", "label": "Nora Noffke", "shape": "dot", "size": 10}, {"id": "Cynthia Phillips", "label": "Cynthia Phillips", "shape": "dot", "size": 10}, {"id": "Pablo Sobron", "label": "Pablo Sobron", "shape": "dot", "size": 10}, {"id": "David Summers", "label": "David Summers", "shape": "dot", "size": 10}, {"id": "Kimberley Warren-Rhodes", "label": "Kimberley Warren-Rhodes", "shape": "dot", "size": 10}, {"id": "Nathalie A. Cabrol", "label": "Nathalie A. Cabrol", "shape": "dot", "size": 10}, {"id": "Edmond A. Grin", "label": "Edmond A. Grin", "shape": "dot", "size": 10}, {"id": "Kathie L. Thomas-Keprta", "label": "Kathie L. Thomas-Keprta", "shape": "dot", "size": 10}, {"id": "Christopher S. Romanek", "label": "Christopher S. Romanek", "shape": "dot", "size": 10}, {"id": "Joost W. Aerts", "label": "Joost W. Aerts", "shape": "dot", "size": 10}, {"id": "Pascale Ehrenfreund", "label": "Pascale Ehrenfreund", "shape": "dot", "size": 10}, {"id": "Jessica Flahaut", "label": "Jessica Flahaut", "shape": "dot", "size": 10}, {"id": "Robert Lindner", "label": "Robert Lindner", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "Haley M. Sapers", "to": "Jan P. Amend", "weight": 6.0}, {"from": "Haley M. Sapers", "to": "Haley M. Sapers", "weight": 3.0}, {"from": "Haley M. Sapers", "to": "Joseph Razzell Hollis", "weight": 3.0}, {"from": "Haley M. Sapers", "to": "Rohit Bhartia", "weight": 3.0}, {"from": "Haley M. Sapers", "to": "Luther W. Beegle", "weight": 3.0}, {"from": "Haley M. Sapers", "to": "Victoria J. Orphan", "weight": 3.0}, {"from": "Frances Westall", "to": "Jorge L. Vago", "weight": 2.0}, {"from": "Frances Westall", "to": "Damien Loizeau", "weight": 3.0}, {"from": "Frances Westall", "to": "Gerhard Kminek", "weight": 3.0}, {"from": "Frances Westall", "to": "Oleg Korablev", "weight": 3.0}, {"from": "Frances Westall", "to": "Jean-Pierre Bibring", "weight": 3.0}, {"from": "Frances Westall", "to": "Fr\u00e9d\u00e9ric Foucher", "weight": 2.0}, {"from": "Jorge L. Vago", "to": "Gerhard Kminek", "weight": 3.0}, {"from": "Jorge L. Vago", "to": "Oleg Korablev", "weight": 3.0}, {"from": "Jorge L. Vago", "to": "Fr\u00e9d\u00e9ric Foucher", "weight": 2.0}, {"from": "Jorge L. Vago", "to": "Damien Loizeau", "weight": 2.0}, {"from": "Magnus Ivarsson", "to": "Diana-Thean Carlsson", "weight": 4.0}, {"from": "Damien Loizeau", "to": "Gerhard Kminek", "weight": 2.0}, {"from": "Liane Loiselle", "to": "Gordon Southam", "weight": 3.0}, {"from": "Liane Loiselle", "to": "Richard L\u00e9veill\u00e9", "weight": 2.0}, {"from": "Gordon Southam", "to": "Richard L\u00e9veill\u00e9", "weight": 2.0}, {"from": "Roger E. Summons", "to": "Dawn Y. Sumner", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "Jeffrey Moersch", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "Nora Noffke", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "Cynthia Phillips", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "Pablo Sobron", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "David Summers", "weight": 2.0}, {"from": "Sherry L. Cady", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "Jeffrey Moersch", "to": "Nora Noffke", "weight": 2.0}, {"from": "Jeffrey Moersch", "to": "Cynthia Phillips", "weight": 2.0}, {"from": "Jeffrey Moersch", "to": "Pablo Sobron", "weight": 2.0}, {"from": "Jeffrey Moersch", "to": "David Summers", "weight": 2.0}, {"from": "Jeffrey Moersch", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "Nora Noffke", "to": "Cynthia Phillips", "weight": 2.0}, {"from": "Nora Noffke", "to": "Pablo Sobron", "weight": 2.0}, {"from": "Nora Noffke", "to": "David Summers", "weight": 2.0}, {"from": "Nora Noffke", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "Nora Noffke", "to": "Nathalie A. Cabrol", "weight": 2.0}, {"from": "Nora Noffke", "to": "Edmond A. Grin", "weight": 2.0}, {"from": "Cynthia Phillips", "to": "Pablo Sobron", "weight": 2.0}, {"from": "Cynthia Phillips", "to": "David Summers", "weight": 2.0}, {"from": "Cynthia Phillips", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "Pablo Sobron", "to": "David Summers", "weight": 2.0}, {"from": "Pablo Sobron", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "David Summers", "to": "Kimberley Warren-Rhodes", "weight": 2.0}, {"from": "Nathalie A. Cabrol", "to": "Edmond A. Grin", "weight": 2.0}, {"from": "Kathie L. Thomas-Keprta", "to": "Christopher S. Romanek", "weight": 2.0}, {"from": "Joost W. Aerts", "to": "Pascale Ehrenfreund", "weight": 2.0}, {"from": "Jessica Flahaut", "to": "Robert Lindner", "weight": 2.0}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 #--------------------------------------------------------------------------#
 
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from ast import literal_eval
 
@@ -38,3 +39,13 @@ def flatten_list(list_to_flatten):
         for e in sublist:
             flat_list.append(e)
     return flat_list
+
+def clean_google_authors(df):
+    authors_list = []
+    for element in df.authors:
+        authors_ = element.strip('et al.').split(',')
+        authors = [authors_[1] + ' ' + authors_[0]]
+        for i in range(2, len(authors_)):
+            authors.append(authors_[i])
+        authors_list.append(authors)
+    return authors_list

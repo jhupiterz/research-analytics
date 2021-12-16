@@ -102,7 +102,7 @@ def serpapi_full_cite(query):
 
         search = GoogleSearch(params)
         results = search.get_dict()
-        full_citation = results['citations'][0]["snippet"]
+        full_citation = results['citations'][2]["snippet"]
         full_citations.append(full_citation)
     df["full_citation"] = full_citations
     df = extract_key_words(df)
