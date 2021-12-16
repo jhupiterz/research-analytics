@@ -9,19 +9,18 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-# Data loading and cleaning - takes a while...
+# Data loading and cleaning - takes a while... -------------
 df = consolidated_df.get_consolidated_df()
 df = data_cleaning.clean_df(df)
 df = data_enrichment.get_citation_count(df)
-print(df.columns)
 
-# Dash app
+# Dash app -------------------------------------------------
 
 app = dash.Dash(__name__)
 
 app.title = "Research Intelligence"
 
-# App layout
+# App layout -----------------------------------------------
 app.layout = html.Div([
 
     html.H1("research intelligence", style={'text-align': 'center'}),
@@ -74,6 +73,3 @@ app.layout = html.Div([
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
-
-
-

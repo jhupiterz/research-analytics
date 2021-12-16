@@ -9,6 +9,8 @@
 
 import pandas as pd
 
+from startupjh.data_preprocessing import data_cleaning, data_enrichment
+
 from startupjh.utils import format_user_input, get_user_input
 from startupjh.data_collection import core_api, doaj_api, google_api, unpaywall_api
 
@@ -26,5 +28,11 @@ def get_consolidated_df():
                                 'document_type', 'full_text', 'language', 'references', 
                                 'snippet', 'cites_id', 'full_citation'], axis=1, inplace=True)
     
-    return consolidated_df
+    return consolidated_df, query
+
+def get_final_df():
+    df = get_consolidated_df()
+    df = data_cleaning.clean_df(df)
+    df = data_enrichment.get_citation_count(df)
+    return df
 
