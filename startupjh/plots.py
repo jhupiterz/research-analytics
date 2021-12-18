@@ -7,6 +7,8 @@
 from numpy.lib import utils
 from startupjh import utils
 import pandas as pd
+import networkx as nx
+from pyvis.network import Network
 from collections import Counter
 import plotly.graph_objs as go
 import plotly.express as px
@@ -247,5 +249,44 @@ def make_top_pub_box(df):
       showlegend=False,
       plot_bgcolor='#d8b3ff',
       paper_bgcolor='#d8b3ff')
-  #fig.show()
   return fig
+
+def generate_collab_network_df(df):
+  authors_combinations = []
+  for authors in df.authors:
+      res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
+      authors_combinations.append(res)
+  flat_authors_combinations = utils.flatten_list(authors_combinations)
+  most_common_collab = Counter(flat_authors_combinations).most_common(50)
+  unpacked_most_collab = [(a, b, c) for (a, b ), c in most_common_collab]
+  nx_df = pd.DataFrame(unpacked_most_collab, columns=['author1', 'author2', 'weight'])
+  # G = nx.from_pandas_edgelist(nx_df,
+  #                           source='author1',
+  #                           target='author2',
+  #                           edge_attr='weight'
+  # )
+  return nx_df
+
+def make_top_authors(df):
+  flat_author_list = utils.flatten_list(df.authors.tolist())
+  top_authors_df = pd.DataFrame(Counter(flat_author_list).most_common(50), columns=['author', 'occurence'])
+  fig = go.Figure(data=[go.Bar(x=top_authors_df['author'][0:5],
+                             y= top_authors_df['occurence'][0:5],
+                             texttemplate="%{y}",
+                             textposition="outside",
+                             textangle=0)])
+  fig.update_layout(title = f"Top key words", title_x=0.5)
+  fig.update_yaxes(title="Number of occurences")
+  return fig
+
+def generate_graph_elements(df):
+  nx_df = generate_collab_network_df(df)
+  unique_top_authors = list(set(nx_df.author1.unique().tolist() + nx_df.author2.unique().tolist()))
+  nodes_list = [{'data': {'id': unique_top_authors[0], 'label': unique_top_authors[0]}}]
+  for element in unique_top_authors[1:]:
+      nodes_list.append({'data': {'id': element, 'label': element}})
+  edges_list = [{'data': {'source': nx_df['author1'][0], 'target': nx_df['author2'][0]}}]
+  for index, row in nx_df.iterrows():
+      edges_list.append({'data': {'source': row.author1, 'target': row.author2}})
+  elements = nodes_list + edges_list
+  return elements
