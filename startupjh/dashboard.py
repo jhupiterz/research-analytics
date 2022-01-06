@@ -5,12 +5,13 @@ from startupjh import plots
 from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 import dash
+import dash_cytoscape as cyto
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
 # Data loading and cleaning - takes a while... -------------
-df = consolidated_df.get_consolidated_df()
+df, query = consolidated_df.get_consolidated_df()
 df = data_cleaning.clean_df(df)
 df = data_enrichment.get_citation_count(df)
 
@@ -43,14 +44,14 @@ app.layout = html.Div([
         html.Div([
             dcc.Graph(
                 id='top_pub_box',
-                figure=plots.make_top_pub_box()
+                figure=plots.make_top_pub_box(df)
             )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'})
     ], style = {'backgroundColor':'#d8b3ff','width': '100%', 'display': 'flex', 'align-items': 'center', 'justify-content': 'center', "margin-bottom": "100px"}),
     
     html.Div([
         dcc.Graph(
             id='keywords_graph',
-            figure=plots.make_top_key_words(df)
+            figure=plots.make_top_key_words(df, query)
         ),
         dcc.Graph(
                 id='publication_graph',
@@ -67,7 +68,17 @@ app.layout = html.Div([
                 id='citations_graph',
                 figure=plots.make_citations_per_year(df)
         ),
-    ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"})
+    ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"}),
+    
+    html.Div([
+    html.P("Collaboration network:"),
+    cyto.Cytoscape(
+        id='cytoscape',
+        elements= plots.generate_graph_elements(df),
+        layout={'name': 'circle'}#,
+        #style={'width': '2000px', 'height': '1000px'}
+    )
+    ])
 
 ])
 

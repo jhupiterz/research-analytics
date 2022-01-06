@@ -37,7 +37,8 @@ def clean_df(df):
     df['authors'] = df.authors.str.split(', ')
     # Replace missing values with 'no data'
     df['journal_is_oa'] = df.journal_is_oa.replace(['', np.nan], 'no data')
-    df['published_date'] = df['published_date'].replace(np.datetime64('NaT'), 'no data')
+    # Converts timestamp (str) to datetime
+    df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
     df['publisher'] = df.publisher.replace([None, np.nan], 'no data')
     # Convert date str into datetime
     df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
