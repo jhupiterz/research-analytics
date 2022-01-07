@@ -6,6 +6,7 @@
 #--------------------------------------------------------------------------#
 from numpy.lib import utils
 from startupjh import utils
+from datetime import date
 import pandas as pd
 import networkx as nx
 from pyvis.network import Network
@@ -29,7 +30,7 @@ def make_pub_per_year(df):
   fig.update_layout(title = f"Publications per Year", title_x=0.5)
   fig.update_traces(marker_color='#d8b3ff', marker_line_color='#d8b3ff',
                     marker_line_width=1.5)
-  fig.update_xaxes(title="Year")
+  fig.update_xaxes(title="Year", range= [df.published_year.min(), date.today().year + 5])
   fig.update_yaxes(title="Number of Publications")
   return fig
 
@@ -40,7 +41,7 @@ def make_citations_per_year(df):
                              textposition="outside",
                              textangle=0)])
   fig.update_layout(title = f"Citations per Year", title_x=0.5)
-  fig.update_xaxes(title="Year")
+  fig.update_xaxes(title="Year", range= [df.published_year.min(), date.today().year + 5])
   fig.update_yaxes(title="Number of Publications")
   return fig
 

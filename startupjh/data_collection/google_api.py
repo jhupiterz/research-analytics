@@ -49,7 +49,10 @@ def serpapi_og_results(query):
             file_format = paper["type"]
         else:
             file_format = "no data"
-        link = paper["link"]
+        if "link" in paper:
+            link = paper["link"]
+        else:
+            link = "no data"
         snippet = paper["snippet"]
         if "resources" in paper:
             resources_title = paper["resources"][0]["title"]
