@@ -4,11 +4,15 @@ from startupjh.data_collection import consolidated_df
 from startupjh import plots
 from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
+import time
 import dash
 import dash_cytoscape as cyto
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+
+# Execution timer ------------------------------------------
+start_time = time.time()
 
 # Data loading and cleaning - takes a while... -------------
 df, query = consolidated_df.get_consolidated_df()
@@ -24,7 +28,21 @@ app.title = "Research Intelligence"
 # App layout -----------------------------------------------
 app.layout = html.Div([
 
-    html.H1("research intelligence", style={'text-align': 'center'}),
+    html.Div([
+        html.Div([
+            html.H3("research intelligence", style={'order': '2', 'color': 'grey', 'margin-top': '30px'}),
+            html.Img(src='/assets/ri-logo.png', style={'height': '70px', 'margin-left': '30px', 'margin-right':'15px', 'margin-top': '20px', 'order': '1'})],
+            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'flex-grow': '1'}),
+        
+        html.Div([
+            html.H1(f"Topic: {query} ", style={'order': '3', 'margin-top': '30px', 'text-align': 'center'})],
+            style = {'order': '2', 'flex-grow': '2'}),
+        
+        html.Div([
+            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'grey', 'margin-top': '30px', 'text-align': 'right', 'margin-right': '30px'})],
+            style = {'order': '3', 'flex-grow': '1'})],
+             
+        style = {'width': '100%', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'justify-content': 'space-between'}),
 
     html.Br(),
     
