@@ -18,7 +18,7 @@ def make_access_pie(df):
   oa_publications = df.groupby('journal_is_oa').count()
   df_ = oa_publications
   fig = px.pie(df_, values='title', names= df_.index, color=df_.index,
-               color_discrete_map={'no data':'darkblue',
+               color_discrete_map={'no data':'#317773',
                                    'true':'#4ced77',
                                    'false':'#d93232'})
   
@@ -43,7 +43,7 @@ def make_pub_per_year(df):
                               size=12,
                               color="darkblue"
     ))
-  fig.update_traces(marker_color='#8218d9')
+  fig.update_traces(marker_color='#317773')
   fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
   fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
   return fig
@@ -60,7 +60,7 @@ def make_citations_per_year(df):
                               size=12,
                               color="darkblue"
     ))
-  fig.update_traces(marker_color='#8218d9')
+  fig.update_traces(marker_color='#317773')
   fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
   fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
   return fig
@@ -144,7 +144,7 @@ def make_top_key_words(df, query):
         size=12,
         color="darkblue"
     ))
-  fig.update_traces(marker_color='#8218d9')
+  fig.update_traces(marker_color='#317773')
   fig.update_yaxes(title="Number of occurences", range= [0, 1.1* top_key_words_plot['occurence'].max()])
   return fig
 
@@ -272,11 +272,12 @@ def make_top_authors(df):
 def generate_graph_elements(df):
   nx_df = generate_collab_network_df(df)
   unique_top_authors = list(set(nx_df.author1.unique().tolist() + nx_df.author2.unique().tolist()))
-  nodes_list = [{'data': {'id': unique_top_authors[0], 'label': unique_top_authors[0]}}]
+  nodes_list = [{'data': {'id': unique_top_authors[0], 'label': unique_top_authors[0]}, 'classes': 'author'}]
   for element in unique_top_authors[1:]:
-      nodes_list.append({'data': {'id': element, 'label': element}})
-  edges_list = [{'data': {'source': nx_df['author1'][0], 'target': nx_df['author2'][0]}}]
+      nodes_list.append({'data': {'id': element, 'label': element}, 'classes': 'author'})
+  edges_list = [{'data': {'source': nx_df['author1'][0], 'target': nx_df['author2'][0]}, 'classes': 'collaboration'}]
   for index, row in nx_df.iterrows():
-      edges_list.append({'data': {'source': row.author1, 'target': row.author2}})
+      edges_list.append({'data': {'source': row.author1, 'target': row.author2}, 'classes': 'collaboration'})
   elements = nodes_list + edges_list
+  #print(elements)
   return elements
