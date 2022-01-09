@@ -30,63 +30,88 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.H3("research intelligence", style={'order': '2', 'color': 'grey', 'margin-top': '30px'}),
-            html.Img(src='/assets/ri-logo.png', style={'height': '70px', 'margin-left': '30px', 'margin-right':'15px', 'margin-top': '20px', 'order': '1'})],
+            html.H3("research intelligence", style={'order': '2', 'color': 'grey'}),
+            html.Img(src='/assets/ri-logo.png', style={'height': '70px', 'margin-right':'15px', 'order': '1'})],
             style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'flex-grow': '1'}),
         
         html.Div([
-            html.H1(f"Topic: {query} ", style={'order': '3', 'margin-top': '30px', 'text-align': 'center'})],
+            html.H1(f"Topic: {query} ", style={'order': '3', 'text-align': 'center'})],
             style = {'order': '2', 'flex-grow': '2'}),
         
         html.Div([
-            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'grey', 'margin-top': '30px', 'text-align': 'right', 'margin-right': '30px'})],
+            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'grey', 'text-align': 'right'})],
             style = {'order': '3', 'flex-grow': '1'})],
              
-        style = {'width': '100%', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'justify-content': 'space-between'}),
+        style = {'width': '95%', 'margin': 'auto', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'justify-content': 'space-between'}),
 
+    html.Br(),
+    html.Br(),
+    
+    html.Div([
+        html.Div([
+            html.H4("Research topic active since"),
+            html.H1(f"{df.published_year.min()}")],
+            style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
+                   'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#d8b3ff',
+                   'border-widht': '2px', 'border-style': 'solid', 'border-color': 'black'}),
+
+        html.Div([
+            html.H4("Latest publication in"),
+            html.H1(f"{df.published_year.max()}")],
+            style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
+                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#d8b3ff',
+                   'border-widht': '2px', 'border-style': 'solid', 'border-color': 'black'}),
+
+        html.Div([
+            html.H4("Top publisher"),
+            html.P(f"{plots.get_top_publisher(df)}", style = {'font-size': '1vw'})],
+            style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
+                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#d8b3ff',
+                   'border-widht': '2px', 'border-style': 'solid', 'border-color': 'black'})
+    ], style = {'backgroundColor':'white','width': '95%', 'display': 'flex', 'margin': 'auto',
+                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-between'}),
+    
+    html.Br(),
     html.Br(),
     
     html.Div([
         html.Div([
             dcc.Graph(
-                id='first_pub_box',
-                figure=plots.make_first_pub_box(df)
-            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'}),
-
-        html.Div([
-            dcc.Graph(
-                id='latest_pub_box',
-                figure=plots.make_latest_pub_box(df)
-            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'}),
-
-        html.Div([
-            dcc.Graph(
-                id='top_pub_box',
-                figure=plots.make_top_pub_box(df)
-            )], style={'width': '30%', 'height': '10%', 'display': 'inline-block'})
-    ], style = {'backgroundColor':'#d8b3ff','width': '100%', 'display': 'flex', 'align-items': 'center', 'justify-content': 'center', "margin-bottom": "100px"}),
-    
-    html.Div([
-        dcc.Graph(
-            id='keywords_graph',
-            figure=plots.make_top_key_words(df, query)
-        ),
-        dcc.Graph(
-                id='publication_graph',
-                figure=plots.make_pub_per_year(df)
+                id='keywords_graph',
+                figure=plots.make_top_key_words(df, query),
+                style = {'order': '1', 'backgroundColor': '#d8b3ff'}
             ),
-        ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"}),
-    
-    html.Div([
-        dcc.Graph(
-                id='accessibility_pie',
-                figure=plots.make_access_pie(df)
-        ),
-        dcc.Graph(
-                id='citations_graph',
-                figure=plots.make_citations_per_year(df)
-        ),
-    ], style={'backgroundColor': '#d1d1d1', 'width': '45%', 'display': 'inline-block', "margin-bottom": "100px"}),
+            dcc.Graph(
+                    id='accessibility_pie',
+                    figure=plots.make_access_pie(df),
+                    style = {'order': '2', 'backgroundColor': '#d8b3ff'}
+                ),
+            ], style={'backgroundColor': '#d8b3ff', 'width': '95%', 'display': 'flex',
+                    'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
+                    'margin-top': '25px','justify-content': 'space-evenly'}),
+        
+        html.Br(),
+        html.Br(),
+        
+        html.Div([
+            dcc.Graph(
+                    id='publication_graph',
+                    figure=plots.make_pub_per_year(df),
+                    style = {'order' : '1', 'backgroundColor': '#d8b3ff'}
+            ),
+            dcc.Graph(
+                    id='citations_graph',
+                    figure=plots.make_citations_per_year(df),
+                    style = {'order': '2', 'backgroundColor': '#d8b3ff'}
+            ),
+        ], style={'backgroundColor': '#d8b3ff', 'width': '95%', 'display': 'flex',
+                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
+                'margin-bottom': '25px', 'justify-content': 'space-evenly'})],
+        
+        style = {'backgroundColor': '#d8b3ff', 'width': '95%', 'display': 'flex',
+                'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
+                'border-widht': '2px', 'border-style': 'solid', 'border-color': 'black',
+                'justify-content': 'space-evenly'}),
     
     html.Div([
     html.P("Collaboration network:"),

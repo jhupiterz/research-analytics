@@ -15,10 +15,20 @@ import plotly.graph_objs as go
 import plotly.express as px
 
 def make_access_pie(df):
-  oa_publications = df.groupby('journal_is_oa').count()#.sort_values('citation_count', ascending=False)
+  oa_publications = df.groupby('journal_is_oa').count()
   df_ = oa_publications
-  fig = px.pie(df_, values='title', names= df_.index)
-  fig.update_layout(title = f"Open Access publications", title_x=0.5)
+  fig = px.pie(df_, values='title', names= df_.index, color=df_.index,
+               color_discrete_map={'no data':'darkblue',
+                                   'true':'#4ced77',
+                                   'false':'#d93232'})
+  
+  fig.update_layout(
+    title = "<span style='font-size: 22px;'><b>Open access publications<b></span>", title_x=0.5,
+    font=dict(
+        family="Courier New, monospace",
+        size=14,
+        color="darkblue"
+    ))
   return fig
 
 def make_pub_per_year(df):
@@ -27,11 +37,15 @@ def make_pub_per_year(df):
                              texttemplate="%{y}",
                              textposition="outside",
                              textangle=0)])
-  fig.update_layout(title = f"Publications per Year", title_x=0.5)
-  fig.update_traces(marker_color='#d8b3ff', marker_line_color='#d8b3ff',
-                    marker_line_width=1.5)
-  fig.update_xaxes(title="Year", range= [df.published_year.min(), date.today().year + 5])
-  fig.update_yaxes(title="Number of Publications")
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Publications per Year<b></span>", title_x=0.5,
+                    font=dict(
+                              family="Courier New, monospace",
+                              size=12,
+                              color="darkblue"
+    ))
+  fig.update_traces(marker_color='#8218d9')
+  fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
   return fig
 
 def make_citations_per_year(df):
@@ -40,9 +54,15 @@ def make_citations_per_year(df):
                              texttemplate="%{y}",
                              textposition="outside",
                              textangle=0)])
-  fig.update_layout(title = f"Citations per Year", title_x=0.5)
-  fig.update_xaxes(title="Year", range= [df.published_year.min(), date.today().year + 5])
-  fig.update_yaxes(title="Number of Publications")
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Citations per Year<b></span>", title_x=0.5,
+                    font=dict(
+                              family="Courier New, monospace",
+                              size=12,
+                              color="darkblue"
+    ))
+  fig.update_traces(marker_color='#8218d9')
+  fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
   return fig
 
 def make_top_cited_journals(df):
@@ -117,8 +137,15 @@ def make_top_key_words(df, query):
                              texttemplate="%{y}",
                              textposition="outside",
                              textangle=0)])
-  fig.update_layout(title = f"Top key words", title_x=0.5)
-  fig.update_yaxes(title="Number of occurences")
+  fig.update_layout(
+    title = "<span style='font-size: 22px;'><b>Top key words<b></span>", title_x=0.5,
+    font=dict(
+        family="Courier New, monospace",
+        size=12,
+        color="darkblue"
+    ))
+  fig.update_traces(marker_color='#8218d9')
+  fig.update_yaxes(title="Number of occurences", range= [0, 1.1* top_key_words_plot['occurence'].max()])
   return fig
 
 def make_first_pub_box(df):
@@ -207,53 +234,12 @@ def make_latest_pub_box(df):
   #fig.show()
   return fig
 
-def make_top_pub_box(df):
-  
+def get_top_publisher(df):
   top_publisher_pubs = df.groupby('publisher').count().sort_values('citation_count', ascending=False)
   top_publisher = top_publisher_pubs.index[0]
   if top_publisher == 'no data':
     top_publisher = top_publisher_pubs.index[1]
-  
-  fig = go.Figure()
-
-  fig.add_trace(go.Scatter(
-          x=[0, 0, 1, 1], y=[0, 1.4, 1.4, 0], fill="toself", fillcolor='white', mode='lines',
-          line=dict(color="white")
-      ))
-
-  fig.add_trace(go.Scatter(
-      x=[0.5],
-      y=[1],
-      mode="text",
-      text=["Top publisher:"],
-      textfont_size=18,
-      textposition="top center"
-  ))
-
-  fig.add_trace(go.Scatter(
-      x=[0.5],
-      y=[0.3],
-      mode="text",
-      text=top_publisher,
-      textfont_size=26,
-      textposition="top center"
-  ))
-  
-  fig.update_xaxes(visible=False)   
-  fig.update_yaxes(visible=False)
-  fig.update_layout(
-      margin=go.layout.Margin(
-      l=0, #left margin
-      r=0, #right margin
-      b=0, #bottom margin
-      t=0, #top margin
-      ),
-      width = 300,
-      height = 150,
-      showlegend=False,
-      plot_bgcolor='#d8b3ff',
-      paper_bgcolor='#d8b3ff')
-  return fig
+  return top_publisher
 
 def generate_collab_network_df(df):
   authors_combinations = []
