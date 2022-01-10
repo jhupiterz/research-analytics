@@ -14,21 +14,24 @@ from collections import Counter
 import plotly.graph_objs as go
 import plotly.express as px
 
+
 def make_access_pie(df):
   oa_publications = df.groupby('journal_is_oa').count()
   df_ = oa_publications
   fig = px.pie(df_, values='title', names= df_.index, color=df_.index,
-               color_discrete_map={'no data':'#317773',
-                                   'true':'#4ced77',
-                                   'false':'#d93232'})
+               color_discrete_map={'no data':'#eda109',
+                                   'true':'#a8fffe',
+                                   'false':'#fa3960'})
   
   fig.update_layout(
     title = "<span style='font-size: 22px;'><b>Open access publications<b></span>", title_x=0.5,
     font=dict(
         family="Courier New, monospace",
         size=14,
-        color="darkblue"
-    ))
+        color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
   return fig
 
 def make_pub_per_year(df):
@@ -41,9 +44,12 @@ def make_pub_per_year(df):
                     font=dict(
                               family="Courier New, monospace",
                               size=12,
-                              color="darkblue"
-    ))
-  fig.update_traces(marker_color='#317773')
+                              color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
+  
+  fig.update_traces(marker_color='#eda109')
   fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
   fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
   return fig
@@ -58,9 +64,11 @@ def make_citations_per_year(df):
                     font=dict(
                               family="Courier New, monospace",
                               size=12,
-                              color="darkblue"
-    ))
-  fig.update_traces(marker_color='#317773')
+                              color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
+  fig.update_traces(marker_color='#eda109')
   fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
   fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
   return fig
@@ -142,9 +150,11 @@ def make_top_key_words(df, query):
     font=dict(
         family="Courier New, monospace",
         size=12,
-        color="darkblue"
-    ))
-  fig.update_traces(marker_color='#317773')
+        color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
+  fig.update_traces(marker_color='#eda109')
   fig.update_yaxes(title="Number of occurences", range= [0, 1.1* top_key_words_plot['occurence'].max()])
   return fig
 

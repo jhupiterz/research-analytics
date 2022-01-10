@@ -21,7 +21,9 @@ df = data_enrichment.get_citation_count(df)
 
 # Dash app -------------------------------------------------
 
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}])
 
 app.title = "Research Intelligence"
 
@@ -30,16 +32,17 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.H3("research intelligence", style={'order': '2', 'color': 'darkblue'}),
-            html.Img(src='/assets/ri-logo.png', style={'height': '70px', 'margin-right':'15px', 'order': '1'})],
+            html.H3("research intelligence", style={'order': '2', 'color': 'white'}),
+            html.Img(src='/assets/maze.png', style={'height': '70px', 'margin-right':'15px', 'order': '1'})],
             style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'flex-grow': '1'}),
         
         html.Div([
-            html.H1(f"Topic: {query} ", style={'order': '3', 'color': 'darkblue', 'text-align': 'center'})],
+            html.H1(f"Topic: {query} ", style={'order': '3', 'color': 'white', 'text-align': 'center'})],
             style = {'order': '2', 'flex-grow': '2'}),
         
         html.Div([
-            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'darkblue', 'text-align': 'right'})],
+            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'white',
+                                                                                  'text-align': 'right'})],
             style = {'order': '3', 'flex-grow': '1'})],
              
         style = {'width': '95%', 'margin': 'auto', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'justify-content': 'space-between'}),
@@ -49,23 +52,23 @@ app.layout = html.Div([
     
     html.Div([
         html.Div([
-            html.H2("Earliest publication in", style={'color': 'darkblue'}),
-            html.H1(f"{df.published_year.min()}", style={'color': 'darkblue'})],
+            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
+            html.H1(f"{int(df.published_year.min())}", style={'color': 'white', 'font-family': 'Courier New, monospace'})],
             style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#E2D1F9'}),
+                   'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Latest publication in", style={'color': 'darkblue'}),
-            html.H1(f"{df.published_year.max()}", style={'color': 'darkblue'})],
+            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
+            html.H1(f"{int(df.published_year.max())}", style={'color': 'white', 'font-family': 'Courier New, monospace'})],
             style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#E2D1F9'}),
+                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Top publisher", style={'color': 'darkblue'}),
-            html.P(f"{plots.get_top_publisher(df)}", style = {'font-size': '1vw', 'color': 'darkblue'})],
+            html.H2("Top publisher", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
+            html.P(f"{plots.get_top_publisher(df)}", style = {'font-size': '1vw', 'color': 'white', 'font-family': 'Courier New, monospace'})],
             style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#E2D1F9'})
-    ], style = {'backgroundColor':'#E2D1F9','width': '95%', 'display': 'flex', 'margin': 'auto',
+                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
+    ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
                 'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-between'}),
     
     html.Br(),
@@ -76,14 +79,14 @@ app.layout = html.Div([
             dcc.Graph(
                 id='keywords_graph',
                 figure=plots.make_top_key_words(df, query),
-                style = {'order': '1', 'backgroundColor': '#E2D1F9'}
+                style = {'order': '1', 'backgroundColor': '#101126'}
             ),
             dcc.Graph(
                     id='accessibility_pie',
                     figure=plots.make_access_pie(df),
-                    style = {'order': '2', 'backgroundColor': '#E2D1F9'}
+                    style = {'order': '2', 'backgroundColor': '#101126'}
                 ),
-            ], style={'backgroundColor': '#E2D1F9', 'width': '95%', 'display': 'flex',
+            ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '25px','justify-content': 'space-evenly'}),
         
@@ -94,18 +97,18 @@ app.layout = html.Div([
             dcc.Graph(
                     id='publication_graph',
                     figure=plots.make_pub_per_year(df),
-                    style = {'order' : '1', 'backgroundColor': '#E2D1F9'}
+                    style = {'order' : '1', 'backgroundColor': '#101126'}
             ),
             dcc.Graph(
                     id='citations_graph',
                     figure=plots.make_citations_per_year(df),
-                    style = {'order': '2', 'backgroundColor': '#E2D1F9'}
+                    style = {'order': '2', 'backgroundColor': '#101126'}
             ),
-        ], style={'backgroundColor': '#E2D1F9', 'width': '95%', 'display': 'flex',
+        ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
                 'margin-bottom': '25px', 'justify-content': 'space-evenly'})],
         
-        style = {'backgroundColor': '#E2D1F9', 'width': '95%', 'display': 'flex',
+        style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
                 'justify-content': 'space-evenly'}),
     
@@ -114,7 +117,7 @@ app.layout = html.Div([
     
     html.Div([
     html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
-                                              'color': 'darkblue'}),
+                                              'color': 'white'}),
     cyto.Cytoscape(
         id='cytoscape',
         elements= plots.generate_graph_elements(df),
@@ -124,8 +127,8 @@ app.layout = html.Div([
                 'selector': 'label',
                 'style': {
                     'content': 'data(label)',
-                    'color': 'black',
-                    'background-color': '#317773'
+                    'color': 'white',
+                    'background-color': '#eda109'
                 }
             },
             {
@@ -137,22 +140,22 @@ app.layout = html.Div([
             {
                 'selector': '.author',
                 'style': {
-                    'background-color': '#317773'
+                    'background-color': '#eda109'
                 }
             },
             {
                 'selector': '.collaboration',
                 'style': {
-                    'line-color': 'grey'
+                    'line-color': '#eda109'
                 }
             }
             ])],
         
-    style = {'backgroundColor': '#E2D1F9',
+    style = {'backgroundColor': '#101126',
              'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
              'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
-], style = {'backgroundColor': '#E2D1F9'})
+], style = {'backgroundColor': '#18192e'})
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
