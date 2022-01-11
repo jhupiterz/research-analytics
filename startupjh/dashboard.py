@@ -61,13 +61,16 @@ app.layout = html.Div([
     html.Div([
     dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', children=[
         dcc.Tab(label='Search results', value='tab-1-example-graph',
-                style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'width': '100%'},
+                style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold'},
                 selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'}),
         dcc.Tab(label='Reference landscape', value='tab-2-example-graph',
                 style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'width': '100%'},
                 selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'}),
+        dcc.Tab(label='Networks', value='tab-3-example-graph',
+                style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'width': '100%'},
+                selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'}),
         ])], style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
-                      'flex-direction': 'row', 'margin' : 'auto', 'margin-top': '25px', 'align-items': 'center', 'justify-content': 'space-evenly'}),
+                      'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center'}),
     
     html.Br(),
     html.Br(),
