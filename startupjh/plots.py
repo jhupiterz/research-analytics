@@ -15,8 +15,11 @@ import plotly.graph_objs as go
 import plotly.express as px
 
 
-def make_access_pie(df):
-  oa_publications = df.groupby('journal_is_oa').count()
+def make_access_pie(df, which_api):
+  if which_api == 'semantic_scholar':
+    oa_publications = df.groupby('isOpenAccess').count()
+  else:
+    oa_publications = df.groupby('journal_is_oa').count()
   df_ = oa_publications
   fig = px.pie(df_, values='title', names= df_.index, color=df_.index,
                color_discrete_map={'no data':'#eda109',
@@ -34,12 +37,19 @@ def make_access_pie(df):
     plot_bgcolor = "#101126")
   return fig
 
-def make_pub_per_year(df):
-  fig = go.Figure(data=[go.Bar(x=df.groupby('published_year').count()['citation_count'].index,
-                             y= df.groupby('published_year').count()['citation_count'],
+def make_pub_per_year(df, which_api):
+  if which_api == 'semantic_scholar':
+    fig = go.Figure(data=[go.Bar(x=df.groupby('year').count()['citationCount'].index,
+                             y= df.groupby('year').count()['citationCount'],
                              texttemplate="%{y}",
                              textposition="outside",
                              textangle=0)])
+  else:
+    fig = go.Figure(data=[go.Bar(x=df.groupby('published_year').count()['citation_count'].index,
+                              y= df.groupby('published_year').count()['citation_count'],
+                              texttemplate="%{y}",
+                              textposition="outside",
+                              textangle=0)])
   fig.update_layout(title = "<span style='font-size: 22px;'><b>Publications per Year<b></span>", title_x=0.5,
                     font=dict(
                               family="Courier New, monospace",
@@ -50,16 +60,27 @@ def make_pub_per_year(df):
     plot_bgcolor = "#101126")
   
   fig.update_traces(marker_color='#eda109')
-  fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
-  fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
+  if which_api == 'semantic_scholar':
+    fig.update_xaxes(title="Year", range= [df.year.min() - 5, date.today().year + 5])
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('year').count()['citationCount'].max()])
+  else:
+    fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
   return fig
 
-def make_citations_per_year(df):
-  fig = go.Figure(data=[go.Bar(x=df.groupby('published_year').sum()['citation_count'].index,
-                             y= df.groupby('published_year').sum()['citation_count'],
+def make_citations_per_year(df, which_api):
+  if which_api == 'semantic_scholar':
+    fig = go.Figure(data=[go.Bar(x=df.groupby('year').sum()['citationCount'].index,
+                             y= df.groupby('year').sum()['citationCount'],
                              texttemplate="%{y}",
                              textposition="outside",
                              textangle=0)])
+  else:
+    fig = go.Figure(data=[go.Bar(x=df.groupby('published_year').sum()['citation_count'].index,
+                              y= df.groupby('published_year').sum()['citation_count'],
+                              texttemplate="%{y}",
+                              textposition="outside",
+                              textangle=0)])
   fig.update_layout(title = "<span style='font-size: 22px;'><b>Citations per Year<b></span>", title_x=0.5,
                     font=dict(
                               family="Courier New, monospace",
@@ -69,8 +90,12 @@ def make_citations_per_year(df):
     paper_bgcolor = "#101126",
     plot_bgcolor = "#101126")
   fig.update_traces(marker_color='#eda109')
-  fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
-  fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
+  if which_api == 'semantic_scholar':
+    fig.update_xaxes(title="Year", range= [df.year.min() - 5, date.today().year + 5])
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('year').sum()['citationCount'].max()])
+  else:
+    fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
   return fig
 
 def make_top_cited_journals(df):

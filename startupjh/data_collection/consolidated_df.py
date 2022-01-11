@@ -9,12 +9,14 @@
 
 import pandas as pd
 
+from startupjh.data_collection import semantic_api
 from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 from startupjh.utils import format_user_input, get_user_input
 from startupjh.data_collection import core_api, doaj_api, google_api, unpaywall_api
 
 def get_consolidated_df():
+    """for other APIs (DOAJ, CORE, Unpaywall, GoogleScholar"""
     query = get_user_input()
     search_query = format_user_input(query)
 
@@ -31,10 +33,12 @@ def get_consolidated_df():
     return consolidated_df, query
 
 def get_final_df():
+    """for other APIs (DOAJ, CORE, Unpaywall, GoogleScholar"""
     df, query_keywords = get_consolidated_df()
     query = tuple(query_keywords.split())
     df = data_cleaning.clean_df(df)
     df = data_enrichment.get_citation_count(df)
     df['authors'] = data_cleaning.clean_authors_list(df)
     return df, query
+
 
