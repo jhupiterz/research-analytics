@@ -129,17 +129,36 @@ def render_content(tab):
         html.Div([
             dcc.Graph(
                     id='publication_graph',
-                    figure=plots.make_pub_per_year(df, 'semantic_scholar'),
+                    figure=plots.make_pub_per_year_line(df),
                     style = {'order' : '1', 'backgroundColor': '#101126'}
             ),
             dcc.Graph(
                     id='citations_graph',
-                    figure=plots.make_citations_per_year(df, 'semantic_scholar'),
+                    figure=plots.make_citations_per_year_line(df),
                     style = {'order': '2', 'backgroundColor': '#101126'}
             ),
         ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '25px', 'justify-content': 'space-evenly'})],
+                'margin-bottom': '25px', 'justify-content': 'space-evenly'}),
+        
+        html.Br(),
+        html.Br(),
+        
+        html.Div([
+            dcc.Graph(
+                    id='fields_pie',
+                    figure=plots.make_fields_pie(df),
+                    style = {'order' : '1', 'backgroundColor': '#101126'}
+            ),
+            dcc.Graph(
+                    id='citations_graph',
+                    figure=plots.make_active_authors(df),
+                    style = {'order': '2', 'backgroundColor': '#101126'}
+            ),
+        ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
+                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
+                'margin-bottom': '25px', 'justify-content': 'space-evenly'})
+        ],
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
@@ -193,17 +212,36 @@ def render_content(tab):
         html.Div([
             dcc.Graph(
                     id='publication_graph',
-                    figure=plots.make_pub_per_year(all_references_df, 'semantic_scholar'),
+                    figure=plots.make_pub_per_year_line(all_references_df),
                     style = {'order' : '1', 'backgroundColor': '#101126'}
             ),
             dcc.Graph(
                     id='citations_graph',
-                    figure=plots.make_citations_per_year(all_references_df, 'semantic_scholar'),
+                    figure=plots.make_citations_per_year_line(all_references_df),
                     style = {'order': '2', 'backgroundColor': '#101126'}
             ),
         ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '25px', 'justify-content': 'space-evenly'})],
+                'margin-bottom': '25px', 'justify-content': 'space-evenly'}),
+        
+        html.Br(),
+        html.Br(),
+        
+        html.Div([
+            dcc.Graph(
+                    id='fields_pie',
+                    figure=plots.make_fields_pie(all_references_df),
+                    style = {'order' : '1', 'backgroundColor': '#101126'}
+            ),
+            dcc.Graph(
+                    id='most_active_authors',
+                    figure=plots.make_active_authors(all_references_df),
+                    style = {'order': '2', 'backgroundColor': '#101126'}
+            ),
+        ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
+                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
+                'margin-bottom': '25px', 'justify-content': 'space-evenly'})
+        ],
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',

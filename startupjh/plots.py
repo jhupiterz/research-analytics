@@ -37,6 +37,44 @@ def make_access_pie(df, which_api):
     plot_bgcolor = "#101126")
   return fig
 
+def make_fields_pie(df):
+    test_list = df.fieldsOfStudy.tolist()
+    res = [i for i in test_list if i]
+    flat_list_fields = utils.flatten_list(res)
+    
+    most_common_fields = Counter(flat_list_fields).most_common()
+    most_common_fields_df = pd.DataFrame(most_common_fields, columns=["field", "occurence"])
+    
+    fig = px.pie(most_common_fields_df, values='occurence', names= 'field')
+
+    fig.update_layout(
+    title = "<span style='font-size: 22px;'><b>Fields of Study<b></span>", title_x=0.5,
+    font=dict(
+        family="Courier New, monospace",
+        size=14,
+        color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
+    return fig
+
+def make_pub_per_year_line(df):
+  fig = px.line(df, x=df.groupby('year').count()['citationCount'].index,
+              y=df.groupby('year').count()['citationCount'], title='Publications per year')
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Publications per Year<b></span>", title_x=0.5,
+                      font=dict(
+                                family="Courier New, monospace",
+                                size=12,
+                                color="white"
+      ),
+      paper_bgcolor = "#101126",
+      plot_bgcolor = "#101126")
+    
+  fig.update_traces(marker_color='#eda109')
+  fig.update_xaxes(title="Year", range= [df.year.min() - 5, date.today().year + 5])
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('year').count()['citationCount'].max()])
+  return fig
+
 def make_pub_per_year(df, which_api):
   if which_api == 'semantic_scholar':
     fig = go.Figure(data=[go.Bar(x=df.groupby('year').count()['citationCount'].index,
@@ -68,6 +106,23 @@ def make_pub_per_year(df, which_api):
     fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').count()['citation_count'].max()])
   return fig
 
+def make_citations_per_year_line(df):
+  fig = px.line(df, x=df.groupby('year').sum()['citationCount'].index,
+              y=df.groupby('year').sum()['citationCount'], title='Citations per year')
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Citations per Year<b></span>", title_x=0.5,
+                      font=dict(
+                                family="Courier New, monospace",
+                                size=12,
+                                color="white"
+      ),
+      paper_bgcolor = "#101126",
+      plot_bgcolor = "#101126")
+    
+  fig.update_traces(marker_color='#eda109')
+  fig.update_xaxes(title="Year", range= [df.year.min() - 5, date.today().year + 5])
+  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df.groupby('year').sum()['citationCount'].max()])
+  return fig
+
 def make_citations_per_year(df, which_api):
   if which_api == 'semantic_scholar':
     fig = go.Figure(data=[go.Bar(x=df.groupby('year').sum()['citationCount'].index,
@@ -97,6 +152,32 @@ def make_citations_per_year(df, which_api):
     fig.update_xaxes(title="Year", range= [df.published_year.min() - 5, date.today().year + 5])
     fig.update_yaxes(title="Number of Publications", range= [0, 1.1* df.groupby('published_year').sum()['citation_count'].max()])
   return fig
+
+def make_active_authors(df):
+    authors_list = []
+    for index, row in df.iterrows():
+        for dict_ in row.authors:
+            authors_list.append(dict_['name'])
+    most_active_authors = Counter(authors_list).most_common()
+    most_active_authors_df = pd.DataFrame(most_active_authors, columns=["author", "occurence"])
+    fig = go.Figure(data=[go.Bar(x=most_active_authors_df[0:10].author,
+                              y= most_active_authors_df[0:10].occurence,
+                              texttemplate="%{y}",
+                              textposition="outside",
+                              textangle=0)])
+    fig.update_layout(title = "<span style='font-size: 22px;'><b>Most active authors<b></span>", title_x=0.5,
+                    font=dict(
+                              family="Courier New, monospace",
+                              size=12,
+                              color="white"
+    ),
+    paper_bgcolor = "#101126",
+    plot_bgcolor = "#101126")
+
+    fig.update_traces(marker_color='#eda109')
+    fig.update_xaxes(title="Authors")
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1* most_active_authors_df.occurence.max()])
+    return fig
 
 def make_top_cited_journals(df):
   top_journals_citations = df.groupby('journal_name').sum().sort_values('citation_count', ascending=False)
