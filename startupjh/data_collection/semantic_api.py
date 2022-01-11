@@ -23,7 +23,7 @@ def get_papers_from_query(search_query):
     return results_df, total_results
 
 def get_references_from_paper(paper_id):
-    url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references?limit=100&fields=intents,isInfluential,paperId,url,title,abstract,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy,authors"
+    url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references?limit=50&fields=intents,isInfluential,paperId,url,title,abstract,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy,authors"
     response = requests.get(url).json()
     data = response['data']
     
