@@ -102,7 +102,7 @@ def render_content(tab):
             style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
     ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
-                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-between'}),
+                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-around'}),
     
     html.Br(),
     html.Br(),
@@ -166,7 +166,7 @@ def render_content(tab):
             style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
     ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
-                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-between'}),
+                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-around'}),
     
     html.Br(),
     html.Br(),
