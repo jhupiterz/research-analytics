@@ -295,15 +295,17 @@ def render_content(tab):
         cyto.Cytoscape(
             id='cytoscape',
             elements= plots.generate_graph_elements_network(all_references_df, df),
-            layout={'name': 'cose', 'height': '80%', 'width': '75%'},
-            style={'width': '100%', 'height': '800px'},
+            layout={'name': 'random', 'height': '80%', 'width': '75%'},
+            style={'width': '100%', 'height': '1200px'},
             stylesheet = [
                 {
                     'selector': 'label',
                     'style': {
                         'content': 'data(label)',
                         'color': 'white',
-                        'background-color': '#eda109'
+                        'background-color': '#eda109',
+                        'height': '6px',
+                        'width': '6px'
                     }
                 },
                 {
@@ -321,17 +323,18 @@ def render_content(tab):
                 {
                     'selector': '.citation',
                     'style': {
-                        'line-color': '#eda109'
+                        'line-color': 'lightgrey',
+                        'widht': '1px'
                     }
                 }
                 ])],
             
         style = {'order': '2', 'backgroundColor': '#101126',
-                'width': '95%', 'height': '80%', 'margin': 'auto', 'margin-bottom': '20px',
+                'width': '95%', 'height': '1800px', 'margin': 'auto', 'margin-bottom': '20px',
                 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})],
         
         style = {'backgroundColor': '#101126',
-                'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
+                'width': '95%', 'height': '2700px', 'margin': 'auto', 'margin-bottom': '20px',
                 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
 if __name__ == '__main__':
