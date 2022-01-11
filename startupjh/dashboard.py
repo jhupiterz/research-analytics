@@ -76,7 +76,7 @@ app.layout = html.Div([
     html.Br(),
     
     html.Div(id='tabs-content-example-graph')],
-    style = {'backgroundColor': '#18192e'})
+    style = {'backgroundColor': '#18192e', 'margin-bottom': '15px'})
 
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
@@ -247,49 +247,92 @@ def render_content(tab):
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
                 'justify-content': 'space-evenly'}),
     ])
-    
-    # html.Br(),
-    # html.Br(),
-    
-    # html.Div([
-    # html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
-    #                                           'color': 'white'}),
-    # cyto.Cytoscape(
-    #     id='cytoscape',
-    #     elements= plots.generate_graph_elements(df),
-    #     layout={'name': 'circle'},
-    #     stylesheet = [
-    #         {
-    #             'selector': 'label',
-    #             'style': {
-    #                 'content': 'data(label)',
-    #                 'color': 'white',
-    #                 'background-color': '#eda109'
-    #             }
-    #         },
-    #         {
-    #             'selector': 'node',
-    #             'style': {
-    #                 'label': 'data(label)'
-    #             } 
-    #         },
-    #         {
-    #             'selector': '.author',
-    #             'style': {
-    #                 'background-color': '#eda109'
-    #             }
-    #         },
-    #         {
-    #             'selector': '.collaboration',
-    #             'style': {
-    #                 'line-color': '#eda109'
-    #             }
-    #         }
-    #         ])],
+    if tab == 'tab-3-example-graph':
+        return html.Div([
+        html.Div([
+        html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                'color': 'white'}),
+        cyto.Cytoscape(
+            id='cytoscape',
+            elements= plots.generate_graph_elements_collab(df),
+            layout={'name': 'circle'},
+            stylesheet = [
+                {
+                    'selector': 'label',
+                    'style': {
+                        'content': 'data(label)',
+                        'color': 'white',
+                        'background-color': '#eda109'
+                    }
+                },
+                {
+                    'selector': 'node',
+                    'style': {
+                        'label': 'data(label)'
+                    } 
+                },
+                {
+                    'selector': '.author',
+                    'style': {
+                        'background-color': '#eda109'
+                    }
+                },
+                {
+                    'selector': '.collaboration',
+                    'style': {
+                        'line-color': '#eda109'
+                    }
+                }
+                ])],
+            
+        style = {'order': '1', 'backgroundColor': '#101126',
+                'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
+                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'}),
         
-    # style = {'backgroundColor': '#101126',
-    #          'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
-    #          'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
+        html.Div([
+        html.H2("Citation network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                'color': 'white'}),
+        cyto.Cytoscape(
+            id='cytoscape',
+            elements= plots.generate_graph_elements_network(all_references_df, df),
+            layout={'name': 'cose', 'height': '80%', 'width': '75%'},
+            style={'width': '100%', 'height': '800px'},
+            stylesheet = [
+                {
+                    'selector': 'label',
+                    'style': {
+                        'content': 'data(label)',
+                        'color': 'white',
+                        'background-color': '#eda109'
+                    }
+                },
+                {
+                    'selector': 'node',
+                    'style': {
+                        'label': 'data(label)'
+                    } 
+                },
+                {
+                    'selector': '.ref',
+                    'style': {
+                        'background-color': '#eda109'
+                    }
+                },
+                {
+                    'selector': '.citation',
+                    'style': {
+                        'line-color': '#eda109'
+                    }
+                }
+                ])],
+            
+        style = {'order': '2', 'backgroundColor': '#101126',
+                'width': '95%', 'height': '80%', 'margin': 'auto', 'margin-bottom': '20px',
+                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})],
+        
+        style = {'backgroundColor': '#101126',
+                'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
+                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)

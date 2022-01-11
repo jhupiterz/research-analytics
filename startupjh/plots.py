@@ -8,6 +8,7 @@ from numpy.lib import utils
 from startupjh import utils
 from datetime import date
 import pandas as pd
+import numpy as np
 import networkx as nx
 from pyvis.network import Network
 from collections import Counter
@@ -358,8 +359,14 @@ def get_top_publisher(df):
   return top_publisher
 
 def generate_collab_network_df(df):
+  authors_list_of_list = []
+  for index, row in df.iterrows():
+    authors_list = []
+    for dict_ in row.authors:
+        authors_list.append(dict_['name'])
+    authors_list_of_list.append(authors_list)
   authors_combinations = []
-  for authors in df.authors:
+  for authors in authors_list_of_list:
       res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
       authors_combinations.append(res)
   flat_authors_combinations = utils.flatten_list(authors_combinations)
@@ -385,7 +392,7 @@ def make_top_authors(df):
   fig.update_yaxes(title="Number of occurences")
   return fig
 
-def generate_graph_elements(df):
+def generate_graph_elements_collab(df):
   nx_df = generate_collab_network_df(df)
   unique_top_authors = list(set(nx_df.author1.unique().tolist() + nx_df.author2.unique().tolist()))
   nodes_list = [{'data': {'id': unique_top_authors[0], 'label': unique_top_authors[0]}, 'classes': 'author'}]
@@ -397,3 +404,30 @@ def generate_graph_elements(df):
   elements = nodes_list + edges_list
   #print(elements)
   return elements
+
+def generate_ref_network_df(df1, df2):
+  """df1 = all_references_df
+     df2 = results_df"""
+  ref1 = []
+  ref2 = []
+  for index, row in df1.iterrows():
+      ref1.append(row.reference)
+      ref2.append(df2.reference[df2.paperId == row['citedBy']])
+  ref1_array = np.array(ref1)
+  ref2_array = np.array(ref2)
+  ref_network_df = pd.DataFrame(ref1_array, columns=['ref1'])
+  ref_network_df['ref2'] = ref2_array
+  return ref_network_df
+
+def generate_graph_elements_network(df1, df2):
+    ref_network_df = generate_ref_network_df(df1, df2)
+    unique_refs = list(set(ref_network_df.ref1.unique().tolist() + ref_network_df.ref2.unique().tolist()))
+    nodes_list = [{'data': {'id': unique_refs[0], 'label': unique_refs[0]}, 'classes': 'ref'}]
+    for element in unique_refs[1:]:
+        nodes_list.append({'data': {'id': element, 'label': element}, 'classes': 'ref'})
+    edges_list = [{'data': {'source': ref_network_df['ref1'][0], 'target': ref_network_df['ref2'][0]}, 'classes': 'citation'}]
+    for index, row in ref_network_df.iterrows():
+        edges_list.append({'data': {'source': row.ref1, 'target': row.ref2}, 'classes': 'citation'})
+    elements = nodes_list + edges_list
+    #print(elements)
+    return elements
