@@ -26,9 +26,10 @@ df, all_references_df, total_results, query = semantic_api.get_all_results_from_
 # Dash app -------------------------------------------------
 
 app = dash.Dash(
-    __name__,
+    __name__, suppress_callback_exceptions = True,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}])
 
+#app.config['suppress_callback_exceptions'] = True
 app.title = "Research Intelligence"
 
 # App layout -----------------------------------------------
@@ -280,7 +281,7 @@ def render_content(tab):
                 {
                     'selector': '.collaboration',
                     'style': {
-                        'line-color': '#eda109'
+                        'line-color': 'lightgrey'
                     }
                 }
                 ])],
@@ -293,38 +294,41 @@ def render_content(tab):
         html.H2("Citation network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
                                                 'color': 'white'}),
         cyto.Cytoscape(
-            id='cytoscape',
+            id='cytoscape-event-callbacks-1',
             elements= plots.generate_graph_elements_network(all_references_df, df),
-            layout={'name': 'random', 'height': '80%', 'width': '75%'},
+            layout={'name': 'cose', 'height': '80%', 'width': '75%'},
             style={'width': '100%', 'height': '1200px'},
             stylesheet = [
                 {
-                    'selector': 'label',
-                    'style': {
-                        'content': 'data(label)',
-                        'color': 'white',
-                        'background-color': '#eda109',
-                        'height': '6px',
-                        'width': '6px'
-                    }
-                },
-                {
                     'selector': 'node',
                     'style': {
-                        'label': 'data(label)'
+                        #'label': 'data(label)'
                     } 
+                },
+                {
+                    'selector': '.res',
+                    'style': {
+                        'background-color': '#eda109',
+                        'label': 'data(label)',
+                        'color': '#eda109',
+                        'height': '12px',
+                        'width': '12px'
+                    }
                 },
                 {
                     'selector': '.ref',
                     'style': {
-                        'background-color': '#eda109'
+                        'background-color': 'white',
+                        'color': 'white',
+                        'height': '7px',
+                        'width': '7px'
                     }
                 },
                 {
                     'selector': '.citation',
                     'style': {
-                        'line-color': 'lightgrey',
-                        'widht': '1px'
+                        'line-color': 'grey',
+                        'width': 0.5
                     }
                 }
                 ])],
@@ -337,5 +341,44 @@ def render_content(tab):
                 'width': '95%', 'height': '2700px', 'margin': 'auto', 'margin-bottom': '20px',
                 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
+@app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
+              Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
+def displayTapNodeData(data):
+    if data:
+        return [
+                {
+                    'selector': 'node',
+                    'style': {
+                        'label': 'data(label)'
+                    } 
+                },
+                {
+                    'selector': '.res',
+                    'style': {
+                        'background-color': '#eda109',
+                        'label': 'data(label)',
+                        'color': '#eda109',
+                        'height': '12px',
+                        'width': '12px'
+                    }
+                },
+                {
+                    'selector': '.ref',
+                    'style': {
+                        'background-color': 'white',
+                        'color': 'white',
+                        'height': '7px',
+                        'width': '7px'
+                    }
+                },
+                {
+                    'selector': '.citation',
+                    'style': {
+                        'line-color': 'grey',
+                        'width': 0.5
+                    }
+                }
+                ]
+
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+    app.run_server(debug=True, use_reloader=False, dev_tools_ui=False, dev_tools_props_check=False)

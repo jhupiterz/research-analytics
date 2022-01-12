@@ -421,10 +421,15 @@ def generate_ref_network_df(df1, df2):
 
 def generate_graph_elements_network(df1, df2):
     ref_network_df = generate_ref_network_df(df1, df2)
-    unique_refs = list(set(ref_network_df.ref1.unique().tolist() + ref_network_df.ref2.unique().tolist()))
-    nodes_list = [{'data': {'id': unique_refs[0], 'label': unique_refs[0]}, 'classes': 'ref'}]
+    unique_refs = list(set(ref_network_df.ref1.unique().tolist()))
+    unique_results = list(set(ref_network_df.ref2.unique().tolist()))
+    nodes_refs = [{'data': {'id': unique_refs[0], 'label': unique_refs[0]}, 'classes': 'ref'}]
+    nodes_results = [{'data': {'id': unique_results[0], 'label': unique_results[0]}, 'classes': 'res'}]
     for element in unique_refs[1:]:
-        nodes_list.append({'data': {'id': element, 'label': element}, 'classes': 'ref'})
+        nodes_refs.append({'data': {'id': element, 'label': element}, 'classes': 'ref'})
+    for element in unique_results[1:]:
+        nodes_results.append({'data': {'id': element, 'label': element}, 'classes': 'res'})
+    nodes_list = nodes_results + nodes_refs
     edges_list = [{'data': {'source': ref_network_df['ref1'][0], 'target': ref_network_df['ref2'][0]}, 'classes': 'citation'}]
     for index, row in ref_network_df.iterrows():
         edges_list.append({'data': {'source': row.ref1, 'target': row.ref2}, 'classes': 'citation'})
