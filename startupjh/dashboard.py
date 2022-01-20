@@ -343,44 +343,44 @@ def render_content(tab):
                 'width': '95%', 'height': '2700px', 'margin': 'auto', 'margin-bottom': '20px',
                 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
-@app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
-              Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
-def displayTapNodeData(data):
-    if data:
-        return [
-                {
-                    'selector': 'node',
-                    'style': {
-                        'label': 'data(label)'
-                    } 
-                },
-                {
-                    'selector': '.res',
-                    'style': {
-                        'background-color': '#eda109',
-                        'label': 'data(label)',
-                        'color': '#eda109',
-                        'height': '12px',
-                        'width': '12px'
-                    }
-                },
-                {
-                    'selector': '.ref',
-                    'style': {
-                        'background-color': 'white',
-                        'color': 'white',
-                        'height': '7px',
-                        'width': '7px'
-                    }
-                },
-                {
-                    'selector': '.citation',
-                    'style': {
-                        'line-color': 'grey',
-                        'width': 0.5
-                    }
-                }
-                ]
+# @app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
+#               Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
+# def displayTapNodeData(data):
+#     if data:
+#         return [
+#                 {
+#                     'selector': 'node',
+#                     'style': {
+#                         'label': 'data(label)'
+#                     } 
+#                 },
+#                 {
+#                     'selector': '.res',
+#                     'style': {
+#                         'background-color': '#eda109',
+#                         'label': 'data(label)',
+#                         'color': '#eda109',
+#                         'height': '12px',
+#                         'width': '12px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.ref',
+#                     'style': {
+#                         'background-color': 'white',
+#                         'color': 'white',
+#                         'height': '7px',
+#                         'width': '7px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.citation',
+#                     'style': {
+#                         'line-color': 'grey',
+#                         'width': 0.5
+#                     }
+#                 }
+#                 ]
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
