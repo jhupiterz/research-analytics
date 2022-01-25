@@ -306,7 +306,7 @@ def render_content(tab):
                 {
                     'selector': 'node',
                     'style': {
-                        #'label': 'data(label)'
+                        #'label': ''
                     } 
                 },
                 {
@@ -354,6 +354,41 @@ def displayTapNodeData(data):
                     'selector': 'node',
                     'style': {
                         'label': 'data(label)'
+                    } 
+                },
+                {
+                    'selector': '.res',
+                    'style': {
+                        'background-color': '#eda109',
+                        'label': 'data(label)',
+                        'color': '#eda109',
+                        'height': '12px',
+                        'width': '12px'
+                    }
+                },
+                {
+                    'selector': '.ref',
+                    'style': {
+                        'background-color': 'white',
+                        'color': 'white',
+                        'height': '7px',
+                        'width': '7px'
+                    }
+                },
+                {
+                    'selector': '.citation',
+                    'style': {
+                        'line-color': 'grey',
+                        'width': 0.5
+                    }
+                }
+                ]
+    else:
+        return [
+                {
+                    'selector': 'node',
+                    'style': {
+                        #'label': ''
                     } 
                 },
                 {
