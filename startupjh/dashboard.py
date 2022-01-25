@@ -252,40 +252,40 @@ def render_content(tab):
     if tab == 'tab-3-example-graph':
         return html.Div([
         html.Div([
-        html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
+            html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
                                                 'color': 'white'}),
-        cyto.Cytoscape(
-            id='cytoscape',
-            elements= plots.generate_graph_elements_collab(df),
-            layout={'name': 'circle'},
-            stylesheet = [
-                {
-                    'selector': 'label',
-                    'style': {
-                        'content': 'data(label)',
-                        'color': 'white',
-                        'background-color': '#eda109'
+            cyto.Cytoscape(
+                id='cytoscape',
+                elements= plots.generate_graph_elements_collab(df),
+                layout={'name': 'circle'},
+                stylesheet = [
+                    {
+                        'selector': 'label',
+                        'style': {
+                            'content': 'data(label)',
+                            'color': 'white',
+                            'background-color': '#eda109'
+                        }
+                    },
+                    {
+                        'selector': 'node',
+                        'style': {
+                            'label': 'data(label)'
+                        } 
+                    },
+                    {
+                        'selector': '.author',
+                        'style': {
+                            'background-color': '#eda109'
+                        }
+                    },
+                    {
+                        'selector': '.collaboration',
+                        'style': {
+                            'line-color': 'lightgrey'
+                        }
                     }
-                },
-                {
-                    'selector': 'node',
-                    'style': {
-                        'label': 'data(label)'
-                    } 
-                },
-                {
-                    'selector': '.author',
-                    'style': {
-                        'background-color': '#eda109'
-                    }
-                },
-                {
-                    'selector': '.collaboration',
-                    'style': {
-                        'line-color': 'lightgrey'
-                    }
-                }
-                ])],
+                    ])],
             
         style = {'order': '1', 'backgroundColor': '#101126',
                 'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
@@ -295,129 +295,152 @@ def render_content(tab):
         html.Br(),
         
         html.Div([
-        html.H2("Citation network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
-                                                'color': 'white'}),
-        cyto.Cytoscape(
-            id='cytoscape-event-callbacks-1',
-            elements= plots.generate_graph_elements_network(all_references_df, df),
-            layout={'name': 'cose', 'height': '80%', 'width': '75%'},
-            style={'width': '100%', 'height': '1200px'},
-            stylesheet = [
-                {
-                    'selector': 'node',
-                    'style': {
-                        #'label': ''
-                    } 
-                },
-                {
-                    'selector': '.res',
-                    'style': {
-                        'background-color': '#eda109',
-                        'label': 'data(label)',
-                        'color': '#eda109',
-                        'height': '12px',
-                        'width': '12px'
-                    }
-                },
-                {
-                    'selector': '.ref',
-                    'style': {
-                        'background-color': 'white',
-                        'color': 'white',
-                        'height': '7px',
-                        'width': '7px'
-                    }
-                },
-                {
-                    'selector': '.citation',
-                    'style': {
-                        'line-color': 'grey',
-                        'width': 0.5
-                    }
-                }
-                ])],
             
-        style = {'order': '2', 'backgroundColor': '#101126',
-                'width': '95%', 'height': '1800px', 'margin': 'auto', 'margin-bottom': '20px',
-                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})],
-        
-        style = {'backgroundColor': '#101126',
-                'width': '95%', 'height': '2700px', 'margin': 'auto', 'margin-bottom': '20px',
-                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
+            html.Div([
+                html.H2("Citation network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                        'color': 'white'}),
+                cyto.Cytoscape(
+                    id='cytoscape-event-callbacks-1',
+                    elements= plots.generate_graph_elements_network(all_references_df, df),
+                    layout={'name': 'cose', 'height': '100%', 'width': '100%'},
+                    style={'width':'800px', 'height':'1000px'},
+                    stylesheet = [
+                        {
+                            'selector': 'node',
+                            'style': {
+                                #'label': ''
+                            } 
+                        },
+                        {
+                            'selector': '.res',
+                            'style': {
+                                'background-color': '#eda109',
+                                #'label': 'data(label)',
+                                'color': '#eda109',
+                                'height': '12px',
+                                'width': '12px'
+                            }
+                        },
+                        {
+                            'selector': '.ref',
+                            'style': {
+                                'background-color': 'white',
+                                'color': 'white',
+                                'height': '7px',
+                                'width': '7px'
+                            }
+                        },
+                        {
+                            'selector': '.citation',
+                            'style': {
+                                'line-color': 'grey',
+                                'width': 0.5
+                            }
+                        }
+                        ])],
+                
+            style = {'order': '1', 'backgroundColor': '#101126',
+                    'margin': 'auto', 'margin-bottom': '20px',
+                    'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'}),
+            
+            html.Div(id='cytoscape-tapNodeData-output', style={'order':'2', 'display':'flex','text-align': 'center',
+                                                               'backgroundColor': '#eda109'})],
+            
+        style= {'order':'2', 'display':'flex', 'flex-direction':'row', 'backgroundColor': '#101126', 'align-items': 'center',
+                'justify-content':'space-between'})],
+            
+        style = {'backgroundColor': '#101126', 'width':'95%',
+                    'margin': 'auto', 'margin-bottom': '20px',
+                    'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
 
-@app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
-              Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
+@app.callback(Output('cytoscape-tapNodeData-output', 'children'),
+              Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
     if data:
-        return [
-                {
-                    'selector': 'node',
-                    'style': {
-                        'label': 'data(label)'
-                    } 
-                },
-                {
-                    'selector': '.res',
-                    'style': {
-                        'background-color': '#eda109',
-                        'label': 'data(label)',
-                        'color': '#eda109',
-                        'height': '12px',
-                        'width': '12px'
-                    }
-                },
-                {
-                    'selector': '.ref',
-                    'style': {
-                        'background-color': 'white',
-                        'color': 'white',
-                        'height': '7px',
-                        'width': '7px'
-                    }
-                },
-                {
-                    'selector': '.citation',
-                    'style': {
-                        'line-color': 'grey',
-                        'width': 0.5
-                    }
-                }
-                ]
-    else:
-        return [
-                {
-                    'selector': 'node',
-                    'style': {
-                        #'label': ''
-                    } 
-                },
-                {
-                    'selector': '.res',
-                    'style': {
-                        'background-color': '#eda109',
-                        'label': 'data(label)',
-                        'color': '#eda109',
-                        'height': '12px',
-                        'width': '12px'
-                    }
-                },
-                {
-                    'selector': '.ref',
-                    'style': {
-                        'background-color': 'white',
-                        'color': 'white',
-                        'height': '7px',
-                        'width': '7px'
-                    }
-                },
-                {
-                    'selector': '.citation',
-                    'style': {
-                        'line-color': 'grey',
-                        'width': 0.5
-                    }
-                }
-                ]
+        return html.Div([
+            
+            html.H3(f"Selection: {data['label']}", style = {'order':'1', 'text-align': 'center', 'color':'#101126'}),
+            html.Br(),
+            html.P(f"{data['title']}", style = {'order':'2','text-align': 'center', 'color':'#101126'}),
+            html.Br(),
+            html.A('Access on Semantic Scholar', href = f"{data['url']}", target = '_blank', style = {'order':'3','color': '#101126'})],
+                        
+            style = {'width':'25%', 'display':'flex', 'flex-direction': 'column',
+                     'align-items':'center', 'margin':'auto'})
+
+# @app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
+#               Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
+# def displayMouseOverData(data):
+#     if data:
+#         return [
+#                 {
+#                     'selector': 'node',
+#                     'style': {
+#                         'label': data['label']
+#                     } 
+#                 },
+#                 {
+#                     'selector': '.res',
+#                     'style': {
+#                         'background-color': '#eda109',
+#                         #'label': data['label'],
+#                         'color': '#eda109',
+#                         'height': '12px',
+#                         'width': '12px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.ref',
+#                     'style': {
+#                         'background-color': 'white',
+#                         'color': 'white',
+#                         'height': '7px',
+#                         'width': '7px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.citation',
+#                     'style': {
+#                         'line-color': 'grey',
+#                         'width': 0.5
+#                     }
+#                 }
+#                 ]
+#     else:
+#         return [
+#                 {
+#                     'selector': 'node',
+#                     'style': {
+#                         #'label': ''
+#                     } 
+#                 },
+#                 {
+#                     'selector': '.res',
+#                     'style': {
+#                         'background-color': '#eda109',
+#                         #'label': 'data(label)',
+#                         'color': '#eda109',
+#                         'height': '12px',
+#                         'width': '12px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.ref',
+#                     'style': {
+#                         'background-color': 'white',
+#                         'color': 'white',
+#                         'height': '7px',
+#                         'width': '7px'
+#                     }
+#                 },
+#                 {
+#                     'selector': '.citation',
+#                     'style': {
+#                         'line-color': 'grey',
+#                         'width': 0.5
+#                     }
+#                 }
+#                 ]
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
