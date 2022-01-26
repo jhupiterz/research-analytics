@@ -285,13 +285,14 @@ def render_content(tab):
                             {
                                 'selector': '.collaboration',
                                 'style': {
-                                    'line-color': 'lightgrey'
+                                    'line-color': 'lightgrey',
+                                    'width': 0.7
                                 }
                             }
                             ])],
                     
                 style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '50%', 'margin-bottom': '20px', 'float': 'left'}),
+                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
         
                 html.Br(),
                 html.Br(),
@@ -302,8 +303,8 @@ def render_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         elements= plots.generate_graph_elements_network(all_references_df, df),
-                        layout={'name': 'cose', 'height': '800px', 'width': '800px'},
-                        style={'order': '2', 'height': '800px', 'width': '800px'},
+                        layout={'name': 'cose', 'height': '700px', 'width': '700px'},
+                        style={'order': '2', 'height': '700px', 'width': '700px'},
                         stylesheet = [
                             {
                                 'selector': 'node',
@@ -339,7 +340,7 @@ def render_content(tab):
                             }
                             ])],
                     
-                style = {'order': '2', 'width':'100%', 'height': '50%', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '800px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
                         'margin-bottom': '20px'})],
 
@@ -351,7 +352,12 @@ def render_content(tab):
                                                         'color': '#101126'}),
                     html.P("Click on a node to display information about an author",
                            style = {'order': '2', 'font-size': '22px',
-                                    'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
+                    html.Div([
+                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
+                        html.P("AUTHOR INFO", id = 'author-info', style = {'order': '2', 'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '100px', 'justify-content': 'space-around'}
+                        )],
                     
                 style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
                         'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
@@ -364,9 +370,14 @@ def render_content(tab):
                                                             'color': '#101126'}),
                     html.P("Click on a node to display information about a paper",
                            style = {'order': '2', 'font-size': '22px',
-                                    'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
+                    html.Div([
+                        html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
+                        html.P("PAPER INFO", id = 'author-info', style = {'order': '2', 'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                             style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '150px', 'justify-content': 'space-around'}
+                        )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '650px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '800px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '20px'})],
 
