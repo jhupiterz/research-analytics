@@ -251,108 +251,131 @@ def render_content(tab):
     ])
     if tab == 'tab-3-example-graph':
         return html.Div([
-        html.Div([
-            html.H2("Collaboration network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
-                                                'color': 'white'}),
-            cyto.Cytoscape(
-                id='cytoscape',
-                elements= plots.generate_graph_elements_collab(df),
-                layout={'name': 'circle'},
-                stylesheet = [
-                    {
-                        'selector': 'label',
-                        'style': {
-                            'content': 'data(label)',
-                            'color': 'white',
-                            'background-color': '#eda109'
-                        }
-                    },
-                    {
-                        'selector': 'node',
-                        'style': {
-                            'label': 'data(label)'
-                        } 
-                    },
-                    {
-                        'selector': '.author',
-                        'style': {
-                            'background-color': '#eda109'
-                        }
-                    },
-                    {
-                        'selector': '.collaboration',
-                        'style': {
-                            'line-color': 'lightgrey'
-                        }
-                    }
-                    ])],
-            
-        style = {'order': '1', 'backgroundColor': '#101126',
-                'width': '95%', 'margin': 'auto', 'margin-bottom': '20px',
-                'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'}),
-        
-        html.Br(),
-        html.Br(),
-        
-        html.Div([
             
             html.Div([
-                html.H2("Citation network", style = {'font-size': '22px', 'font-family': 'Courier New, monospace',
+                html.Div([
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
-                cyto.Cytoscape(
-                    id='cytoscape-event-callbacks-1',
-                    elements= plots.generate_graph_elements_network(all_references_df, df),
-                    layout={'name': 'cose', 'height': '100%', 'width': '100%'},
-                    style={'width':'800px', 'height':'1000px'},
-                    stylesheet = [
-                        {
-                            'selector': 'node',
-                            'style': {
-                                #'label': ''
-                            } 
-                        },
-                        {
-                            'selector': '.res',
-                            'style': {
-                                'background-color': '#eda109',
-                                #'label': 'data(label)',
-                                'color': '#eda109',
-                                'height': '12px',
-                                'width': '12px'
+                    cyto.Cytoscape(
+                        id='cytoscape',
+                        elements= plots.generate_graph_elements_collab(df),
+                        layout={'name': 'circle', 'height': '600px', 'width': '600px'},
+                        style = {'order': '2', 'height': '600px', 'width': '600px'},
+                        stylesheet = [
+                            {
+                                'selector': 'label',
+                                'style': {
+                                    'content': 'data(label)',
+                                    'color': 'white',
+                                    'background-color': '#eda109'
+                                }
+                            },
+                            {
+                                'selector': 'node',
+                                'style': {
+                                    'label': 'data(label)'
+                                } 
+                            },
+                            {
+                                'selector': '.author',
+                                'style': {
+                                    'background-color': '#eda109'
+                                }
+                            },
+                            {
+                                'selector': '.collaboration',
+                                'style': {
+                                    'line-color': 'lightgrey'
+                                }
                             }
-                        },
-                        {
-                            'selector': '.ref',
-                            'style': {
-                                'background-color': 'white',
-                                'color': 'white',
-                                'height': '7px',
-                                'width': '7px'
-                            }
-                        },
-                        {
-                            'selector': '.citation',
-                            'style': {
-                                'line-color': 'grey',
-                                'width': 0.5
-                            }
-                        }
-                        ])],
-                
-            style = {'order': '1', 'backgroundColor': '#101126',
-                    'margin': 'auto', 'margin-bottom': '20px',
-                    'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'}),
-            
-            html.Div(id='cytoscape-tapNodeData-output', style={'order':'2', 'display':'flex','text-align': 'center',
-                                                               'backgroundColor': '#eda109'})],
-            
-        style= {'order':'2', 'display':'flex', 'flex-direction':'row', 'backgroundColor': '#101126', 'align-items': 'center',
-                'justify-content':'space-between'})],
-            
-        style = {'backgroundColor': '#101126', 'width':'95%',
-                    'margin': 'auto', 'margin-bottom': '20px',
-                    'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'})
+                            ])],
+                    
+                style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '100%', 'height': '50%', 'margin-bottom': '20px', 'float': 'left'}),
+        
+                html.Br(),
+                html.Br(),
 
+                html.Div([
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                            'color': 'white'}),
+                    cyto.Cytoscape(
+                        id='cytoscape-event-callbacks-1',
+                        elements= plots.generate_graph_elements_network(all_references_df, df),
+                        layout={'name': 'cose', 'height': '800px', 'width': '800px'},
+                        style={'order': '2', 'height': '800px', 'width': '800px'},
+                        stylesheet = [
+                            {
+                                'selector': 'node',
+                                'style': {
+                                    #'label': ''
+                                } 
+                            },
+                            {
+                                'selector': '.res',
+                                'style': {
+                                    'background-color': '#eda109',
+                                    #'label': 'data(label)',
+                                    'color': '#eda109',
+                                    'height': '12px',
+                                    'width': '12px'
+                                }
+                            },
+                            {
+                                'selector': '.ref',
+                                'style': {
+                                    'background-color': 'white',
+                                    'color': 'white',
+                                    'height': '7px',
+                                    'width': '7px'
+                                }
+                            },
+                            {
+                                'selector': '.citation',
+                                'style': {
+                                    'line-color': 'grey',
+                                    'width': 0.5
+                                }
+                            }
+                            ])],
+                    
+                style = {'order': '2', 'width':'100%', 'height': '50%', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
+                        'margin-bottom': '20px'})],
+
+                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '20px'}),
+        
+        html.Div([
+                html.Div([
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                        'color': '#101126'}),
+                    html.P("Click on a node to display information about an author",
+                           style = {'order': '2', 'font-size': '22px',
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                    
+                style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
+        
+                html.Br(),
+                html.Br(),
+
+                html.Div([
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                            'color': '#101126'}),
+                    html.P("Click on a node to display information about a paper",
+                           style = {'order': '2', 'font-size': '22px',
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'})],
+                    
+                style = {'order': '2', 'width':'100%', 'height': '650px', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
+                        'margin-bottom': '20px'})],
+
+                style = {'order': '2', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
+            
+            style = {'display': 'flex', 'flex-direction': 'row'})
+        
+                #html.Div(id='cytoscape-tapNodeData-output', style={'backgroundColor': '#eda109'})],
+                    
 @app.callback(Output('cytoscape-tapNodeData-output', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
