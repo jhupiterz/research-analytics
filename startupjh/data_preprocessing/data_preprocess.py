@@ -17,7 +17,7 @@ from nltk.tokenize import word_tokenize
 
 from startupjh import utils
 
-import re
+import regex
 import string
 
 def extract_key_words(df):
@@ -51,7 +51,7 @@ def extract_pub_info(df):
     year = []
 
     for i, row in df.iterrows():
-        find_year = re.search(r'[12]\d{3}', row.full_citation)
+        find_year = regex.search(r'[12]\d{3}', row.full_citation)
         if find_year:
             year.append(find_year.group(0))
         else: 
