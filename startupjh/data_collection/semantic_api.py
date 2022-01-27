@@ -82,6 +82,6 @@ def get_author_info(author_id):
     return response
 
 def get_paper_info(paper_id):
-    url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}?fields=paperId,title,url,abstract,venue,year,referenceCount,citationCount,isOpenAcces,fieldsOfStudy"
+    url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}?fields=paperId,title,url,abstract,venue,year,referenceCount,citationCount,isOpenAccess,fieldsOfStudy"
     response = requests.get(url).json()
     return response

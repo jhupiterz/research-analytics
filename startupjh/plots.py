@@ -445,4 +445,5 @@ def generate_graph_elements_network(df1, df2):
     for index, row in ref_network_df.iterrows():
         edges_list.append({'data': {'source': row.ref1[1], 'target': row.ref2[1]}, 'classes': 'citation'})
     elements = nodes_list + edges_list
+    #print(elements)
     return elements

@@ -308,10 +308,18 @@ def render_content(tab):
                         style={'order': '2', 'height': '700px', 'width': '700px'},
                         stylesheet = [
                             {
+                                'selector': 'node',
+                                'style': {
+                                    'background-color': '#56c76e',
+                                    'height': '9px',
+                                    'width': '9px'
+                                } 
+                            },
+                            {
                                 'selector': '.res',
                                 'style': {
-                                    'background-color': '#eda109',
-                                    'color': '#eda109',
+                                    'background-color': 'green',
+                                    'color': 'red',
                                     'height': '12px',
                                     'width': '12px'
                                 }
@@ -328,8 +336,8 @@ def render_content(tab):
                             {
                                 'selector': '.citation',
                                 'style': {
-                                    'line-color': 'grey',
-                                    'width': 0.5
+                                    'line-color': 'white',
+                                    'width': 0.6
                                 }
                             }
                             ])],
@@ -401,23 +409,25 @@ def displayTapNodeData(data):
                             html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
                             html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
                             style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
-    return paragraph
+        return paragraph
 
-# @app.callback(Output('paper-info-1', 'children'),
-#               Input('cytoscape-event-callbacks-2', 'tapNodeData'))
-# def displayTapNodeData(data):
-#     if data:
-#         paper_info = semantic_api.get_paper_info(data['id'])
-#         paragraph = html.P([html.Br(), html.U("Paper Id"), f": {paper_info['paperId']}", html.Br(),html.Br(),
-#                             html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
-#                             html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
-#                             html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
-#                             html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
-#                             html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
-#                             html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
-#                             html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
-#                             style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
-#     return paragraph
+@app.callback(Output('paper-info-1', 'children'),
+              Input('cytoscape-event-callbacks-2', 'tapNodeData'))
+def displayTapNodeData(data):
+    if data:
+        paper_info = semantic_api.get_paper_info(data['id'])
+        if 'paperId' in paper_info:
+            paragraph = html.P([html.Br(), html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
+                                html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
+                                html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
+                                html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
+                                html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
+                                html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
+                                html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
+                                style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+        else:
+            paragraph = html.P("No info available for this paper")
+        return paragraph
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
