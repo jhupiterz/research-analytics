@@ -9,7 +9,20 @@ numpy
 pandas
 scikit-learn
 bs4
+datetime
 matplotlib
+re
+nltk
+string
+collections
+time
+networkx
+pyvis
+ast
+dash
+dash_cytoscape
+dash_core_components
+dash_html_components
 
 # tests/linter
 black

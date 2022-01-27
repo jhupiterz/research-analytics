@@ -1,13 +1,12 @@
 # Code creating a dashboard using plotly.dash
 
-from startupjh.data_collection import consolidated_df
+#from startupjh.data_collection import consolidated_df
 from startupjh import plots
 from startupjh.data_collection import semantic_api
-from startupjh.data_preprocessing import data_cleaning, data_enrichment
+#from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 import time
 import dash
-import os
 import dash_cytoscape as cyto
 import dash_core_components as dcc
 import dash_html_components as html
