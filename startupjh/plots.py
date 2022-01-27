@@ -417,33 +417,32 @@ def generate_graph_elements_collab(df):
     return elements
 
 def generate_ref_network_df(df1, df2):
-  """df1 = all_references_df
+    """df1 = all_references_df
      df2 = results_df"""
-  ref1 = []
-  ref2 = []
-  for index, row in df1.iterrows():
-      ref1.append(row.reference)
-      ref2.append(df2.reference[df2.paperId == row['citedBy']])
-  ref1_array = np.array(ref1)
-  ref2_array = np.array(ref2)
-  ref_network_df = pd.DataFrame(ref1_array, columns=['ref1'])
-  ref_network_df['ref2'] = ref2_array
-  return ref_network_df
+    ref1 = []
+    ref2 = []
+    for index, row in df1.iterrows():
+        ref1.append((row.reference,row['paperId']))
+        ref2.append(("".join(df2.reference[df2.paperId == row['citedBy']]), row['citedBy']))
+    ref_network_df = pd.DataFrame(
+    {'ref1': ref1,
+     'ref2': ref2
+    })
+    return ref_network_df
 
 def generate_graph_elements_network(df1, df2):
     ref_network_df = generate_ref_network_df(df1, df2)
     unique_refs = list(set(ref_network_df.ref1.unique().tolist()))
     unique_results = list(set(ref_network_df.ref2.unique().tolist()))
-    nodes_refs = [{'data': {'id': unique_refs[0], 'label': unique_refs[0], 'title': df1.title[df1.reference == unique_refs[0]], 'url': df1.url[df1.reference == unique_refs[0]]}, 'classes': 'ref'}]
-    nodes_results = [{'data': {'id': unique_results[0], 'label': unique_results[0], 'title': df2.title[df2.reference == unique_results[0]], 'url': df2.url[df2.reference == unique_results[0]]}, 'classes': 'res'}]
+    nodes_refs = [{'data': {'id': unique_refs[0][1], 'label': unique_refs[0][0], 'classes': 'ref'}}]
+    nodes_results = [{'data': {'id': unique_results[0][1], 'label': unique_results[0][0], 'classes': 'res'}}]
+    nodes_list = nodes_refs + nodes_results
     for element in unique_refs[1:]:
-        nodes_refs.append({'data': {'id': element, 'label': element, 'title': df1.title[df1.reference == element], 'url': df1.url[df1.reference == element]}, 'classes': 'ref'})
+        nodes_list.append({'data': {'id': element[1], 'label': element[0], 'classes': 'ref'}})
     for element in unique_results[1:]:
-        nodes_results.append({'data': {'id': element, 'label': element, 'title': df2.title[df2.reference == element], 'url': df2.url[df2.reference == element]}, 'classes': 'res'})
-    nodes_list = nodes_results + nodes_refs
-    edges_list = [{'data': {'source': ref_network_df['ref1'][0], 'target': ref_network_df['ref2'][0]}, 'classes': 'citation'}]
+        nodes_list.append({'data': {'id': element[1], 'label': element[0], 'classes': 'res'}})
+    edges_list = [{'data': {'source': ref_network_df['ref1'][0][1], 'target': ref_network_df['ref2'][0][1]}, 'classes': 'citation'}]
     for index, row in ref_network_df.iterrows():
-        edges_list.append({'data': {'source': row.ref1, 'target': row.ref2}, 'classes': 'citation'})
+        edges_list.append({'data': {'source': row.ref1[1], 'target': row.ref2[1]}, 'classes': 'citation'})
     elements = nodes_list + edges_list
-    #print(elements)
     return elements

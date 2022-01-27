@@ -7,6 +7,7 @@ from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 import time
 import dash
+import os
 import dash_cytoscape as cyto
 import dash_core_components as dcc
 import dash_html_components as html
@@ -356,11 +357,10 @@ def render_content(tab):
                     html.Div([
                         html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
                         html.Div([
-                            html.P("AUTHOR INFO",
+                            html.P(html.B("AUTHOR INFO"),
                                 style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-                            html.P(id = 'author-info-1', style = {'text-align': 'center', 'color': '#101126', 'font-family': 'Courier New, monospace'}),
-                            html.P(id = 'author-info-2', style = {'text-align': 'center', 'color': '#101126', 'font-family': 'Courier New, monospace'})],
-                        style = {'order': '2', 'width': '350px', 'height': '400px', 'border': "1px black solid"})],
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '400px', 'height': '400px', 'border': "1px black solid"})],
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
                         )],
                     
@@ -379,9 +379,10 @@ def render_content(tab):
                     html.Div([
                         html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
                         html.Div([
-                            html.P("PAPER INFO",
-                                   style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'})],
-                        style = {'order': '2', 'width': '350px', 'height': '500px', 'border': "1px black solid"})],
+                            html.P(html.B("PAPER INFO"),
+                                   style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
+                            html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '400px', 'height': '500px', 'border': "1px black solid"})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
                         )],
                     
@@ -397,87 +398,33 @@ def render_content(tab):
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
     if data:
-        return "Name: " + data['label'] + " Author ID: " + data['id']
+        author_info = semantic_api.get_author_info(data['id'])
+        paragraph = html.P([html.Br(), html.U("Author Id"), f": {author_info['authorId']}", html.Br(),html.Br(),
+                            html.U("Name"), f": {author_info['name']}", html.Br(),html.Br(),
+                            html.U("Affiliation(s)"), f": {author_info['affiliations']}", html.Br(),html.Br(),
+                            html.U("Homepage"), f": {author_info['homepage']}", html.Br(),html.Br(),
+                            html.U("Paper count"), f": {author_info['paperCount']}", html.Br(),html.Br(),
+                            html.U("Citation count"), f": {author_info['citationCount']}", html.Br(),html.Br(),
+                            html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
+                            html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
+                            style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+    return paragraph
 
-# @app.callback(Output('author-info-2', 'children'),
-#               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
-# def displayTapNodeData(data):
-#     if data:
-#         return "N° collaborations: " + data['weight']
-
-# @app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
-#               Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))
-# def displayMouseOverData(data):
-#     if data:
-#         return [
-#                 {
-#                     'selector': 'node',
-#                     'style': {
-#                         'label': data['label']
-#                     } 
-#                 },
-#                 {
-#                     'selector': '.res',
-#                     'style': {
-#                         'background-color': '#eda109',
-#                         #'label': data['label'],
-#                         'color': '#eda109',
-#                         'height': '12px',
-#                         'width': '12px'
-#                     }
-#                 },
-#                 {
-#                     'selector': '.ref',
-#                     'style': {
-#                         'background-color': 'white',
-#                         'color': 'white',
-#                         'height': '7px',
-#                         'width': '7px'
-#                     }
-#                 },
-#                 {
-#                     'selector': '.citation',
-#                     'style': {
-#                         'line-color': 'grey',
-#                         'width': 0.5
-#                     }
-#                 }
-#                 ]
-#     else:
-#         return [
-#                 {
-#                     'selector': 'node',
-#                     'style': {
-#                         #'label': ''
-#                     } 
-#                 },
-#                 {
-#                     'selector': '.res',
-#                     'style': {
-#                         'background-color': '#eda109',
-#                         #'label': 'data(label)',
-#                         'color': '#eda109',
-#                         'height': '12px',
-#                         'width': '12px'
-#                     }
-#                 },
-#                 {
-#                     'selector': '.ref',
-#                     'style': {
-#                         'background-color': 'white',
-#                         'color': 'white',
-#                         'height': '7px',
-#                         'width': '7px'
-#                     }
-#                 },
-#                 {
-#                     'selector': '.citation',
-#                     'style': {
-#                         'line-color': 'grey',
-#                         'width': 0.5
-#                     }
-#                 }
-#                 ]
+@app.callback(Output('paper-info-1', 'children'),
+              Input('cytoscape-event-callbacks-2', 'tapNodeData'))
+def displayTapNodeData(data):
+    if data:
+        paper_info = semantic_api.get_paper_info(data['id'])
+        paragraph = html.P([html.Br(), html.U("Paper Id"), f": {paper_info['paperId']}", html.Br(),html.Br(),
+                            html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
+                            html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
+                            html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
+                            html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
+                            html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
+                            html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
+                            html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
+                            style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+    return paragraph
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)

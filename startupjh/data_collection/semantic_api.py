@@ -75,6 +75,13 @@ def build_first_author_id(df):
             author_id = None
         author_id_list.append(author_id)
     return author_id_list
-    
-    
-    
+
+def get_author_info(author_id):
+    url = f"https://api.semanticscholar.org/graph/v1/author/{author_id}?fields=url,name,affiliations,homepage,paperCount,citationCount,hIndex"
+    response = requests.get(url).json()
+    return response
+
+def get_paper_info(paper_id):
+    url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}?fields=paperId,title,url,abstract,venue,year,referenceCount,citationCount,isOpenAcces,fieldsOfStudy"
+    response = requests.get(url).json()
+    return response
