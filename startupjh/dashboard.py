@@ -308,16 +308,9 @@ def render_content(tab):
                         style={'order': '2', 'height': '700px', 'width': '700px'},
                         stylesheet = [
                             {
-                                'selector': 'node',
-                                'style': {
-                                    #'label': ''
-                                } 
-                            },
-                            {
                                 'selector': '.res',
                                 'style': {
                                     'background-color': '#eda109',
-                                    #'label': 'data(label)',
                                     'color': '#eda109',
                                     'height': '12px',
                                     'width': '12px'
@@ -410,21 +403,21 @@ def displayTapNodeData(data):
                             style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
     return paragraph
 
-@app.callback(Output('paper-info-1', 'children'),
-              Input('cytoscape-event-callbacks-2', 'tapNodeData'))
-def displayTapNodeData(data):
-    if data:
-        paper_info = semantic_api.get_paper_info(data['id'])
-        paragraph = html.P([html.Br(), html.U("Paper Id"), f": {paper_info['paperId']}", html.Br(),html.Br(),
-                            html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
-                            html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
-                            html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
-                            html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
-                            html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
-                            html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
-                            html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
-                            style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
-    return paragraph
+# @app.callback(Output('paper-info-1', 'children'),
+#               Input('cytoscape-event-callbacks-2', 'tapNodeData'))
+# def displayTapNodeData(data):
+#     if data:
+#         paper_info = semantic_api.get_paper_info(data['id'])
+#         paragraph = html.P([html.Br(), html.U("Paper Id"), f": {paper_info['paperId']}", html.Br(),html.Br(),
+#                             html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
+#                             html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
+#                             html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
+#                             html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
+#                             html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
+#                             html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
+#                             html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
+#                             style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+#     return paragraph
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
