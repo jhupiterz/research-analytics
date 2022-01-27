@@ -257,7 +257,7 @@ def render_content(tab):
                     html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     cyto.Cytoscape(
-                        id='cytoscape',
+                        id='cytoscape-event-callbacks-1',
                         elements= plots.generate_graph_elements_collab(df),
                         layout={'name': 'circle', 'height': '600px', 'width': '600px'},
                         style = {'order': '2', 'height': '600px', 'width': '600px'},
@@ -301,7 +301,7 @@ def render_content(tab):
                     html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
                                                             'color': 'white'}),
                     cyto.Cytoscape(
-                        id='cytoscape-event-callbacks-1',
+                        id='cytoscape-event-callbacks-2',
                         elements= plots.generate_graph_elements_network(all_references_df, df),
                         layout={'name': 'cose', 'height': '700px', 'width': '700px'},
                         style={'order': '2', 'height': '700px', 'width': '700px'},
@@ -355,8 +355,13 @@ def render_content(tab):
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
                         html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
-                        html.P("AUTHOR INFO", id = 'author-info', style = {'order': '2', 'font-family': 'Courier New, monospace', 'color': '#101126'})],
-                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '100px', 'justify-content': 'space-around'}
+                        html.Div([
+                            html.P("AUTHOR INFO",
+                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
+                            html.P(id = 'author-info-1', style = {'text-align': 'center', 'color': '#101126', 'font-family': 'Courier New, monospace'}),
+                            html.P(id = 'author-info-2', style = {'text-align': 'center', 'color': '#101126', 'font-family': 'Courier New, monospace'})],
+                        style = {'order': '2', 'width': '350px', 'height': '400px', 'border': "1px black solid"})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
                         )],
                     
                 style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
@@ -373,8 +378,11 @@ def render_content(tab):
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
                         html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
-                        html.P("PAPER INFO", id = 'author-info', style = {'order': '2', 'font-family': 'Courier New, monospace', 'color': '#101126'})],
-                             style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '150px', 'justify-content': 'space-around'}
+                        html.Div([
+                            html.P("PAPER INFO",
+                                   style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'})],
+                        style = {'order': '2', 'width': '350px', 'height': '500px', 'border': "1px black solid"})],
+                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
                         )],
                     
                 style = {'order': '2', 'width':'100%', 'height': '800px', 'display': 'flex',
@@ -384,23 +392,18 @@ def render_content(tab):
                 style = {'order': '2', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
             style = {'display': 'flex', 'flex-direction': 'row'})
-        
-                #html.Div(id='cytoscape-tapNodeData-output', style={'backgroundColor': '#eda109'})],
                     
-@app.callback(Output('cytoscape-tapNodeData-output', 'children'),
+@app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
     if data:
-        return html.Div([
-            
-            html.H3(f"Selection: {data['label']}", style = {'order':'1', 'text-align': 'center', 'color':'#101126'}),
-            html.Br(),
-            html.P(f"{data['title']}", style = {'order':'2','text-align': 'center', 'color':'#101126'}),
-            html.Br(),
-            html.A('Access on Semantic Scholar', href = f"{data['url']}", target = '_blank', style = {'order':'3','color': '#101126'})],
-                        
-            style = {'width':'25%', 'display':'flex', 'flex-direction': 'column',
-                     'align-items':'center', 'margin':'auto'})
+        return "Name: " + data['label'] + " Author ID: " + data['id']
+
+# @app.callback(Output('author-info-2', 'children'),
+#               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
+# def displayTapNodeData(data):
+#     if data:
+#         return "N° collaborations: " + data['weight']
 
 # @app.callback(Output('cytoscape-event-callbacks-1', 'stylesheet'),
 #               Input('cytoscape-event-callbacks-1', 'mouseoverNodeData'))

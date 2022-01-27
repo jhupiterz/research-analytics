@@ -359,26 +359,37 @@ def get_top_publisher(df):
   return top_publisher
 
 def generate_collab_network_df(df):
-  authors_list_of_list = []
-  for index, row in df.iterrows():
-    authors_list = []
-    for dict_ in row.authors:
-        authors_list.append(dict_['name'])
-    authors_list_of_list.append(authors_list)
-  authors_combinations = []
-  for authors in authors_list_of_list:
-      res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
-      authors_combinations.append(res)
-  flat_authors_combinations = utils.flatten_list(authors_combinations)
-  most_common_collab = Counter(flat_authors_combinations).most_common(50)
-  unpacked_most_collab = [(a, b, c) for (a, b ), c in most_common_collab]
-  nx_df = pd.DataFrame(unpacked_most_collab, columns=['author1', 'author2', 'weight'])
-  # G = nx.from_pandas_edgelist(nx_df,
-  #                           source='author1',
-  #                           target='author2',
-  #                           edge_attr='weight'
-  # )
-  return nx_df
+    authors_list_of_list = []
+    ids_list_of_list = []
+    for index, row in df.iterrows():
+        authors_list = []
+        ids_list = []
+        for dict_ in row.authors:
+            authors_list.append(dict_['name'])
+            ids_list.append(dict_['authorId'])
+        authors_list_of_list.append(authors_list)
+        ids_list_of_list.append(ids_list)
+    authors_combinations = []
+    ids_combinations = []
+    for authors in authors_list_of_list:
+        res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
+        authors_combinations.append(res)
+    for ids in ids_list_of_list:
+        rex = [(a, b) for idx, a in enumerate(ids) for b in ids[idx + 1:]]
+        ids_combinations.append(rex)
+    flat_authors_combinations = utils.flatten_list(authors_combinations)
+    flat_ids_combinations = utils.flatten_list(ids_combinations)
+    most_common_collab = Counter(flat_authors_combinations).most_common(50)
+    most_common_collab_ids = Counter(flat_ids_combinations).most_common(50)
+    unpacked_most_collab = [(a, b, c) for (a, b ), c in most_common_collab]
+    unpacked_most_collab_ids = [(a, b, c) for (a, b ), c in most_common_collab_ids]
+    nx_df = pd.DataFrame(unpacked_most_collab, columns=['author1', 'author2', 'weight'])
+    nx_id_df = pd.DataFrame(unpacked_most_collab_ids, columns=['id1', 'id2', 'weight1'])
+    collabs_df = pd.concat([nx_df, nx_id_df], axis=1)
+    collabs_df['author1'] = list(zip(collabs_df.author1, collabs_df.id1))
+    collabs_df['author2'] = list(zip(collabs_df.author2, collabs_df.id2))
+    collabs_df.drop(['id1', 'id2', 'weight1'], axis = 1, inplace = True)
+    return collabs_df
 
 def make_top_authors(df):
   flat_author_list = utils.flatten_list(df.authors.tolist())
@@ -393,17 +404,17 @@ def make_top_authors(df):
   return fig
 
 def generate_graph_elements_collab(df):
-  nx_df = generate_collab_network_df(df)
-  unique_top_authors = list(set(nx_df.author1.unique().tolist() + nx_df.author2.unique().tolist()))
-  nodes_list = [{'data': {'id': unique_top_authors[0], 'label': unique_top_authors[0]}, 'classes': 'author'}]
-  for element in unique_top_authors[1:]:
-      nodes_list.append({'data': {'id': element, 'label': element}, 'classes': 'author'})
-  edges_list = [{'data': {'source': nx_df['author1'][0], 'target': nx_df['author2'][0]}, 'classes': 'collaboration'}]
-  for index, row in nx_df.iterrows():
-      edges_list.append({'data': {'source': row.author1, 'target': row.author2}, 'classes': 'collaboration'})
-  elements = nodes_list + edges_list
-  #print(elements)
-  return elements
+    nx_df = generate_collab_network_df(df)
+    unique_top_authors = list(set(nx_df.author1.unique().tolist() + nx_df.author2.unique().tolist()))
+    nodes_list = [{'data': {'id': unique_top_authors[0][1], 'label': unique_top_authors[0][0]}, 'classes': 'author'}]
+    for element in unique_top_authors[1:]:
+        nodes_list.append({'data': {'id': element[1], 'label': element[0]}, 'classes': 'author'})
+    edges_list = [{'data': {'source': nx_df['author1'][0][1], 'target': nx_df['author2'][0][1]}, 'classes': 'collaboration'}]
+    for index, row in nx_df.iterrows():
+        edges_list.append({'data': {'source': row.author1[1], 'target': row.author2[1]}, 'classes': 'collaboration'})
+    elements = nodes_list + edges_list
+    #print(elements)
+    return elements
 
 def generate_ref_network_df(df1, df2):
   """df1 = all_references_df

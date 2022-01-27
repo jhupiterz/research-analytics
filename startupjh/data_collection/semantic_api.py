@@ -18,6 +18,7 @@ def get_papers_from_query(search_query):
     response = requests.get(url).json()
     results_df = pd.DataFrame(response['data'])
     results_df['reference'] = build_references(results_df)
+    results_df['first_author_id'] = build_first_author_id(results_df)
     results_df = data_preprocess.extract_key_words(results_df)
     total_results = response['total']
     return results_df, total_results
@@ -64,6 +65,16 @@ def build_references(df):
             ref = row.authors[0]['name'] + ' et al.' + ' (' + str(row.year) + ')'
         ref_list.append(ref)
     return ref_list
+
+def build_first_author_id(df):
+    author_id_list = []
+    for index, row in df.iterrows():
+        if len(row.authors) > 1:
+            author_id = row.authors[0]['authorId']
+        else:
+            author_id = None
+        author_id_list.append(author_id)
+    return author_id_list
     
     
     
