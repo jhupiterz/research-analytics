@@ -311,8 +311,8 @@ def render_content(tab):
                                 'selector': 'node',
                                 'style': {
                                     'background-color': '#56c76e',
-                                    'height': '9px',
-                                    'width': '9px'
+                                    'height': '10px',
+                                    'width': '10px'
                                 } 
                             },
                             {
