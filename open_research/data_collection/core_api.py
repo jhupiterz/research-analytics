@@ -7,9 +7,9 @@
 #               user input and return a up to 50 paper dataframe           #                                         #
 #--------------------------------------------------------------------------#
 
-from startupjh.utils import get_user_input
-from startupjh.utils import format_user_input
-from startupjh.data_preprocessing.data_preprocess import extract_key_words
+from utils import get_user_input
+from utils import format_user_input
+from data_preprocessing.data_preprocess import extract_key_words
 
 import pandas as pd
 import requests

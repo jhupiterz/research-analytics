@@ -5,7 +5,7 @@
 #              Each function returns a plotly graph object figure          #
 #--------------------------------------------------------------------------#
 from numpy.lib import utils
-from startupjh import utils
+import utils
 from datetime import date
 import pandas as pd
 import numpy as np

@@ -13,9 +13,9 @@
 
 from serpapi import GoogleSearch
 
-from startupjh import utils
-from startupjh.data_preprocessing.data_preprocess import extract_key_words
-from startupjh.data_preprocessing.data_preprocess import extract_pub_info
+import utils
+from data_preprocessing.data_preprocess import extract_key_words
+from data_preprocessing.data_preprocess import extract_pub_info
 
 import pandas as pd
 

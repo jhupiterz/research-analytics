@@ -10,8 +10,8 @@
 import requests
 import pandas as pd
 
-from startupjh import utils
-from startupjh.data_preprocessing import data_preprocess
+import utils
+from data_preprocessing import data_preprocess
 
 def get_papers_from_query(search_query):
     url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={search_query}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"

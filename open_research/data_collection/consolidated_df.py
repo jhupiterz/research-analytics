@@ -9,11 +9,11 @@
 
 import pandas as pd
 
-from startupjh.data_collection import semantic_api
-from startupjh.data_preprocessing import data_cleaning, data_enrichment
+from data_collection import semantic_api
+from data_preprocessing import data_cleaning, data_enrichment
 
-from startupjh.utils import format_user_input, get_user_input
-from startupjh.data_collection import core_api, doaj_api, google_api, unpaywall_api
+from utils import format_user_input, get_user_input
+from data_collection import core_api, doaj_api, google_api, unpaywall_api
 
 def get_consolidated_df():
     """for other APIs (DOAJ, CORE, Unpaywall, GoogleScholar"""

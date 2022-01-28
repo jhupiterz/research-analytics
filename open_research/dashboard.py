@@ -1,8 +1,8 @@
 # Code creating a dashboard using plotly.dash
 
 #from startupjh.data_collection import consolidated_df
-from startupjh import plots
-from startupjh.data_collection import semantic_api
+import plots
+from data_collection import semantic_api
 #from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 import time
@@ -71,7 +71,7 @@ app.layout = html.Div([
     html.Br(),
     
     html.Div([
-    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', style = {'width': '320%', 'height': '10%', 'align-items':'center'}, children=[
+    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', style = {'width': '306%', 'height': '10%', 'align-items':'center'}, children=[
         dcc.Tab(label='Search results', value='tab-1-example-graph',
                 style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold'},
                 selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold'}),
@@ -83,12 +83,14 @@ app.layout = html.Div([
                 selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold'})
         ])], style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
                       'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center'}),
-    
+
     html.Br(),
     html.Br(),
     
-    html.Div(id='tabs-content-example-graph')],
-    style = {'backgroundColor': '#18192e', 'margin-bottom': '15px'})
+    html.Div(id='tabs-content-example-graph'),
+    html.Footer(html.P("Built by Open Research Project using Plotly Dash", style = {'text-align':'center', 'color':'white'}),
+                style = {'width': '95%', 'margin':'auto', 'height':'5%', 'align-items': 'center', 'backgroundColor': '#18192e'})],
+    style = {'backgroundColor': '#18192e', 'margin-bottom': '0px'})
 
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
@@ -174,7 +176,7 @@ def render_content(tab):
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '20px'}),
     ])
     if tab == 'tab-2-example-graph':
         return html.Div([
@@ -257,7 +259,7 @@ def render_content(tab):
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '20px'}),
     ])
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -402,7 +404,7 @@ def render_content(tab):
 
                 style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '20px'})
                     
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))

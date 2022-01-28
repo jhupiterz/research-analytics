@@ -6,7 +6,7 @@
 #                 consolidated_df in data_collection module                #
 #--------------------------------------------------------------------------#
 
-from startupjh.utils import convert_to_datetime
+from utils import convert_to_datetime
 
 import pandas as pd
 import numpy as np
