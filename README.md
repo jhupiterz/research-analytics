@@ -1,11 +1,8 @@
 <h1 align = "center" style="font-size:40px">🧠 🤖</h1>
 <h1 align = "center" style="font-size:40px">Open Research Project</h1>
 
---------------------------------------------------------------------------------------------------------------------------------------
-
-<p align = "center" style = "font-size:14px"><b>Disclaimer:</b> the following information must remain in the frame of The Research Intelligence Platform project and should not be distributed.</p> 
-
---------------------------------------------------------------------------------------------------------------------------------------
+<p align = "center" style = "font-size:14px"><b>Open Research Project</b> is a community open source project helping academic researchers and students with their daily research activities. Contributors to the project build tools to help streamline the research process.</br>
+To learn more about the project please visit [Open Research Project](https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb)</p>
 
 <h2 align = "center" style="font-size:32px"> 💢 - 💢 - 💢</h2>
 <h2 align = "center" style="font-size:32px"> 1. Problem statement & current situation </h2>
