@@ -10,7 +10,7 @@ For a full project description please visit <a href="https://jhupiterz.notion.si
 
 <h3 style="font-size:32px"> App preview </h3>
 
-<img src="images/example.gif" alt="app sample" /> 
+<img src="/images/example.gif" alt="app sample" /> 
 
 <h3 style="font-size:32px"> Installation </h3>
 
