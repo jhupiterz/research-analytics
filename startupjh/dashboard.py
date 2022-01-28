@@ -40,7 +40,17 @@ app.layout = html.Div([
     html.Div([
         html.Div([
             html.H3("research intelligence", style={'order': '2', 'color': 'white'}),
-            html.Img(src='/assets/maze.png', style={'height': '70px', 'margin-right':'15px', 'order': '1'})],
+            html.A(
+                    href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
+                    target = '_blank',
+                    children=[
+                        html.Img(
+                            alt="research intelligence",
+                            src="/assets/maze.png",
+                            style={'height': '70px', 'margin-right':'15px', 'order': '1'}
+                        )
+                    ]
+                )],
             style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'flex-grow': '1'}),
         
         html.Div([
@@ -48,7 +58,7 @@ app.layout = html.Div([
             style = {'order': '2', 'flex-grow': '2'}),
         
         html.Div([
-            html.H5(f"execution time: {time.time() - start_time} seconds", style={'order': '1', 'color': 'white',
+            html.H5(f"execution time: {int(time.time() - start_time)} seconds", style={'order': '1', 'color': 'white',
                                                                                   'text-align': 'right'})],
             style = {'order': '3', 'flex-grow': '1'})],
              
@@ -382,7 +392,7 @@ def render_content(tab):
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '900px', 'border': "1px black solid"})],
+                        style = {'order': '2', 'width': '95%', 'height': '900px', 'border': "1px black solid", "margin-top": "10px"})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
                         )],
                     
