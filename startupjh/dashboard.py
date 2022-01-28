@@ -303,8 +303,8 @@ def render_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         elements= plots.generate_graph_elements_network(all_references_df, df),
-                        layout={'name': 'cose', 'height': '700px', 'width': '700px'},
-                        style={'order': '2', 'height': '700px', 'width': '700px'},
+                        layout={'name': 'cose', 'height': '1000px', 'width': '700px'},
+                        style={'order': '2', 'height': '1000px', 'width': '700px'},
                         stylesheet = [
                             {
                                 'selector': 'node',
@@ -341,7 +341,7 @@ def render_content(tab):
                             }
                             ])],
                     
-                style = {'order': '2', 'width':'100%', 'height': '800px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
                         'margin-bottom': '20px'})],
 
@@ -377,20 +377,20 @@ def render_content(tab):
                            style = {'order': '2', 'font-size': '22px',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
-                        html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
+                        #html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
                         html.Div([
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '400px', 'height': '500px', 'border': "1px black solid"})],
-                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
+                        style = {'order': '2', 'width': '95%', 'height': '900px', 'border': "1px black solid"})],
+                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '800px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '20px'})],
 
-                style = {'order': '2', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
+                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
             style = {'display': 'flex', 'flex-direction': 'row'})
                     
@@ -407,7 +407,7 @@ def displayTapNodeData(data):
                             html.U("Citation count"), f": {author_info['citationCount']}", html.Br(),html.Br(),
                             html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
                             html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
-                            style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+                            style = {'text-align': 'left', 'color': '#101126'})
         return paragraph
 
 @app.callback(Output('paper-info-1', 'children'),
@@ -416,14 +416,15 @@ def displayTapNodeData(data):
     if data:
         paper_info = semantic_api.get_paper_info(data['id'])
         if 'paperId' in paper_info:
-            paragraph = html.P([html.Br(), html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
+            paragraph = html.P([html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
                                 html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
                                 html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
                                 html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
                                 html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
                                 html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
-                                html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),],
-                                style = {'text-align': 'left', 'color': '#101126', 'font-family': 'Courier New, monospace'})
+                                html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),
+                                html.U("Abstract"), f": {paper_info['abstract']}"],
+                                style = {'text-align': 'left', 'color': '#101126'})
         else:
             paragraph = html.P("No info available for this paper")
         return paragraph
