@@ -71,16 +71,16 @@ app.layout = html.Div([
     html.Br(),
     
     html.Div([
-    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', children=[
+    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', style = {'width': '320%', 'height': '10%', 'align-items':'center'}, children=[
         dcc.Tab(label='Search results', value='tab-1-example-graph',
                 style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold'},
-                selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'}),
+                selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold'}),
         dcc.Tab(label='Reference landscape', value='tab-2-example-graph',
-                style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'width': '100%'},
-                selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'}),
+                style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold'},
+                selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold'}),
         dcc.Tab(label='Networks', value='tab-3-example-graph',
-                style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'width': '100%'},
-                selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'width': '100%'})
+                style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold'},
+                selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold'})
         ])], style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
                       'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center'}),
     
@@ -313,13 +313,13 @@ def render_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         elements= plots.generate_graph_elements_network(all_references_df, df),
-                        layout={'name': 'cose', 'height': '1000px', 'width': '700px'},
-                        style={'order': '2', 'height': '1000px', 'width': '700px'},
+                        layout={'name': 'cose', 'height': '900px', 'width': '750px'},
+                        style={'order': '2', 'height': '900px', 'width': '750px'},
                         stylesheet = [
                             {
                                 'selector': 'node',
                                 'style': {
-                                    'background-color': '#56c76e',
+                                    'background-color': '#cb8deb',
                                     'height': '10px',
                                     'width': '10px'
                                 } 
@@ -351,7 +351,7 @@ def render_content(tab):
                             }
                             ])],
                     
-                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
                         'margin-bottom': '20px'})],
 
@@ -392,17 +392,17 @@ def render_content(tab):
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '900px', 'border': "1px black solid", "margin-top": "10px"})],
+                        style = {'order': '2', 'width': '95%', 'height': '840px', 'border': "1px black solid", "margin-top": "10px"})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '20px'})],
 
                 style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'width': '95%', 'margin': 'auto'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto'})
                     
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
