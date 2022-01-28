@@ -402,7 +402,7 @@ def render_content(tab):
 
                 style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'width': '95%', 'margin': 'auto'})
                     
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
