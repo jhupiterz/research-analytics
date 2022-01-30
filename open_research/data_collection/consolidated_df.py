@@ -9,7 +9,6 @@
 
 import pandas as pd
 
-from data_collection import semantic_api
 from data_preprocessing import data_cleaning, data_enrichment
 
 from utils import format_user_input, get_user_input
