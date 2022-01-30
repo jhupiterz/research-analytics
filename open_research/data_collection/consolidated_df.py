@@ -1,11 +1,6 @@
 #--------------------------------------------------------------------------#
 #        This code consolidates data scraped from the different APIs       #
 #--------------------------------------------------------------------------#
-#                                 ---Usage---                              #
-#          Just run the method consolidated_df() and it will ask for       #
-#                   your search query and return a df populated            #
-#                      with results from 4 different APIs                  #
-#--------------------------------------------------------------------------#
 
 import pandas as pd
 

@@ -3,8 +3,6 @@
 #                     visit https://api.core.ac.uk/docs/v3                 #
 #--------------------------------------------------------------------------#
 
-from utils import get_user_input
-from utils import format_user_input
 from data_preprocessing.data_preprocess import extract_key_words
 
 import pandas as pd
