@@ -1,16 +1,11 @@
 #--------------------------------------------------------------------------#
 #             This code generates plots to be used in Dashboards           # 
 #--------------------------------------------------------------------------#
-#                                ---Usage---                               #
-#              Each function returns a plotly graph object figure          #
-#--------------------------------------------------------------------------#
+
 from numpy.lib import utils
 import utils
 from datetime import date
 import pandas as pd
-import numpy as np
-import networkx as nx
-from pyvis.network import Network
 from collections import Counter
 import plotly.graph_objs as go
 import plotly.express as px

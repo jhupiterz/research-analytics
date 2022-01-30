@@ -1,12 +1,6 @@
 #--------------------------------------------------------------------------#
 #                 This code cleans the consolidated dataframe              # 
 #--------------------------------------------------------------------------#
-#                                 ---Usage---                              #
-#               Call get_clean_df() on consolidated_df obtained from       #
-#                 consolidated_df in data_collection module                #
-#--------------------------------------------------------------------------#
-
-from utils import convert_to_datetime
 
 import pandas as pd
 import numpy as np

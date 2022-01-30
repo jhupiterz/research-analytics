@@ -7,8 +7,6 @@ import pandas as pd
 import requests
 
 def doaj_api(search_query):
-    # query = get_user_input()
-    # search_query = format_user_input(query)
 
     url = f"https://doaj.org/api/search/articles/{search_query}?page=1&pageSize=60"
     response = requests.get(url).json()

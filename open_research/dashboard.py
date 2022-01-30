@@ -3,7 +3,6 @@
 #from startupjh.data_collection import consolidated_df
 import plots
 from data_collection import semantic_api
-#from startupjh.data_preprocessing import data_cleaning, data_enrichment
 
 import time
 import dash
@@ -14,11 +13,6 @@ from dash.dependencies import Input, Output
 
 # Execution timer ------------------------------------------
 start_time = time.time()
-
-# Data loading and cleaning whith OTHER APIs (DOAJ, CORE, GoogleScholar, Unpaywall) ---
-# df, query = consolidated_df.get_consolidated_df()
-# df = data_cleaning.clean_df(df)
-# df = data_enrichment.get_citation_count(df)
 
 # Data loading and cleaning with SEMANTIC_SCHOLAR API
 df, all_references_df, total_results, query = semantic_api.get_all_results_from_semantic_scholar()

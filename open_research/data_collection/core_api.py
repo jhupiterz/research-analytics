@@ -9,8 +9,6 @@ import pandas as pd
 import requests
 
 def core_api(search_query):
-    # query = get_user_input()
-    # search_query = format_user_input(query)
 
     API_KEY = "BX8LxuP2c6CUn0tEIVlrJvisFqMdYehZ"
     entityType = "outputs"

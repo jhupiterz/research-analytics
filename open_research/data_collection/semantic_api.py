@@ -2,10 +2,6 @@
 #      This code collects data about scientific papers using Semantic Scholar      # 
 #                       visit https://api.semanticscholar.org/                     #
 #----------------------------------------------------------------------------------#
-#                                     ---Usage---                                  #
-#                   Run the method get_papers_from_quey() followed by              #
-#                             get_references_of_all_results()                      #
-#----------------------------------------------------------------------------------#
 
 import requests
 import pandas as pd

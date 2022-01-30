@@ -1,18 +1,8 @@
 #--------------------------------------------------------------------------#
 #           This code preprocesses the data collected fom the API          # 
 #--------------------------------------------------------------------------#
-#                                 ---Usage---                              #
-# To get the primary results of a Google Scholar search run the following: #
-#                   primaryResults = serpapi_full_cite()                   #
-#      To get the papers citing the primary results run the following:     #
-#            citing_papers = serpapi_cited_by_list(primaryResults)         #
-#                                                                          #
-#    N.B. the second command will only run if the first one has been run   #
-#--------------------------------------------------------------------------#
 
-import nltk
 from nltk.corpus import stopwords
-#nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 
 import utils
