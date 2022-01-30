@@ -6,11 +6,11 @@ For a full project description please visit <a href="https://jhupiterz.notion.si
 
 <h2 style="font-size:32px"> Research analytics </h2>
 
-<p style = "font-size:14px">The first service developed by the project is a research analytics web app built using the python <a href="https://plotly.com/dash/">plotly Dash framework</a>.</br>The python package is located in the <code>open-research</code> folder.</p>
+<p style = "font-size:14px">The first service developed by the project is a research analytics web app built using the python <a href="https://plotly.com/dash/">plotly Dash framework</a>.</p>
 
 <h3 style="font-size:32px"> App preview </h3>
 
-<img src="/images/example.gif" alt="app sample" /> 
+<img src="/images/sample-1.gif" alt="app sample" />
 
 <h3 style="font-size:32px"> Installation </h3>
 
