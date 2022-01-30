@@ -7,9 +7,6 @@
 #               user input and return a up to 50 paper dataframe           #                                         #
 #--------------------------------------------------------------------------#
 
-from utils import get_user_input
-from utils import format_user_input
-
 import pandas as pd
 import requests
 

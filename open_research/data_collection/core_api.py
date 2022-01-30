@@ -2,10 +2,6 @@
 #      This code collects data about scientific papers using DOAJ API      # 
 #                     visit https://api.core.ac.uk/docs/v3                 #
 #--------------------------------------------------------------------------#
-#                                 ---Usage---                              #
-#              Just run the method core_api() and it will ask for          #
-#               user input and return a up to 50 paper dataframe           #                                         #
-#--------------------------------------------------------------------------#
 
 from utils import get_user_input
 from utils import format_user_input
