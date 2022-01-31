@@ -27,6 +27,8 @@ app = dash.Dash(
 
 app.title = "Research Intelligence"
 
+input_type = 'text'
+
 # Build App layout ----------------------------------------------------------
 app.layout = html.Div([
     
@@ -65,6 +67,27 @@ app.layout = html.Div([
     html.Div([ html.A('Results powered by Semantic Scholar', href = "https://www.semanticscholar.org/", target = '_blank', style = {'color': 'white'})], style = {'margin': 'auto', 'width': '100%', 'height':'5%', 'text-align':' center'}),
 
     html.Br(),
+    html.Br(),
+    html.Br(),
+    
+    html.Div([
+        dcc.Input(
+            id='search_query',
+            type = input_type,
+            placeholder = 'insert your search query',
+            debounce = True,
+            spellCheck = True,
+            inputMode = 'latin',
+            name = 'text',
+            autoFocus = True,
+            minLength = 1, maxLength = 60,
+            autoComplete='on',
+            disabled = False,
+            readOnly = False,
+            size = '60',
+            style = {'height': '100%', 'width': '40%', 'font-size': '14px', 'margin':'auto'})
+        ], style = {'width': '95%', 'height':'5%', 'margin': 'auto', 'display':'flex', 'flex-direction':'column', 'justify-content': 'center'}),
+    
     html.Br(),
     html.Br(),
     
