@@ -3,14 +3,21 @@
 #                 visit https://unpaywall.org/products/api                 #
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 import pandas as pd
 import requests
 
+# function definitions -----------------------------------------------------
 def doaj_api(search_query):
-
+    """what it does: queries DOAJ API and builds a dataframe with data collected about papers
+       arguments: takes a search query (str) as argument
+       returns: a dataframe containing information collected about the papers"""
+    
+    # query
     url = f"https://doaj.org/api/search/articles/{search_query}?page=1&pageSize=60"
     response = requests.get(url).json()
 
+    # retrieve info of interest and handling KeyErrors
     papers = []
     for paper in response['results']:
         if 'journal' in paper['bibjson']:
@@ -42,6 +49,7 @@ def doaj_api(search_query):
                 journal_title = paper['bibjson']['journal']['title'] 
             else:
                 journal_title = ""
+            
             journal = {"volume": journal_volume,
                             "issue": journal_issue,
                             "country": journal_country,
@@ -87,7 +95,8 @@ def doaj_api(search_query):
             title = paper['bibjson']['title']
         else:
             title = ""
-            
+        
+        # build dictionary
         paper_dict = {"title": title,
                         "journal": journal,
                         "keywords": keywords,
@@ -100,6 +109,8 @@ def doaj_api(search_query):
                         "abstract": abstract}
         papers.append(paper_dict)
     papers_df = pd.DataFrame(papers)
+    
+    # sort out authors list and affiliations into desired format
     authors = []
     affiliations = []
     for index, row in papers_df.iterrows():
@@ -115,6 +126,8 @@ def doaj_api(search_query):
         affiliations.append(affiliation_list)
     papers_df.author = authors
     papers_df['affiliations'] = affiliations
+    
+    # sort out journal name, access, and publisher
     journal_name = []
     journal_is_oa = []
     publisher = []
@@ -125,7 +138,8 @@ def doaj_api(search_query):
     papers_df['journal_name'] = journal_name
     papers_df['journal_is_oa'] = journal_is_oa
     papers_df['publisher'] = publisher
-    # Get published date, by default the day of the month is set to 1
+    
+    # sort out published date into desired format
     published_date = []
     for index, row in papers_df.iterrows():
         if row.pub_month:
@@ -138,6 +152,7 @@ def doaj_api(search_query):
         date = row.pub_year+"-"+month+"-"+"01"
         published_date.append(date)
     papers_df['published_date'] = published_date
+    
     # Get number of pages
     number_of_pages = []
     for index, row in papers_df.iterrows():
@@ -147,6 +162,8 @@ def doaj_api(search_query):
         else:
             number_pages = ""
         number_of_pages.append(number_pages)
+    
+    # rename and drop columns
     papers_df['number_of_pages'] = number_of_pages
     papers_df.drop(labels = ['pub_year', 'pub_month', 'start_page', 'end_page', 'journal'], axis=1, inplace = True)
     papers_df = papers_df.rename(columns={'keywords': 'key_words', 'author': 'authors'})

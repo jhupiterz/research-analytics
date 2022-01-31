@@ -3,22 +3,23 @@
 #                 visit https://unpaywall.org/products/api                 #
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 from data_preprocessing.data_preprocess import extract_key_words
-
 import pandas as pd
 import requests
 
+# function definitions -----------------------------------------------------
 def unpaywall_api(search_query):
-    """Requests Unpaywall API and returns a dataframe of papers
-       with the following columns: title, doi, genre, is_oa, 
-       journal_is_oa, journal_name, published_date, publisher, authors"""
-    # query = get_user_input()
-    # search_query = format_user_input(query)
+    """what it does: queires Unpaywall API and builds a dataframe of papers
+       arguments: takes a search query (str) as argument
+       returns: a dataframe containing all data collected form papers"""
 
+    # query
     url = 	f"https://api.unpaywall.org/v2/search?query={search_query}&email=julie.hartz13@gmail.com"
     response = requests.get(url).json()
     list_papers = response["results"]
 
+    # retieve info of interest and handle KeyErrors
     papers = []
     for paper in list_papers:
         if paper['response']['title']:
@@ -58,6 +59,7 @@ def unpaywall_api(search_query):
         else:
             authors = ""
         
+        # build dictionary
         paper_dict = {"title": title,
                     "doi": doi,
                     "genre": genre,
@@ -69,7 +71,8 @@ def unpaywall_api(search_query):
                     "authors": authors}
         papers.append(paper_dict)
         papers_df = pd.DataFrame(papers)
-        
+    
+    # sort out authors list into desired format
     authors = []
     affiliations = []
     for index, row in papers_df.iterrows():
@@ -88,8 +91,6 @@ def unpaywall_api(search_query):
             if 'affiliation' in author:
                 for e in author['affiliation']:
                     affiliation.append(e['name'])
-            #else: 
-                #affiliation = np.nan
             authors_list.append(author_fullname)
             affiliation_list.append(affiliation)
         authors.append(authors_list)

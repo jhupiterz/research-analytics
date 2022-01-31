@@ -1,16 +1,19 @@
 #--------------------------------------------------------------------------#
-#        This code consolidates data scraped from the different APIs       #
+#    consolidates, cleans, enriches data scraped from the different APIs   #
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 import pandas as pd
-
 from data_preprocessing import data_cleaning, data_enrichment
-
 from utils import format_user_input, get_user_input
 from data_collection import core_api, doaj_api, google_api, unpaywall_api
 
+# function definitions -----------------------------------------------------
 def get_consolidated_df():
-    """for other APIs (DOAJ, CORE, Unpaywall, GoogleScholar"""
+    """what it does: consolidates all data from DOAJ, CORE, Unpaywall,
+                     and GoogleScholar APIs into a single dataframe
+       arguments: no arguments
+       returns: the consolidated dataframe and the input query"""
     query = get_user_input()
     search_query = format_user_input(query)
 
@@ -27,7 +30,9 @@ def get_consolidated_df():
     return consolidated_df, query
 
 def get_final_df():
-    """for other APIs (DOAJ, CORE, Unpaywall, GoogleScholar"""
+    """what it does: cleans and enriches the consolidated df
+       arguments: no arguments
+       returns: the cleaned and enriched df and the input query"""
     df, query_keywords = get_consolidated_df()
     query = tuple(query_keywords.split())
     df = data_cleaning.clean_df(df)

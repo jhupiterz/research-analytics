@@ -2,11 +2,13 @@
 #                  This code contains small useful functions               # 
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from ast import literal_eval
 
+# function definitions -----------------------------------------------------
 def get_user_input():
     """get user input for topic to search"""
     user_input = input("Enter key words: ")

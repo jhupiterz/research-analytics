@@ -3,32 +3,30 @@
 #                         visit https://serpapi.com                        #
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 from serpapi import GoogleSearch
-
 from data_preprocessing.data_preprocess import extract_key_words
 from data_preprocessing.data_preprocess import extract_pub_info
-
 import pandas as pd
 
+# function definitions -----------------------------------------------------
 def serpapi_og_results(query):
-    """scrapes google scholar using SerpAPI
-       output is a dataframe with following columns: 
-       [title, result_id, link, snippet, resources_title, resources_link, 
-       citation_count, cites_id, versions, cluster_id]"""
-                                
-    #query = utils.get_user_input()
+    """what it does: scrapes INITIAL results from google scholar and builds a dataframe
+       arguments: takes a search query (str) as argument
+       returns: a dataframe containing the data collected about the papers"""
     
+    # query
     params = {
         "engine": "google_scholar",
         "q": query,
         "api_key": "bd9ae4d322ca6af163e484036232d68bbfc7385d22eb5b3553fbdecb46509c20",
         "num": 20
     }
-
     search = GoogleSearch(params)
     results = search.get_dict()
     organic_results = results['organic_results']
 
+    # retrieve info of interest and handling KeyErrors
     papers = []
     i = 0
     
@@ -65,6 +63,7 @@ def serpapi_og_results(query):
                 versions = "no data"
                 cluster_id = "no data"
 
+        # build dictionary
         paper_dict = {"paper_id": paper_id,
                     "title": title,
                     "result_id": result_id,
@@ -82,10 +81,14 @@ def serpapi_og_results(query):
     return papers_df
 
 def serpapi_full_cite(query):
-    """Scrapes Google scholar for full citations (Cite snippet)
-       Iterates over a given df[result_id] and extracts full MLA citation
-       Output is a dataframe with [full_citation] column"""
+    """what it does: scrapes Google scholar for the full citations
+       arguments: takes a search query (str) as argument
+       returns: returns a dataframe containing a 'full_citation' column"""
+    
+    # scrape INITIAL results
     df = serpapi_og_results(query)
+    
+    # iterate on INITIAL results df to retrieve full citations of each paper
     full_citations = []
     for _, row in df.iterrows():
         params = {
@@ -119,8 +122,15 @@ def serpapi_full_cite(query):
     return df
 
 def serpapi_cited_by_list(df):
+    """what it does: scrapes the list of papers citing the INITIAL results
+       arguments: takes the df containing the INITIAL results
+       returns: a new dataframe containg all the papers citing the INITIAL papers"""
+    
+    # iterates over INITIAL df to retrieve the  list of papers citing each INITIAL paper
     j = 0
     i = 0
+    
+    # query
     citing_papers = []
     for _, row in df.iterrows():
         if row.cites_id != "no data":
@@ -136,6 +146,7 @@ def serpapi_cited_by_list(df):
             
             papers = []
 
+            # retrieve info of interest and handle KeyErrors
             for paper in organic_results:
                 paper_id = i
                 citing_paper_id = j
@@ -173,6 +184,7 @@ def serpapi_cited_by_list(df):
                         versions = "no data"
                         cluster_id = "no data"
 
+                # build dictionary
                 paper_dict = {"paper_id": paper_id,
                             "citing_paper_id": citing_paper_id,
                             "title": title,
@@ -187,7 +199,6 @@ def serpapi_cited_by_list(df):
                             "cluster_id": cluster_id}
                 papers.append(paper_dict)
                 i = i + 1
-            #print(f"Got citing papers from paper {j}")
             j = j + 1
             citing_papers.append(papers)
     flatList = [ item for elem in citing_papers for item in elem]

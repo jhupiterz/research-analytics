@@ -2,15 +2,19 @@
 #                 This code cleans the consolidated dataframe              # 
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 import pandas as pd
 import numpy as np
 
+# function definitions -----------------------------------------------------
 def clean_df(df):
-    """Cleans the consolidated dataframe obtained with
-       consolidated_df in data_collection module"""
-    # Converts timestamp (str) to datetime
+    """what it does: cleans the consolidated dataframe
+       arguments: takes a dataframe as argument
+       returns: the cleaned dataframe"""
+
     df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
-    # Converts list of authors to one single str of authors
+    
+    # Convert list of authors to one single str of authors
     authors = []
     for index, row in df.iterrows():
         if type(row.authors) == list:
@@ -20,25 +24,20 @@ def clean_df(df):
         authors.append(str_authors)
     df['authors'] = authors
     df['authors'] = df['authors'].str.lstrip()
-    # Converts list of key_words to tuple of kw
+    
+    # Convert list of key_words to tuple of kw
     key_words = []
     for index, row in df.iterrows():
         key_words.append(tuple(row.key_words))
     df['key_words'] = key_words
-    # Drop duplicates if any
+    
+    # basic cleaning
     df.drop_duplicates(inplace=True)
-    # Once duplicates have been dropped, make a list out of authors again
     df['authors'] = df.authors.str.split(', ')
-    # Replace missing values with 'no data'
     df['journal_is_oa'] = df.journal_is_oa.replace(['', np.nan], 'no data')
-    # Converts timestamp (str) to datetime
-    df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
     df['publisher'] = df.publisher.replace([None, np.nan], 'no data')
-    # Convert date str into datetime
     df['published_date'] =  pd.to_datetime(df['published_date'], errors='coerce')
-    # Extract year from datetime
     df['published_year'] = pd.DatetimeIndex(df['published_date']).year
-    # Strip volume numbers from journal name
     df['journal_name'] = df['journal_name'].str.rstrip('1234567890.-').str.strip()
     return df
 

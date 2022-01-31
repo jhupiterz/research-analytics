@@ -1,18 +1,21 @@
 #--------------------------------------------------------------------------#
 #                 This code gets the citation count for papers             #
-#             in consolidated_df obtained in data_collection module        # 
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 from serpapi import GoogleSearch
 import pandas as pd
 import numpy as np
 
-def get_citation_count(df):
-    """Queries SerpAPI for Google Scholar results and only returns 
-       the citation count for each paper in df.
-       df should be consolidated df obtained from data_collection module"""
+# function definitions ------------------------------------------------------
+def get_citation_count(consolidated_df):
+    """what it does: queries SerpAPI for the citation count for each paper in consolidated_df
+       arguments: takes a dataframe as argument (should be consolidated_df)
+       returns: the condolidated_df including a 'citation_coun' column"""
+    
+    # iterates on df to query and retrieve citation_count
     citation_count = []
-    for index, row in df.iterrows():
+    for index, row in consolidated_df.iterrows():
         if pd.notna(row.citation_count):
             citations = row.citation_count
         else:
@@ -38,5 +41,5 @@ def get_citation_count(df):
             else:
                 citations = np.nan
         citation_count.append(citations)
-    df['citation_count'] = citation_count
-    return df
+    consolidated_df['citation_count'] = citation_count
+    return consolidated_df

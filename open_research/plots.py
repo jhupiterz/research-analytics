@@ -1,7 +1,8 @@
 #--------------------------------------------------------------------------#
-#             This code generates plots to be used in Dashboards           # 
+#          This code generates plots to be displayed in Dashboards         # 
 #--------------------------------------------------------------------------#
 
+# imports ------------------------------------------------------------------
 from numpy.lib import utils
 import utils
 from datetime import date
@@ -10,6 +11,8 @@ from collections import Counter
 import plotly.graph_objs as go
 import plotly.express as px
 
+# function definitions -----------------------------------------------------
+# function names are self-explanatory --------------------------------------
 
 def make_access_pie(df, which_api):
   if which_api == 'semantic_scholar':
