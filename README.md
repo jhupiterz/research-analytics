@@ -1,17 +1,20 @@
-<h1 style="font-size:40px">🧠 🤖</h1>
-<h1 style="font-size:40px">Open Research Project</h1>
+# Welcome to Scoollab 🧠 😎
 
-<p style = "font-size:14px"><b>Open Research Project</b> is a community open source project helping academic researchers and students with their daily research activities. Contributors to the project build tools to help streamline the research process.</br></br>
-For a full project description please visit <a href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb">Open Research Project</a>.</p>
+**Scoollab** is an Open Source project helping academic researchers and students with their daily research activities. 
+Contributors to the project build tools to help streamline the research process.
 
-<h2 style="font-size:32px"> Research analytics </h2>
+For a full project description please visit [Scoollab](https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb).
 
-<p style = "font-size:14px">The first service developed by the project is a research analytics web app built using the python <a href="https://plotly.com/dash/">plotly Dash framework</a>.</p>
+## Research analytics 📊
 
-<h3 style="font-size:32px"> App preview </h3>
+The first tool developed by the project is a research analytics web app built with [Plotly Dash](https://plotly.com/dash/).
+
+### App preview 👁️
 
 <img src="/images/sample-1.gif" alt="app sample" />
 
-<h3 style="font-size:32px"> Installation </h3>
+### Package installation
 
-<h3 style="font-size:32px"> Web app </h3>
+### Web app 🕸️
+
+The web app is accessible via [this link](https://research-intel.heroku.com).
