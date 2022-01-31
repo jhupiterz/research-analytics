@@ -7,22 +7,13 @@ wheel>=0.29
 # data science
 numpy
 pandas
-scikit-learn
-bs4
 datetime
 matplotlib
-re
 nltk
-string
-collections
-time
-networkx
 pyvis
-ast
 dash
 dash_cytoscape
-dash_core_components
-dash_html_components
+plotly
 
 # tests/linter
 black
@@ -32,11 +23,7 @@ pytest
 yapf
 
 # API
-gcsfs
-google-cloud-storage
-mlflow
 requests
-s3fs
 
 # utilities
 six>=1.14
