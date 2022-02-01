@@ -14,11 +14,8 @@ import plotly.express as px
 # function definitions -----------------------------------------------------
 # function names are self-explanatory --------------------------------------
 
-def make_access_pie(df, which_api):
-  if which_api == 'semantic_scholar':
-    oa_publications = df.groupby('isOpenAccess').count()
-  else:
-    oa_publications = df.groupby('journal_is_oa').count()
+def make_access_pie(df):
+  oa_publications = df.groupby('isOpenAccess').count()
   df_ = oa_publications
   fig = px.pie(df_, values='title', names= df_.index, color=df_.index,
                color_discrete_map={'no data':'#eda109',
@@ -227,19 +224,19 @@ def make_top_publishers_cites(df):
   fig.update_yaxes(title="Number of citations")
   return fig
 
-def make_top_key_words(df, query):
+def make_top_key_words(df):
   """query should be the list of keywords from user input"""
   list_keywords = []
   for index, row in df.iterrows():
       list_keywords.append(row.key_words)
   flatten_list = utils.flatten_list(list_keywords)
-  # print(query, type(query))
-  query = query.split()
+  #query = query.split()
   key_word_list = tuple(flatten_list)
-  cleaned_list = [ x for x in key_word_list if query[0] not in x ]
-  for i in range(1,len(query)):
-    cleaned_list = [ x for x in cleaned_list if query[i] not in x ]
-  cleaned_tuple = tuple(cleaned_list)
+  # cleaned_list = [ x for x in key_word_list if query[0] not in x ]
+  # for i in range(1,len(query)):
+  #   cleaned_list = [ x for x in cleaned_list if query[i] not in x ]
+  cleaned_tuple = tuple(key_word_list)
+  #cleaned_tuple = tuple(cleaned_list)
   key_words_sorted = Counter(cleaned_tuple).most_common()
   top_key_words = pd.DataFrame(key_words_sorted, columns=["key_word", "occurence"])
   top_key_words = top_key_words.sort_values(by="occurence", ascending=False)

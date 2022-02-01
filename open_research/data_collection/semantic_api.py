@@ -10,6 +10,16 @@ import utils
 from data_preprocessing import data_preprocess
 
 # function definitions -------------------------------------------------------------
+def query_api_from_input(search_query):
+    """what it does: queries Semantic Scholar for the INITIAL results and builds a dataframe
+       arguments: takes a search query (str) as argument
+       returns: the dataframe containing all date collected about papers and the number (int) of total results"""
+    
+    # query
+    url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={search_query}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"
+    response = requests.get(url).json()
+    return response['data']
+
 def get_papers_from_query(search_query):
     """what it does: queries Semantic Scholar for the INITIAL results and builds a dataframe
        arguments: takes a search query (str) as argument
