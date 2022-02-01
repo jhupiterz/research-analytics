@@ -353,6 +353,18 @@ def get_top_publisher(df):
     top_publisher = top_publisher_pubs.index[1]
   return top_publisher
 
+def make_top_authors(df):
+  flat_author_list = utils.flatten_list(df.authors.tolist())
+  top_authors_df = pd.DataFrame(Counter(flat_author_list).most_common(50), columns=['author', 'occurence'])
+  fig = go.Figure(data=[go.Bar(x=top_authors_df['author'][0:5],
+                             y= top_authors_df['occurence'][0:5],
+                             texttemplate="%{y}",
+                             textposition="outside",
+                             textangle=0)])
+  fig.update_layout(title = f"Top key words", title_x=0.5)
+  fig.update_yaxes(title="Number of occurences")
+  return fig
+
 def generate_collab_network_df(df):
     authors_list_of_list = []
     ids_list_of_list = []
@@ -385,18 +397,6 @@ def generate_collab_network_df(df):
     collabs_df['author2'] = list(zip(collabs_df.author2, collabs_df.id2))
     collabs_df.drop(['id1', 'id2', 'weight1'], axis = 1, inplace = True)
     return collabs_df
-
-def make_top_authors(df):
-  flat_author_list = utils.flatten_list(df.authors.tolist())
-  top_authors_df = pd.DataFrame(Counter(flat_author_list).most_common(50), columns=['author', 'occurence'])
-  fig = go.Figure(data=[go.Bar(x=top_authors_df['author'][0:5],
-                             y= top_authors_df['occurence'][0:5],
-                             texttemplate="%{y}",
-                             textposition="outside",
-                             textangle=0)])
-  fig.update_layout(title = f"Top key words", title_x=0.5)
-  fig.update_yaxes(title="Number of occurences")
-  return fig
 
 def generate_graph_elements_collab(df):
     nx_df = generate_collab_network_df(df)
