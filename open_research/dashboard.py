@@ -27,8 +27,6 @@ app = dash.Dash(
 
 app.title = "Research Intelligence"
 
-input_type = 'text'
-
 # Build App layout ----------------------------------------------------------
 app.layout = html.Div([
     
@@ -73,7 +71,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Input(
             id='search_query',
-            type = input_type,
+            type = 'text',
             placeholder = 'insert your search query',
             debounce = True,
             spellCheck = True,
