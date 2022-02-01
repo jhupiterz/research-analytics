@@ -7,7 +7,7 @@ For a full project description please visit [Scoollab](https://jhupiterz.notion.
 
 ## Research analytics 📊
 
-The first tool developed by the project is a research analytics web app built with [Plotly Dash](https://plotly.com/dash/).
+The first tool developed by the project is a research analytics web app built with [Plotly Dash](https://plotly.com/dash/) in Python 🐍
 
 ### App preview 👁️
 
