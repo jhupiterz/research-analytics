@@ -13,7 +13,7 @@ The first tool developed by the project is a research analytics web app built wi
 
 <img src="/images/sample-1.gif" alt="app sample" />
 
-### Package installation ⬇️
+### Package installation 🔽
 
 If you wish to use the research analytics app on your machine (run it locally), you can simply install the Python package by running the following command in your terminal (command prompt):
 
