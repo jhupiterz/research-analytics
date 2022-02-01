@@ -118,13 +118,7 @@ app.layout = html.Div([
     style = {'backgroundColor': '#18192e', 'margin-bottom': '0px'})
 
 # Callbacks --------------------------------------------------------------------
-# From user search query, queries Semantic Scholar API and stores raw response into dcc.Store store-data
-@app.callback(
-    Output('topic', 'children'),
-    Input('search-query', 'value'))
-def display_topic(value):
-    return f"Topic: {value}"
-
+# Store response of initial API query
 @app.callback(
     Output('store-initial-query-response', 'data'),
     Input('search-query', 'value'))
@@ -133,6 +127,7 @@ def store_primary_data(value):
     response = requests.get(url).json()
     return response
 
+# Store dictionary of references of all initial papers
 @app.callback(
     Output('store-references-query-response', 'data'),
     Input('store-initial-query-response', 'data'))
@@ -144,6 +139,7 @@ def store_references_data(data):
         response = requests.get(url).json()
         ref_data = response['data']
         for cited_paper in ref_data:
+            cited_paper['citedPaper']['citedBy'] = paper_id
             ref_dict.append(cited_paper['citedPaper'])
     return ref_dict
 
@@ -268,150 +264,154 @@ def render_content(tab):
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
                 'justify-content': 'space-evenly', 'margin-bottom': '20px'}),
     ])
-    # if tab == 'tab-3-example-graph':
-    #     return html.Div([
+    if tab == 'tab-3-example-graph':
+        return html.Div([
             
-    #         html.Div([
-    #             html.Div([
-    #                 html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
-    #                                                     'color': 'white'}),
-    #                 cyto.Cytoscape(
-    #                     id='cytoscape-event-callbacks-1',
-    #                     elements= plots.generate_graph_elements_collab(df),
-    #                     layout={'name': 'circle', 'height': '600px', 'width': '600px'},
-    #                     style = {'order': '2', 'height': '600px', 'width': '600px'},
-    #                     stylesheet = [
-    #                         {
-    #                             'selector': 'label',
-    #                             'style': {
-    #                                 'content': 'data(label)',
-    #                                 'color': 'white',
-    #                                 'background-color': '#eda109'
-    #                             }
-    #                         },
-    #                         {
-    #                             'selector': 'node',
-    #                             'style': {
-    #                                 'label': 'data(label)'
-    #                             } 
-    #                         },
-    #                         {
-    #                             'selector': '.author',
-    #                             'style': {
-    #                                 'background-color': '#eda109'
-    #                             }
-    #                         },
-    #                         {
-    #                             'selector': '.collaboration',
-    #                             'style': {
-    #                                 'line-color': 'lightgrey',
-    #                                 'width': 0.7
-    #                             }
-    #                         }
-    #                         ])],
+            html.Div([
+                html.Div([
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                        'color': 'white'}),
+                    cyto.Cytoscape(
+                        id='cytoscape-event-callbacks-1',
+                        layout={'name': 'circle', 'height': '600px', 'width': '600px'},
+                        style = {'order': '2', 'height': '600px', 'width': '600px'},
+                        stylesheet = [
+                            {
+                                'selector': 'label',
+                                'style': {
+                                    'content': 'data(label)',
+                                    'color': 'white',
+                                    'background-color': '#eda109'
+                                }
+                            },
+                            {
+                                'selector': 'node',
+                                'style': {
+                                    'label': 'data(label)'
+                                } 
+                            },
+                            {
+                                'selector': '.author',
+                                'style': {
+                                    'background-color': '#eda109'
+                                }
+                            },
+                            {
+                                'selector': '.collaboration',
+                                'style': {
+                                    'line-color': 'lightgrey',
+                                    'width': 0.7
+                                }
+                            }
+                            ])],
                     
-    #             style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-    #                     'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
+                style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
         
-    #             html.Br(),
-    #             html.Br(),
+                html.Br(),
+                html.Br(),
 
-    #             html.Div([
-    #                 html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
-    #                                                         'color': 'white'}),
-    #                 cyto.Cytoscape(
-    #                     id='cytoscape-event-callbacks-2',
-    #                     elements= plots.generate_graph_elements_network(all_references_df, df),
-    #                     layout={'name': 'cose', 'height': '900px', 'width': '750px'},
-    #                     style={'order': '2', 'height': '900px', 'width': '750px'},
-    #                     stylesheet = [
-    #                         {
-    #                             'selector': 'node',
-    #                             'style': {
-    #                                 'background-color': '#cb8deb',
-    #                                 'height': '10px',
-    #                                 'width': '10px'
-    #                             } 
-    #                         },
-    #                         {
-    #                             'selector': '.res',
-    #                             'style': {
-    #                                 'background-color': 'green',
-    #                                 'color': 'red',
-    #                                 'height': '12px',
-    #                                 'width': '12px'
-    #                             }
-    #                         },
-    #                         {
-    #                             'selector': '.ref',
-    #                             'style': {
-    #                                 'background-color': 'white',
-    #                                 'color': 'white',
-    #                                 'height': '7px',
-    #                                 'width': '7px'
-    #                             }
-    #                         },
-    #                         {
-    #                             'selector': '.citation',
-    #                             'style': {
-    #                                 'line-color': 'white',
-    #                                 'width': 0.6
-    #                             }
-    #                         }
-    #                         ])],
+                html.Div([
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                            'color': 'white'}),
+                    cyto.Cytoscape(
+                        id='cytoscape-event-callbacks-2',
+                        layout={'name': 'cose', 'height': '900px', 'width': '750px'},
+                        style={'order': '2', 'height': '900px', 'width': '750px'},
+                        stylesheet = [
+                            {
+                                'selector': 'node',
+                                'style': {
+                                    'background-color': '#cb8deb',
+                                    'height': '10px',
+                                    'width': '10px'
+                                } 
+                            },
+                            {
+                                'selector': '.res',
+                                'style': {
+                                    'background-color': 'green',
+                                    'color': 'red',
+                                    'height': '12px',
+                                    'width': '12px'
+                                }
+                            },
+                            {
+                                'selector': '.ref',
+                                'style': {
+                                    'background-color': 'white',
+                                    'color': 'white',
+                                    'height': '7px',
+                                    'width': '7px'
+                                }
+                            },
+                            {
+                                'selector': '.citation',
+                                'style': {
+                                    'line-color': 'white',
+                                    'width': 0.6
+                                }
+                            }
+                            ])],
                     
-    #             style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
-    #                     'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-    #                     'margin-bottom': '20px'})],
+                style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
+                        'margin-bottom': '20px'})],
 
-    #             style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '20px'}),
+                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '20px'}),
         
-    #     html.Div([
-    #             html.Div([
-    #                 html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
-    #                                                     'color': '#101126'}),
-    #                 html.P("Click on a node to display information about an author",
-    #                        style = {'order': '2', 'font-size': '22px',
-    #                                 'font-family': 'Courier New, monospace', 'color': '#101126'}),
-    #                 html.Div([
-    #                     html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
-    #                     html.Div([
-    #                         html.P(html.B("AUTHOR INFO"),
-    #                             style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-    #                         html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-    #                     style = {'order': '2', 'width': '400px', 'height': '400px', 'border': "1px black solid"})],
-    #                          style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
-    #                     )],
+        html.Div([
+                html.Div([
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                        'color': '#101126'}),
+                    html.P("Click on a node to display information about an author",
+                           style = {'order': '2', 'font-size': '22px',
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
+                    html.Div([
+                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
+                        html.Div([
+                            html.P(html.B("AUTHOR INFO"),
+                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '400px', 'height': '400px', 'border': "1px black solid"})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
+                        )],
                     
-    #             style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-    #                     'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
+                style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
         
-    #             html.Br(),
-    #             html.Br(),
+                html.Br(),
+                html.Br(),
 
-    #             html.Div([
-    #                 html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
-    #                                                         'color': '#101126'}),
-    #                 html.P("Click on a node to display information about a paper",
-    #                        style = {'order': '2', 'font-size': '22px',
-    #                                 'font-family': 'Courier New, monospace', 'color': '#101126'}),
-    #                 html.Div([
-    #                     #html.Img(src='/assets/writing.png', style={'order': '1', 'height': '250px'}),
-    #                     html.Div([
-    #                         html.P(html.B("PAPER INFO"),
-    #                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-    #                         html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-    #                     style = {'order': '2', 'width': '95%', 'height': '840px', 'border': "1px black solid", "margin-top": "10px"})],
-    #                             style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
-    #                     )],
+                html.Div([
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
+                                                            'color': '#101126'}),
+                    html.P("Click on a node to display information about a paper",
+                           style = {'order': '2', 'font-size': '22px',
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
+                    html.Div([
+                        html.Div([
+                            html.P(html.B("PAPER INFO"),
+                                   style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
+                            html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '95%', 'height': '840px', 'border': "1px black solid", "margin-top": "10px"})],
+                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
+                        )],
                     
-    #             style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
-    #                     'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
-    #                     'margin-bottom': '20px'})],
+                style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
+                        'margin-bottom': '20px'})],
 
-    #             style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
+                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
             
-    #         style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '20px'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '20px'})
+
+# Topic title
+@app.callback(
+    Output('topic', 'children'),
+    Input('search-query', 'value'))
+def display_topic(value):
+    return f"Topic: {value}"
 
 # Top flashacards -----------------------------------------------
 @app.callback(
@@ -552,41 +552,62 @@ def create_citations_graph_ref_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_active_authors(dff)
     return dcc.Graph(figure=fig)
-                 
-# @app.callback(Output('author-info-1', 'children'),
-#               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
-# def displayTapNodeData(data):
-#     if data:
-#         author_info = semantic_api.get_author_info(data['id'])
-#         paragraph = html.P([html.Br(), html.U("Author Id"), f": {author_info['authorId']}", html.Br(),html.Br(),
-#                             html.U("Name"), f": {author_info['name']}", html.Br(),html.Br(),
-#                             html.U("Affiliation(s)"), f": {author_info['affiliations']}", html.Br(),html.Br(),
-#                             html.U("Homepage"), f": {author_info['homepage']}", html.Br(),html.Br(),
-#                             html.U("Paper count"), f": {author_info['paperCount']}", html.Br(),html.Br(),
-#                             html.U("Citation count"), f": {author_info['citationCount']}", html.Br(),html.Br(),
-#                             html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
-#                             html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
-#                             style = {'text-align': 'left', 'color': '#101126'})
-#         return paragraph
 
-# @app.callback(Output('paper-info-1', 'children'),
-#               Input('cytoscape-event-callbacks-2', 'tapNodeData'))
-# def displayTapNodeData(data):
-#     if data:
-#         paper_info = semantic_api.get_paper_info(data['id'])
-#         if 'paperId' in paper_info:
-#             paragraph = html.P([html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
-#                                 html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
-#                                 html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
-#                                 html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
-#                                 html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
-#                                 html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
-#                                 html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),
-#                                 html.U("Abstract"), f": {paper_info['abstract']}"],
-#                                 style = {'text-align': 'left', 'color': '#101126'})
-#         else:
-#             paragraph = html.P("No info available for this paper")
-#         return paragraph
+# Cytoscapes -------------------------------------------------------------------
+@app.callback(
+    Output('cytoscape-event-callbacks-1', 'elements'),
+    Input('store-initial-query-response', 'data'))
+def generate_collaboration_network(data):
+    dff = pd.DataFrame(data['data'])
+    elements = plots.generate_graph_elements_collab(dff)
+    return elements
+
+@app.callback(
+    Output('cytoscape-event-callbacks-2', 'elements'),
+    Input('store-references-query-response', 'data'),
+    Input('store-initial-query-response', 'data'))
+def generate_collaboration_network(data_ref, data_res):
+    ref_df = pd.DataFrame(data_ref)
+    ref_df['reference'] = semantic_api.build_references(ref_df)
+    res_df = pd.DataFrame(data_res['data'])
+    res_df['reference'] = semantic_api.build_references(res_df)
+    elements= plots.generate_graph_elements_network(ref_df, res_df)
+    return elements
+              
+@app.callback(Output('author-info-1', 'children'),
+              Input('cytoscape-event-callbacks-1', 'tapNodeData'))
+def displayTapNodeData(data):
+    if data:
+        author_info = semantic_api.get_author_info(data['id'])
+        paragraph = html.P([html.Br(), html.U("Author Id"), f": {author_info['authorId']}", html.Br(),html.Br(),
+                            html.U("Name"), f": {author_info['name']}", html.Br(),html.Br(),
+                            html.U("Affiliation(s)"), f": {author_info['affiliations']}", html.Br(),html.Br(),
+                            html.U("Homepage"), f": {author_info['homepage']}", html.Br(),html.Br(),
+                            html.U("Paper count"), f": {author_info['paperCount']}", html.Br(),html.Br(),
+                            html.U("Citation count"), f": {author_info['citationCount']}", html.Br(),html.Br(),
+                            html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
+                            html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
+                            style = {'text-align': 'left', 'color': '#101126'})
+        return paragraph
+
+@app.callback(Output('paper-info-1', 'children'),
+              Input('cytoscape-event-callbacks-2', 'tapNodeData'))
+def displayTapNodeData(data):
+    if data:
+        paper_info = semantic_api.get_paper_info(data['id'])
+        if 'paperId' in paper_info:
+            paragraph = html.P([html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
+                                html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
+                                html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
+                                html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
+                                html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
+                                html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
+                                html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),
+                                html.U("Abstract"), f": {paper_info['abstract']}"],
+                                style = {'text-align': 'left', 'color': '#101126'})
+        else:
+            paragraph = html.P("No info available for this paper")
+        return paragraph
 
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
