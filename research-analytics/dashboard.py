@@ -7,7 +7,6 @@
 import plots
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
-import time
 import requests
 import pandas as pd
 import dash
