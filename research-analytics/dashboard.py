@@ -22,7 +22,7 @@ from dash.dependencies import Input, Output
 
 app = dash.Dash(
     __name__, suppress_callback_exceptions = True,
-    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}])
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1", 'charSet':'“UTF-8”'}])
 
 app.title = "Research Intelligence"
 
@@ -83,7 +83,7 @@ app.layout = html.Div([
             readOnly = False,
             size = '60',
             n_submit = 0,
-            style = {'height': '100%', 'width': '30%', 'font-size': '20px', 'order':'2'})
+            style = {'height': '100%', 'width': '30%', 'font-size': '20px', 'order':'2', 'text-align':'center'})
         ], style = {'width': '95%', 'height':'50px', 'margin': 'auto', 'display':'flex',
                     'flex-direction':'row', 'align-items':'center', 'justify-content':'center'}),
 
@@ -157,15 +157,15 @@ def store_references_data(data):
 def render_content(data):
     if data != None:
         return (html.Div([
-            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'width': '306%', 'height': '10%', 'align-items':'center'},
+            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'width': '240%', 'height': '10%', 'align-items':'center'},
                         children=[
-                dcc.Tab(label='Search results', value='tab-1-example-graph',
+                dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
                         style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold'},
                         selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold'}),
-                dcc.Tab(label='Reference landscape', value='tab-2-example-graph',
+                dcc.Tab(label='📊 Reference landscape 📊', value='tab-2-example-graph',
                         style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold'},
                         selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold'}),
-                dcc.Tab(label='Networks', value='tab-3-example-graph',
+                dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold'},
                         selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold'})])],
                         style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
@@ -174,10 +174,10 @@ def render_content(data):
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
-        return html.Div([html.H1("Welcome researcher!", style = {'color':'white', 'order':'1', 'margin':'auto', 'height':'20px'}),
-                         html.P("You can start by entering keywords in the search bar above, or check the full documentation (upper right corner)",
-                                style = {'color':'white', 'order':'2', 'margin':'auto', 'height':'20px'})],
-                        style = {'width':'95%', 'height':'800px', 'margin':'auto', 'backgroundColor':'#101126',
+        return html.Div([html.H1("Welcome researcher! 🧠", style = {'color':'white', 'order':'1', 'margin':'auto', 'height':'10px'}),
+                         html.P("You can start by entering keywords in the search bar above ☝️, or check the full documentation ↗️",
+                                style = {'color':'white', 'order':'2', 'margin':'auto', 'height':'10px', 'margin-top':'-30px'})],
+                        style = {'width':'95%', 'height':'670px', 'margin':'auto', 'backgroundColor':'#101126',
                                  'display':'flex', 'flex-direction':'column', 'align-content':'center'})
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
@@ -435,7 +435,7 @@ def render_tab_content(tab):
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '1000px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '20px'})],
 
