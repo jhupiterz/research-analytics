@@ -82,6 +82,7 @@ app.layout = html.Div([
             disabled = False,
             readOnly = False,
             size = '60',
+            n_submit = 0,
             style = {'height': '100%', 'width': '30%', 'font-size': '20px', 'order':'2'})
         ], style = {'width': '95%', 'height':'50px', 'margin': 'auto', 'display':'flex',
                     'flex-direction':'row', 'align-items':'center', 'justify-content':'center'}),
@@ -124,10 +125,11 @@ app.layout = html.Div([
 # Store response of initial API query
 @app.callback(
     Output('store-initial-query-response', 'data'),
+    Input('search-query', 'n_submit'),
     Input('search-query', 'value'))
-def store_primary_data(value):
+def store_primary_data(n_submit, value):
     #print(type(value))
-    if value != None:
+    if n_submit > 0:
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={value}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"
         response = requests.get(url).json()
         return response
