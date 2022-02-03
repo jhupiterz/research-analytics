@@ -1,4 +1,4 @@
-# Welcome to Scoollab 🧠 😎
+# Welcome to Scoollab's Research Analytics 🧠 😎
 
 **Scoollab** is an Open Source project helping academic researchers and students with their daily research activities. 
 Contributors to the project build tools to help streamline the research process.
