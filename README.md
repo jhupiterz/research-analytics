@@ -30,3 +30,7 @@ The Python file will open a local port in your default browser and you'll be abl
 ### Web app 🕸️
 
 The web app is also accessible via [this link](https://research-analytics.herokuapp.com/).
+
+### App documentation
+
+A full documentation of how to use the app is available [here](https://www.notion.so/jhupiterz/Research-Analytics-dda8cbc930db498ba054f7ec2bb57dcc).
