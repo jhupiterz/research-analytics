@@ -29,4 +29,4 @@ The Python file will open a local port in your default browser and you'll be abl
 
 ### Web app 🕸️
 
-The web app is also accessible via [this link](https://research-intel.heroku.com).
+The web app is also accessible via [this link](https://research-analytics.herokuapp.com/).
