@@ -113,7 +113,6 @@ app.layout = html.Div([
     Input('search-query', 'n_submit'),
     Input('search-query', 'value'))
 def store_primary_data(n_submit, value):
-    #print(type(value))
     if n_submit > 0:
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={value}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"
         response = requests.get(url).json()
@@ -294,18 +293,20 @@ def render_tab_content(tab):
             
             html.Div([
                 html.Div([
-                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
-                        layout={'name': 'circle', 'height': '600px', 'width': '600px'},
-                        style = {'order': '2', 'height': '600px', 'width': '600px'},
+                        layout={'name': 'circle', 'height': '60vh', 'width': '60vw'},
+                        style = {'order': '2', 'height': '60vh', 'width': '60vw'},
                         stylesheet = [
                             {
                                 'selector': 'label',
                                 'style': {
                                     'content': 'data(label)',
                                     'color': 'white',
+                                    'font-size':'14vh',
+                                    'font-family':'Arial, sans serif',
                                     'background-color': '#eda109'
                                 }
                             },
@@ -331,25 +332,25 @@ def render_tab_content(tab):
                             ])],
                     
                 style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
+                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'}),
         
                 html.Br(),
                 html.Br(),
 
                 html.Div([
-                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
-                                                            'color': 'white'}),
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
+                                                         'color': 'white'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
-                        layout={'name': 'cose', 'height': '900px', 'width': '750px'},
-                        style={'order': '2', 'height': '900px', 'width': '750px'},
+                        layout={'name': 'cose', 'height': '90vh', 'width': '70vh'},
+                        style={'order': '2', 'height': '90vh', 'width': '70vh'},
                         stylesheet = [
                             {
                                 'selector': 'node',
                                 'style': {
                                     'background-color': '#cb8deb',
-                                    'height': '10px',
-                                    'width': '10px'
+                                    'height': '8vh',
+                                    'width': '8vh'
                                 } 
                             },
                             {
@@ -357,8 +358,8 @@ def render_tab_content(tab):
                                 'style': {
                                     'background-color': 'green',
                                     'color': 'red',
-                                    'height': '12px',
-                                    'width': '12px'
+                                    'height': '1.2vh',
+                                    'width': '1.2vh'
                                 }
                             },
                             {
@@ -366,70 +367,70 @@ def render_tab_content(tab):
                                 'style': {
                                     'background-color': 'white',
                                     'color': 'white',
-                                    'height': '7px',
-                                    'width': '7px'
+                                    'height': '0.8vh',
+                                    'width': '0.8vh'
                                 }
                             },
                             {
                                 'selector': '.citation',
                                 'style': {
                                     'line-color': 'white',
-                                    'width': 0.6
+                                    'width': '0.4vh'
                                 }
                             }
                             ])],
                     
-                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '100vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-                        'margin-bottom': '20px'})],
+                        'margin-bottom': '3vh'})],
 
-                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '20px'}),
+                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '3vh'}),
         
         html.Div([
                 html.Div([
-                    html.H2("Collaboration network", style = {'order':'1','font-size': '22px', 'font-family': 'Courier New, monospace',
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': '#101126'}),
                     html.P("Click on a node to display information about an author",
-                           style = {'order': '2', 'font-size': '22px',
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
-                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '250px'}),
+                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '30vh'}),
                         html.Div([
                             html.P(html.B("AUTHOR INFO"),
                                 style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '400px', 'height': '400px', 'border': "1px black solid"})],
-                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '50px', 'justify-content': 'space-around'}
+                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid"})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
                 style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '650px', 'margin-bottom': '20px', 'float': 'left'}),
+                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'}),
         
                 html.Br(),
                 html.Br(),
 
                 html.Div([
-                    html.H2("Citation network", style = {'order': '1', 'font-size': '22px', 'font-family': 'Courier New, monospace',
+                    html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                             'color': '#101126'}),
                     html.P("Click on a node to display information about a paper",
-                           style = {'order': '2', 'font-size': '22px',
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
                         html.Div([
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '840px', 'border': "1px black solid", "margin-top": "10px"})],
-                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0px', 'justify-content': 'space-around'}
+                        style = {'order': '2', 'width': '95%', 'height': '75vh', 'border': "0.2vh black solid", "margin-top": "1.5vh"})],
+                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0vh', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '1200px', 'display': 'flex',
+                style = {'order': '2', 'width':'100%', 'height': '100vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
-                        'margin-bottom': '20px'})],
+                        'margin-bottom': '3vh'})],
 
-                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '20px'})],
+                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '3vh'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '20px'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '3vh'})
 
 # Topic title
 @app.callback(
