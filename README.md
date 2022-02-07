@@ -1,4 +1,4 @@
-# Welcome to Scoollab 🧠 😎
+# Welcome to Scoollab's Research Analytics 🧠 😎
 
 **Scoollab** is an Open Source project helping academic researchers and students with their daily research activities. 
 Contributors to the project build tools to help streamline the research process.
@@ -29,4 +29,8 @@ The Python file will open a local port in your default browser and you'll be abl
 
 ### Web app 🕸️
 
-The web app is also accessible via [this link](https://research-intel.heroku.com).
+The web app is also accessible via [this link](https://research-analytics.herokuapp.com/).
+
+### App documentation
+
+A full documentation of how to use the app is available [here](https://www.notion.so/jhupiterz/Research-Analytics-dda8cbc930db498ba054f7ec2bb57dcc).
