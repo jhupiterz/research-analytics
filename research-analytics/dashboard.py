@@ -35,7 +35,7 @@ app.layout = html.Div([
     # Top banner ------------------------------------------------------------
     html.Div([
         html.Div([
-            html.H3("research intelligence", style={'order': '2', 'color': 'white'}),
+            html.H3("research analytics", style={'order': '2', 'color': 'white', 'font-size':'1.5vw', 'margin-left':'5%', 'font-family':'Arial, sans serif'}),
             html.A(
                     href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
                     target = '_blank',
@@ -43,31 +43,32 @@ app.layout = html.Div([
                         html.Img(
                             alt="research intelligence",
                             src="/assets/maze.png",
-                            style={'height': '70px', 'margin-right':'15px', 'order': '1'}
+                            style={'width':'100%', 'max-width': '100%', 'margin-right':'5%', 'order': '1'}
                         )
                     ]
                 )],
-            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'width':'400px'}),
+            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'width':'30%'}),
         
         html.Div([
-            html.H1(id = 'topic', children = [], style={'color': 'white', 'text-align': 'center'})],
+            html.H1(id = 'topic', children = [], style={'color': 'white', 'text-align': 'center', 'font-size':'2vw', 'font-family':'Arial, sans serif'})],
             style = {'order': '2', 'margin':'auto'}),
         
         html.Div([
-            html.H5(f"Documentation", style={'order': '1', 'color': 'white', 'text-align': 'right'})],
-            style = {'order': '3', 'width':'400px'})],
+            html.H5(f"Documentation", style={'order': '1', 'color': 'white', 'text-align': 'right', 'font-size':'1vw', 'font-family':'Arial, sans serif'})],
+            style = {'order': '3', 'width':'30%'})],
              
         style = {'width': '95%', 'margin': 'auto', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center'}),
     
     # Credits to Semantic Scholar ---------------------------------------------
-    html.Div([ html.A('Results powered by Semantic Scholar', href = "https://www.semanticscholar.org/", target = '_blank', style = {'color': 'white'})], style = {'margin': 'auto', 'width': '100%', 'height':'5%', 'text-align':' center'}),
+    html.Div([ html.A('Results powered by Semantic Scholar', href = "https://www.semanticscholar.org/", target = '_blank', style = {'color': 'white', 'font-family':'Arial, sans serif', 'font-size':'0.8vw'})], style = {'margin': 'auto', 'width': '100%', 'height':'5%', 'text-align':' center'}),
 
     html.Br(),
     html.Br(),
     html.Br(),
     
     html.Div([
-        html.Img(src='/assets/loupe.png', style={'height':'60px', 'order':'1', 'margin-right':'10px'}),
+        html.Img(src='/assets/loupe.png', style={'width':'3%', 'max-width':'4%', 'order':'1',
+                                                 'margin-right':'1%', 'position':'absolute', 'left':'31%'}),
         dcc.Input(
             id='search-query',
             type = 'text',
@@ -78,14 +79,15 @@ app.layout = html.Div([
             name = 'text',
             autoFocus = False,
             minLength = 1, maxLength = 60,
-            autoComplete='on',
+            autoComplete='off',
             disabled = False,
             readOnly = False,
             size = '60',
             n_submit = 0,
-            style = {'height': '100%', 'width': '30%', 'font-size': '20px', 'order':'2', 'text-align':'center'})
-        ], style = {'width': '95%', 'height':'50px', 'margin': 'auto', 'display':'flex',
-                    'flex-direction':'row', 'align-items':'center', 'justify-content':'center'}),
+            style = {'height': '100%', 'width': '30%', 'max-width':'30%', 'font-size': '1vw', 'margin':'auto',
+                     'order':'2', 'text-align':'center', 'font-family':'Arial, sans serif', 'position':'relative'})
+        ], style = {'width': '95%', 'height':'30%', 'margin': 'auto', 'display':'flex',
+                    'flex-direction':'row', 'align-items':'center'}),
 
     html.Br(),
     html.Br(),
@@ -93,15 +95,16 @@ app.layout = html.Div([
     dcc.Store(id='store-initial-query-response', storage_type='memory'),
     dcc.Store(id='store-references-query-response', storage_type='memory'),
     
-    html.Div(id = 'start-page', children = []),
+    html.Div(id = 'start-page', children = [], style = {'height':'100%'}),
 
     html.Br(),
     html.Br(),
     
     #Bottom footer -----------------------------------------------------------
-    html.Footer(html.P("Built by Scoollab using Plotly Dash", style = {'text-align':'center', 'color':'black'}),
-                style = {'width': '100%', 'backgroundColor': '#eda109', 'vertical-align':'top'})],
-    style = {'backgroundColor': '#18192e', 'padding-bottom': '5px'})
+    html.Footer(html.P("Built by Scoollab using Plotly Dash", style = {'text-align':'center', 'color':'black', 'font-family':'Arial, sans serif', 'font-size':'1vw', 'vertical-align':'middle'}),
+                style = {'display':'flex', 'align-items':'center', 'justify-content':'center',
+                         'width': '100%', 'height':'4vh', 'backgroundColor': '#eda109', 'vertical-align':'top'})],
+    style = {'backgroundColor': '#18192e'})
 
 # Callbacks --------------------------------------------------------------------
 # Store response of initial API query
@@ -156,10 +159,13 @@ def render_content(data):
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
-        return html.Div([html.H1("Welcome researcher! 🧠", style = {'color':'white', 'order':'1', 'margin':'auto', 'height':'10px'}),
-                         html.P("You can start by entering keywords in the search bar above ☝️, or check the full documentation ↗️",
-                                style = {'color':'white', 'order':'2', 'margin':'auto', 'height':'10px', 'margin-top':'-30px'})],
-                        style = {'width':'95%', 'height':'670px', 'margin':'auto', 'backgroundColor':'#101126',
+        return html.Div([html.Div([html.H1("Welcome researcher! 🧠", style = {'color':'white', 'order':'1', 'text-align':'center', 'vertical-align':'middle',
+                                                                    'font-family':'Arial, sans serif', 'font-size':'2.5vw'}),
+                                   html.Br(),
+                                   html.P("You can start by entering keywords in the search bar above ☝️, or check the full documentation ↗️",
+                                        style = {'color':'white', 'order':'2', 'text-align':'center', 'vertical-align':'middle',
+                                                'font-family':'Arial, sans serif', 'font-size':'1.5vw'})], style = {'margin':'auto'})],
+                        style = {'width':'95%', 'height':'67vh', 'max-height':'67vh', 'margin':'auto', 'backgroundColor':'#101126',
                                  'display':'flex', 'flex-direction':'column', 'align-content':'center'})
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
@@ -169,20 +175,20 @@ def render_tab_content(tab):
         return html.Div([
             html.Div([
         html.Div([
-            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'earliest-pub-results', children=[], style={'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'earliest-pub-results', children=[], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
                    'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'latest-pub-results', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'latest-pub-results', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
     ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
@@ -197,7 +203,7 @@ def render_tab_content(tab):
             html.Div(id = 'accessibility-pie-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
-                    'margin-top': '25px','justify-content': 'space-evenly'}),
+                    'margin-top': '3vh','justify-content': 'space-evenly'}),
         
         html.Br(),
         html.Br(),
@@ -207,7 +213,7 @@ def render_tab_content(tab):
             html.Div(id = 'citations-graph-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '25px', 'justify-content': 'space-evenly'}),
+                'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
         
         html.Br(),
         html.Br(),
@@ -217,31 +223,31 @@ def render_tab_content(tab):
             html.Div(id = 'active-authors-graph-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '25px', 'justify-content': 'space-evenly'})
+                'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
         ],
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '20px'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '3vh'}),
     ])
     if tab == 'tab-2-example-graph':
         return html.Div([
             html.Div([
         html.Div([
-            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'earliest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'earliest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
                    'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'latest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'latest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'}),
 
         html.Div([
-            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace'}),
-            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace'})],
+            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
+            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
             style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
                    'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
     ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
@@ -256,7 +262,7 @@ def render_tab_content(tab):
             html.Div(id = 'accessibility-pie-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                    'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
-                   'margin-top': '25px','justify-content': 'space-evenly'}),
+                   'margin-top': '3vh','justify-content': 'space-evenly'}),
         
         html.Br(),
         html.Br(),
@@ -266,7 +272,7 @@ def render_tab_content(tab):
             html.Div(id = 'citations-graph-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'}),
         ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '25px', 'justify-content': 'space-evenly'}),
+                'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
         
         html.Br(),
         html.Br(),
@@ -276,12 +282,12 @@ def render_tab_content(tab):
             html.Div(id = 'active-authors-graph-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                    'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                   'margin-bottom': '25px', 'justify-content': 'space-evenly'})
+                   'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
         ],
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '20px'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '3vh'}),
     ])
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -474,20 +480,22 @@ def get_total_results(data):
 # keywords
 @app.callback(
     Output('keywords-graph-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_top_key_words_res(data):
+    Input('store-initial-query-response', 'data'),
+    Input('search-query', 'value'))
+def create_top_key_words_res(data, query):
     dff = pd.DataFrame(data['data'])
     dff = data_preprocess.extract_key_words(dff)
-    fig = plots.make_top_key_words(dff)
+    fig = plots.make_top_key_words(dff, query)
     return dcc.Graph(figure=fig)
 
 @app.callback(
     Output('keywords-graph-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_top_key_words_ref(data):
+    Input('store-references-query-response', 'data'),
+    Input('search-query', 'value'))
+def create_top_key_words_ref(data, query):
     dff = pd.DataFrame(data)
     dff = data_preprocess.extract_key_words(dff)
-    fig = plots.make_top_key_words(dff)
+    fig = plots.make_top_key_words(dff, query)
     return dcc.Graph(figure=fig)
 
 # accessibility
