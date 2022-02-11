@@ -141,19 +141,19 @@ def store_references_data(data):
 def render_content(data):
     if data != None:
         return (html.Div([
-            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'width': '240%', 'height': '10%', 'align-items':'center'},
+            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '94vw', 'text-align':'center','display':'flex', 'flex-direction':'row'},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold'},
-                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold'}),
+                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
+                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'}),
                 dcc.Tab(label='📊 Reference landscape 📊', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold'},
-                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold'}),
+                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
+                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'}),
                 dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold'},
-                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold'})])],
+                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
+                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'})])],
                         style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
-                                    'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center'}),
+                                    'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
