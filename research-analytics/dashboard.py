@@ -42,8 +42,8 @@ app.layout = html.Div([
                     children=[
                         html.Img(
                             alt="research intelligence",
-                            src="/assets/maze.png",
-                            style={'width':'100%', 'max-width': '100%', 'margin-right':'5%', 'order': '1'}
+                            src="/assets/brain.png",
+                            style={'width':'5vw', 'max-width': '5vw', 'margin-right':'5%', 'order': '1'}
                         )
                     ]
                 )],
@@ -399,7 +399,7 @@ def render_tab_content(tab):
                             html.P(html.B("AUTHOR INFO"),
                                 style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid"})],
+                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid", 'overflow-y':'auto'})],
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
