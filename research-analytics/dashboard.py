@@ -144,14 +144,14 @@ def render_content(data):
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '94vw', 'text-align':'center','display':'flex', 'flex-direction':'row'},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
-                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'}),
+                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
                 dcc.Tab(label='📊 Reference landscape 📊', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
-                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'}),
+                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
                 dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center'},
-                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center'})])],
+                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'})])],
                         style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
                                     'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
@@ -440,7 +440,7 @@ def display_topic(value):
     if value != None:
         return f"Topic: {value}"
     else:
-        return "Topic"
+        return "Let's do research!"
 
 # Top flashacards -----------------------------------------------
 @app.callback(
@@ -487,7 +487,7 @@ def create_top_key_words_res(data, query):
     dff = pd.DataFrame(data['data'])
     dff = data_preprocess.extract_key_words(dff)
     fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('keywords-graph-ref', 'children'),
@@ -497,7 +497,7 @@ def create_top_key_words_ref(data, query):
     dff = pd.DataFrame(data)
     dff = data_preprocess.extract_key_words(dff)
     fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # accessibility
 @app.callback(
@@ -506,7 +506,7 @@ def create_top_key_words_ref(data, query):
 def create_accessibility_pie_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_access_pie(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('accessibility-pie-ref', 'children'),
@@ -514,7 +514,7 @@ def create_accessibility_pie_res(data):
 def create_accessibility_pie_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_access_pie(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # publications per year
 @app.callback(
@@ -523,7 +523,7 @@ def create_accessibility_pie_ref(data):
 def create_publication_graph_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_pub_per_year_line(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('publication-graph-ref', 'children'),
@@ -531,7 +531,7 @@ def create_publication_graph_res(data):
 def create_publication_graph_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_pub_per_year_line(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # citations per year
 @app.callback(
@@ -540,7 +540,7 @@ def create_publication_graph_ref(data):
 def create_citations_graph_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_citations_per_year_line(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('citations-graph-ref', 'children'),
@@ -548,7 +548,7 @@ def create_citations_graph_res(data):
 def create_citations_graph_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_citations_per_year_line(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # fields of study
 @app.callback(
@@ -557,7 +557,7 @@ def create_citations_graph_ref(data):
 def create_fields_pie_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_fields_pie(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('fields-pie-ref', 'children'),
@@ -565,7 +565,7 @@ def create_fields_pie_res(data):
 def create_citations_graph_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_fields_pie(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # most active authors
 @app.callback(
@@ -574,7 +574,7 @@ def create_citations_graph_ref(data):
 def create_active_authors_graph_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_active_authors(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
     Output('active-authors-graph-ref', 'children'),
@@ -582,7 +582,7 @@ def create_active_authors_graph_res(data):
 def create_citations_graph_ref_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_active_authors(dff)
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
