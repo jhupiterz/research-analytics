@@ -420,7 +420,7 @@ def render_tab_content(tab):
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '75vh', 'border': "0.2vh black solid", "margin-top": "1.5vh"})],
+                        style = {'order': '2', 'width': '95%', 'height': '75vh', 'border': "0.2vh black solid", "margin-top": "1.5vh", 'overflow-y':'auto'})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0vh', 'justify-content': 'space-around'}
                         )],
                     
