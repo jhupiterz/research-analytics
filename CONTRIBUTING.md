@@ -45,4 +45,5 @@ You may want to consider improving the following:
 
 1. Responsivness of the app
 2. App's design and internal CSS stylesheet
-3. Improving the code's performance (more elegant and shorter code)
+3. Adding code tests and ensure high coverage
+4. Improving the code's performance (more elegant and shorter code)
