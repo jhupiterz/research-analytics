@@ -13,22 +13,26 @@ We are very excited to make academic research faster and easier, and build toget
 Research Analytics was thought by "lazy" research students who wanted to automate as many research tasks as possible. 
 Having a general interest in coding, data science, and software development, we took on this first project of building a data science web app for doing academic research.
 
-The project was first released in February 2022.
+The project was first released in February 2022. :baby:
 
 # Project status
 
-Research Analytics has just been publicly released in February 2022. The current release is version 1.0.
+Research Analytics has just been publicly released in February 2022. The current release version is version 1.0.
 
 ## Deployment
-The web app works and does the job it was designed for. However, being deployed on Heroku (free plan) it is quite slow. More computing power should improve the app's performance.
+The web app works and does the job it was designed for. However, being deployed on Heroku (free plan) it is quite slow. :snail:
+
+More computing power should improve the app's performance.
 
 ## Where is the data fetched from?
 The data about research papers are collected from [Semantic Scholar](https://www.semanticscholar.org/product/api) who provides a very well-documented API :heart:
 
-Currently, the app makes use of the API developer plan which only allows 100 queries per 5 minutes. An upgrade in the query rate is absolutely necessary as a single search on Research Analytics involves about 25 queries.
+Currently, the app makes use of the API developer plan which only allows for 100 queries per 5 minutes. An upgrade in the query rate is absolutely necessary as a single search on Research Analytics involves about 25 queries.
 
 ## How is the app built?
 The app has been developed with the amazing [Plotly Dash](https://plotly.com/dash/) python framework. It is built on top of Flask, Plotly.js, React, and React.js.
-Dash offers endless possibilites for creating custom data-oriented web apps from NLP, object detection, predictive analytics and more.
+Dash offers endless possibilites for creating custom data-oriented web apps from NLP to object detection, predictive analytics and more.
 
 # Getting started
+
+Check out our [Code of Conduct]() before diving into coding.
