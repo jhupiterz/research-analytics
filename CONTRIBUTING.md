@@ -13,14 +13,14 @@ We are very excited to make academic research faster and easier, and build toget
 Research Analytics was thought by "lazy" research students who wanted to automate as many research tasks as possible. 
 Having a general interest in coding, data science, and software development, we took on this first project of building a data science web app for doing academic research.
 
-The project was first released in February 2022. :baby:
+The project was first released in February 2022 :baby:
 
 # Project status
 
 Research Analytics has just been publicly released in February 2022. The current release version is version 1.0.
 
 ## Deployment
-The web app works and does the job it was designed for. However, being deployed on Heroku (free plan) it is quite slow. :snail:
+The web app works and does the job it was designed for. However, being deployed on Heroku (free plan) it is quite slow :snail:
 
 More computing power should improve the app's performance.
 
@@ -35,4 +35,4 @@ Dash offers endless possibilites for creating custom data-oriented web apps from
 
 # Getting started
 
-Check out our [Code of Conduct]() before diving into coding.
+Please check out our [Code of Conduct]() before diving into coding :raised_hands:
