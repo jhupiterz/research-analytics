@@ -101,7 +101,7 @@ app.layout = html.Div([
     html.Br(),
     
     #Bottom footer -----------------------------------------------------------
-    html.Footer(html.P("Built by Scoollab using Plotly Dash", style = {'text-align':'center', 'color':'black', 'font-family':'Arial, sans serif', 'font-size':'1vw', 'vertical-align':'middle'}),
+    html.Footer(html.P(["Built by Research Analytics with © ", html.A("Plotly Dash", href="https://plotly.com/dash/", target = "_blank")], style = {'text-align':'center', 'color':'black', 'font-family':'Arial, sans serif', 'font-size':'1vw', 'vertical-align':'middle'}),
                 style = {'display':'flex', 'align-items':'center', 'justify-content':'center',
                          'width': '100%', 'height':'4vh', 'backgroundColor': '#eda109', 'vertical-align':'top'})],
     style = {'backgroundColor': '#18192e'})
