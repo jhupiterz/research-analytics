@@ -36,3 +36,13 @@ Dash offers endless possibilites for creating custom data-oriented web apps from
 # Getting started
 
 Please check out our [Code of Conduct]() before diving into coding :raised_hands:
+
+If you wish to suggest new features for the app, please create an issue and we'll consider it. Keep in mind that we're trying to make researchers' lives easier, so try to put yourself in a researcher's shoes when suggesting a new feature.
+
+# Contribution suggestions
+
+You may want to consider improving the following:
+
+1. Responsivness of the app
+2. App's design and internal CSS stylesheet
+3. Improving the code's performance (more elegant and shorter code)
