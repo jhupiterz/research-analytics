@@ -11,7 +11,7 @@ The first tool developed by the project is a research analytics web app built wi
 
 ### App preview 👁️
 
-<img src="/images/sample-1.gif" alt="app sample" />
+<img src="/images/sample_app.gif" alt="app sample" />
 
 ### Package installation 🔽
 
