@@ -54,8 +54,8 @@ app.layout = html.Div([
             style = {'order': '2', 'margin':'auto'}),
         
         html.Div([
-            html.H5(f"Documentation", style={'order': '1', 'color': 'white', 'text-align': 'right', 'font-size':'1vw', 'font-family':'Arial, sans serif'})],
-            style = {'order': '3', 'width':'30%'})],
+            html.A("Documentation", href = "https://github.com/jhupiterz/research-analytics/blob/main/README.md", target = '_blank', style={'order': '1', 'color': 'white', 'text-align': 'right'})],
+            style = {'order': '3', 'text-align': 'right', 'font-size':'1vw', 'font-family':'Arial, sans serif', 'width':'30%'})],
              
         style = {'width': '95%', 'margin': 'auto', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center'}),
     
