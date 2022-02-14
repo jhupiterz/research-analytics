@@ -152,7 +152,7 @@ def render_content(data):
                 dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
                         selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'})])],
-                        style = {'backgroundColor': '#101126', 'width': '95%', 'height': '10%', 'display': 'flex',
+                        style = {'backgroundColor': '#101126', 'width': '95%', 'height': '6vh', 'display': 'flex',
                                     'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
         html.Br(),
