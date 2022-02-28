@@ -26,85 +26,91 @@ app = dash.Dash(
 
 app.title = "Research Intelligence"
 
-# Build App layout ----------------------------------------------------------
-app.layout = html.Div([
-    
-    html.Br(),
-    html.Br(),
-    
-    # Top banner ------------------------------------------------------------
-    html.Div([
-        html.Div([
-            html.H3("research analytics", style={'order': '2', 'color': 'white', 'font-size':'1.5vw', 'margin-left':'5%', 'font-family':'Arial, sans serif'}),
-            html.A(
-                    href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
-                    target = '_blank',
-                    children=[
+# Layout --------------------------------------------------------------------
+app.layout = html.Div(
+    [
+        # Banner ------------------------------------------------------------
+        html.Div(
+            [
+                html.A(
+                    [
                         html.Img(
-                            alt="research intelligence",
                             src="/assets/brain.png",
-                            style={'width':'5vw', 'max-width': '5vw', 'margin-right':'5%', 'order': '1'}
-                        )
-                    ]
-                )],
-            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'order': '1', 'width':'30%'}),
+                            alt="research intelligence",
+                        ),
+                        html.H3("research analytics"),
+                    ],
+                    href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
+                    target='_blank',
+                    className="logo-banner",
+                ),
+                html.A(
+                    "Documentation", 
+                    href="https://github.com/jhupiterz/research-analytics/blob/main/README.md",
+                    target='_blank', 
+                    className="doc-link"
+                ),
+            ],
+            className="banner",
+        ),
         
-        html.Div([
-            html.H1(id = 'topic', children = [], style={'color': 'white', 'text-align': 'center', 'font-size':'2vw', 'font-family':'Arial, sans serif'})],
-            style = {'order': '2', 'margin':'auto'}),
+        html.Div(
+            [
+                html.H1(id='topic', children=[]),
+                html.Div(
+                    [
+                        html.Img(
+                            src='/assets/loupe.png', 
+                            className="loupe-img",
+                        ),
+                        dcc.Input(
+                            id='search-query',
+                            type = 'text',
+                            placeholder = 'Search for keywords',
+                            debounce = True,
+                            spellCheck = True,
+                            inputMode = 'latin',
+                            name = 'text',
+                            autoFocus = False,
+                            minLength = 1, maxLength = 60,
+                            autoComplete='off',
+                            disabled = False,
+                            readOnly = False,
+                            size = '60',
+                            n_submit = 0,
+                        ),
+                    ], 
+                    className="search-bar",
+                ),
+            ],
+            className="search-wrapper"
+        ),
         
-        html.Div([
-            html.A("Documentation", href = "https://github.com/jhupiterz/research-analytics/blob/main/README.md", target = '_blank', style={'order': '1', 'color': 'white', 'text-align': 'right'})],
-            style = {'order': '3', 'text-align': 'right', 'font-size':'1vw', 'font-family':'Arial, sans serif', 'width':'30%'})],
-             
-        style = {'width': '95%', 'margin': 'auto', 'height': '10%', 'display': 'flex', 'flex-direction': 'row', 'align-items':'center'}),
-    
-    # Credits to Semantic Scholar ---------------------------------------------
-    html.Div([ html.A('Results powered by Semantic Scholar', href = "https://www.semanticscholar.org/", target = '_blank', style = {'color': 'white', 'font-family':'Arial, sans serif', 'font-size':'0.8vw'})], style = {'margin': 'auto', 'width': '100%', 'height':'5%', 'text-align':' center'}),
-
-    html.Br(),
-    html.Br(),
-    html.Br(),
-    
-    html.Div([
-        html.Img(src='/assets/loupe.png', style={'width':'3%', 'max-width':'4%', 'order':'1',
-                                                 'margin-right':'1%', 'position':'absolute', 'left':'31%'}),
-        dcc.Input(
-            id='search-query',
-            type = 'text',
-            placeholder = 'insert your search keywords',
-            debounce = True,
-            spellCheck = True,
-            inputMode = 'latin',
-            name = 'text',
-            autoFocus = False,
-            minLength = 1, maxLength = 60,
-            autoComplete='off',
-            disabled = False,
-            readOnly = False,
-            size = '60',
-            n_submit = 0,
-            style = {'height': '100%', 'width': '30%', 'max-width':'30%', 'font-size': '1vw', 'margin':'auto',
-                     'order':'2', 'text-align':'center', 'font-family':'Arial, sans serif', 'position':'relative'})
-        ], style = {'width': '95%', 'height':'30%', 'margin': 'auto', 'display':'flex',
-                    'flex-direction':'row', 'align-items':'center'}),
-
-    html.Br(),
-    html.Br(),
-
-    dcc.Store(id='store-initial-query-response', storage_type='memory'),
-    dcc.Store(id='store-references-query-response', storage_type='memory'),
-    
-    html.Div(id = 'start-page', children = [], style = {'height':'100%'}),
-
-    html.Br(),
-    html.Br(),
-    
-    #Bottom footer -----------------------------------------------------------
-    html.Footer(html.P(["Built by Research Analytics with © ", html.A("Plotly Dash", href="https://plotly.com/dash/", target = "_blank")], style = {'text-align':'center', 'color':'black', 'font-family':'Arial, sans serif', 'font-size':'1vw', 'vertical-align':'middle'}),
-                style = {'display':'flex', 'align-items':'center', 'justify-content':'center',
-                         'width': '100%', 'height':'4vh', 'backgroundColor': '#eda109', 'vertical-align':'top'})],
-    style = {'backgroundColor': '#18192e'})
+        dcc.Store(id='store-initial-query-response', storage_type='memory'),
+        dcc.Store(id='store-references-query-response', storage_type='memory'),
+        
+        html.Div(id='start-page', children=[]),
+        
+        # Footer -----------------------------------------------------------
+        html.Footer(
+            [
+                html.P(
+                    [
+                        "Built by Research Analytics with ", 
+                        html.A("Plotly Dash", href="https://plotly.com/dash/", target="_blank")
+                    ],
+                ),
+                html.P(
+                    [
+                        "Results powered by ", 
+                        html.A("Semantic Scholar", href="https://www.semanticscholar.org/", target="_blank")
+                    ],
+                ),
+            ]
+        ),
+    ],
+    className="app-layout",
+)
 
 # Callbacks --------------------------------------------------------------------
 # Store response of initial API query
@@ -144,13 +150,13 @@ def render_content(data):
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '94vw', 'text-align':'center','display':'flex', 'flex-direction':'row'},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
                         selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
                 dcc.Tab(label='📊 Reference landscape 📊', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
                         selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
                 dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'},
+                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
                         selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'})])],
                         style = {'backgroundColor': '#101126', 'width': '95%', 'height': '6vh', 'display': 'flex',
                                     'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
@@ -158,14 +164,13 @@ def render_content(data):
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
-        return html.Div([html.Div([html.H1("Welcome researcher! 🧠", style = {'color':'white', 'order':'1', 'text-align':'center', 'vertical-align':'middle',
-                                                                    'font-family':'Arial, sans serif', 'font-size':'2.5vw'}),
-                                   html.Br(),
-                                   html.P("You can start by entering keywords in the search bar above ☝️, or check the full documentation ↗️",
-                                        style = {'color':'white', 'order':'2', 'text-align':'center', 'vertical-align':'middle',
-                                                'font-family':'Arial, sans serif', 'font-size':'1.5vw'})], style = {'margin':'auto'})],
-                        style = {'width':'95%', 'height':'67vh', 'max-height':'67vh', 'margin':'auto', 'backgroundColor':'#101126',
-                                 'display':'flex', 'flex-direction':'column', 'align-content':'center'})
+        return html.Div(
+            [
+                # html.H2("Welcome researcher! 🧠"),
+                html.P("Start by entering keywords in the search bar above ☝️, or check the full documentation ↗️"),
+            ],
+            className="default-welcome",
+        )
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
@@ -440,7 +445,7 @@ def display_topic(value):
     if value != None:
         return f"Topic: {value}"
     else:
-        return "Let's do research!"
+        return "Welcome researcher! 🧠"
 
 # Top flashacards -----------------------------------------------
 @app.callback(
