@@ -44,11 +44,23 @@ app.layout = html.Div(
                     target='_blank',
                     className="logo-banner",
                 ),
-                html.A(
-                    "Documentation", 
-                    href="https://github.com/jhupiterz/research-analytics/blob/main/README.md",
-                    target='_blank', 
-                    className="doc-link"
+                html.Div(
+                    [
+                        html.A(
+                            "Contribute", 
+                            href="https://github.com/jhupiterz/research-analytics",
+                            target='_blank', 
+                            className="doc-link"
+                        ),
+                        html.A(
+                            "Documentation", 
+                            href="https://github.com/jhupiterz/research-analytics/blob/main/README.md",
+                            target='_blank', 
+                            className="doc-link"
+                        ),
+                    
+                    ],
+                    className="navbar"
                 ),
             ],
             className="banner",
@@ -66,7 +78,7 @@ app.layout = html.Div(
                         dcc.Input(
                             id='search-query',
                             type = 'text',
-                            placeholder = 'Search for keywords',
+                            placeholder = "Search for keywords (e.g. \"carbon nanotubes\")",
                             debounce = True,
                             spellCheck = True,
                             inputMode = 'latin',
@@ -96,13 +108,13 @@ app.layout = html.Div(
             [
                 html.P(
                     [
-                        "Built by Research Analytics with ", 
+                        "Built with ", 
                         html.A("Plotly Dash", href="https://plotly.com/dash/", target="_blank")
                     ],
                 ),
                 html.P(
                     [
-                        "Results powered by ", 
+                        "Powered by ", 
                         html.A("Semantic Scholar", href="https://www.semanticscholar.org/", target="_blank")
                     ],
                 ),
@@ -166,8 +178,7 @@ def render_content(data):
     else:
         return html.Div(
             [
-                # html.H2("Welcome researcher! 🧠"),
-                html.P("Start by entering keywords in the search bar above ☝️, or check the full documentation ↗️"),
+                html.P("Start by entering keywords in the search bar ☝️, or check the full documentation ↗️"),
             ],
             className="default-welcome",
         )
