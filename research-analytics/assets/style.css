@@ -25,7 +25,7 @@ a {
   justify-content: space-between;
 }
 
-/* Top banner */
+/* Banner */
 
 .banner {
   display: flex;
@@ -34,6 +34,13 @@ a {
   padding: 15px 30px;
   background-color: #242535;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar */
+
+.navbar {
+  display: flex;
+  align-items: center;
 }
 
 /* Brain logo */
@@ -73,6 +80,9 @@ h1 {
   border: 1px solid var(--secondary);
   padding: 10px 15px;
   border-radius: 5px;
+  margin: 0 10px;
+  width: 100px;
+  text-align: center;
 }
 
 .doc-link:hover {
