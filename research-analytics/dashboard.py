@@ -657,7 +657,4 @@ def displayTapNodeData(data):
         return paragraph
 
 if __name__ == '__main__':
-    app.run_server(debug=True, 
-                #    use_reloader=True
-                   dev_tools_hot_reload=True
-                   )
+    app.run_server(debug=True, use_reloader=False)
