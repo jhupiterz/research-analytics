@@ -54,6 +54,25 @@ def make_fields_pie(df):
     plot_bgcolor = "#101126")
     return fig
 
+def make_yearly_popularity(df):
+  popularity = df.groupby('year').count()['citationCount'] + df.groupby('year').sum()['citationCount']
+  fig = px.line(df, x=df.groupby('year').count()['citationCount'].index,
+              y=popularity, title='Populatiry Index')
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Evolution of popularity<b></span>", title_x=0.5,
+                      font=dict(
+                                family="Courier New, monospace",
+                                size=12,
+                                color="white"
+      ),
+      paper_bgcolor = "#101126",
+      plot_bgcolor = "#101126")
+    
+  fig.update_traces(marker_color='#eda109')
+  fig.update_xaxes(title="Year", range= [df.year.min() - 5, date.today().year + 5])
+  fig.update_yaxes(title="Popularity Indey", range= [0, 1.1* popularity.max()])
+  return fig
+  pass
+
 def make_pub_per_year_line(df):
   fig = px.line(df, x=df.groupby('year').count()['citationCount'].index,
               y=df.groupby('year').count()['citationCount'], title='Publications per year')
