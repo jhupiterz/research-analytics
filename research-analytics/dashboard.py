@@ -162,15 +162,15 @@ def render_content(data):
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '94vw', 'text-align':'center','display':'flex', 'flex-direction':'row'},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
-                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
+                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
+                        selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
                 dcc.Tab(label='📊 Reference landscape 📊', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
-                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'}),
+                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
+                        selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
                 dcc.Tab(label='🌐 Networks 🌐', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black'},
-                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif'})])],
-                        style = {'backgroundColor': '#101126', 'width': '95%', 'height': '6vh', 'display': 'flex',
+                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
+                        selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'})])],
+                        style = {'width': '95%', 'height': '6vh', 'display': 'flex',
                                     'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
         html.Br(),
@@ -188,30 +188,6 @@ def render_content(data):
 def render_tab_content(tab):
     if tab == 'tab-1-example-graph':
         return html.Div([
-            html.Div([
-        html.Div([
-            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'earliest-pub-results', children=[], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#101126'}),
-
-        html.Div([
-            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'latest-pub-results', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'}),
-
-        html.Div([
-            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
-    ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
-                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-around'}),
-    
-    html.Br(),
-    html.Br(),
-    
     html.Div([
         html.Div([
             html.Div(id = 'keywords-graph-res', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
@@ -243,34 +219,10 @@ def render_tab_content(tab):
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '3vh'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '3vh', 'border-radius': '20px'}),
     ])
     if tab == 'tab-2-example-graph':
         return html.Div([
-            html.Div([
-        html.Div([
-            html.H2("Earliest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'earliest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '20%', 'height': '10%', 'order': '1', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items':'center', 'backgroundColor': '#101126'}),
-
-        html.Div([
-            html.H2("Latest publication in", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'latest-pub-ref', children = [], style={'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '20%', 'height': '10%', 'order': '3', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'}),
-
-        html.Div([
-            html.H2("Total results", style={'color': '#eda109', 'font-family': 'Courier New, monospace', 'font-size':'2.2vh'}),
-            html.H1(id = 'total-results', children = [], style = {'color': 'white', 'font-family': 'Courier New, monospace', 'font-size':'4vh'})],
-            style={'width': '30%', 'height': '10%', 'order': '2', 'display': 'flex',
-                   'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126'})
-    ], style = {'backgroundColor':'#101126','width': '95%', 'display': 'flex', 'margin': 'auto',
-                'flex-direction': 'row', 'align-items': 'center', 'justify-content': 'space-around'}),
-    
-    html.Br(),
-    html.Br(),
-    
     html.Div([
         html.Div([
             html.Div(id = 'keywords-graph-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
@@ -302,7 +254,7 @@ def render_tab_content(tab):
         
         style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '3vh'}),
+                'justify-content': 'space-evenly', 'margin-bottom': '3vh', 'border-radius': '20px'}),
     ])
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -400,7 +352,7 @@ def render_tab_content(tab):
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
                         'margin-bottom': '3vh'})],
 
-                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '3vh'}),
+                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '3vh', 'border-radius': '20px'}),
         
         html.Div([
                 html.Div([
@@ -444,7 +396,7 @@ def render_tab_content(tab):
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '3vh'})],
 
-                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '3vh'})],
+                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '3vh', 'border-radius': '20px'})],
             
             style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '3vh'})
 
