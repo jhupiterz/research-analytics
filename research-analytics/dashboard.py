@@ -178,7 +178,9 @@ def render_content(data):
     else:
         return html.Div(
             [
-                html.P("Start by entering keywords in the search bar ☝️, or check the full documentation ↗️"),
+                html.P("➡️ Visualize in-depth data about research topics"),
+                html.P("➡️ Play with interactive network graphs"),
+                html.P("➡️ Access fun data about authors"),
             ],
             className="default-welcome",
         )

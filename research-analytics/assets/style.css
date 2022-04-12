@@ -170,6 +170,9 @@ footer a {
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
+  border: 1px;
+  border-color: white;
+  border-radius: 20px;
 }
 
 .default-welcome p {
