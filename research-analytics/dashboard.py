@@ -178,9 +178,21 @@ def render_content(data):
     else:
         return html.Div(
             [
-                html.P("➡️ Visualize in-depth data about research topics"),
-                html.P("➡️ Play with interactive network graphs"),
-                html.P("➡️ Access fun data about authors"),
+                html.Div([html.P("Visualize in-depth data about research topics", style = {'order':'1', 'color':'black', 'margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
+                          html.Img(src='/assets/dashboard.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
+                                                                                                'display':'flex', 'flex-direction': 'column',
+                                                                                                'text-align':'center',
+                                                                                                'border': '2px', 'border-radius':'20px', 'border-color':'white'}),
+                html.Div([html.P("Play with interactive network graphs", style = {'order':'1', 'color':'black','margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
+                          html.Img(src='/assets/network.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
+                                                                                                'display':'flex', 'flex-direction': 'column',
+                                                                                                'text-align':'center',
+                                                                                                'border': '2px', 'border-radius':'20px', 'border-color':'white'}),
+                html.Div([html.P("Access fun data about authors", style = {'order':'1', 'color':'black', 'margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
+                          html.Img(src='/assets/author.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
+                                                                                                'display':'flex', 'flex-direction': 'column',
+                                                                                                'text-align':'center',
+                                                                                                'border': '2px', 'border-radius':'20px', 'border-color':'white'}),
             ],
             className="default-welcome",
         )
