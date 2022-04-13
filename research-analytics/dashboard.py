@@ -204,7 +204,8 @@ def render_tab_content(tab):
         return html.Div([
     html.Div([
         html.Div([
-            html.Div(id = 'keywords-graph-res', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
+            dcc.Loading(id = "loading-icon-1", 
+                children=[html.Div(id = 'keywords-graph-res', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
             html.Div(id = 'accessibility-pie-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
@@ -239,7 +240,8 @@ def render_tab_content(tab):
         return html.Div([
     html.Div([
         html.Div([
-            html.Div(id = 'keywords-graph-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
+            dcc.Loading(id = "loading-icon-2", 
+                children=[html.Div(id = 'keywords-graph-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type='default'),
             html.Div(id = 'accessibility-pie-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
                    'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
@@ -480,6 +482,13 @@ def create_top_key_words_ref(data, query):
     dff = data_preprocess.extract_key_words(dff)
     fig = plots.make_top_key_words(dff, query)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
+# loading states for keyword graphs
+@app.callback(Output('loading-icon-1', 'children'),
+              Input('keywords-graph-res', 'children'))
+
+@app.callback(Output('loading-icon-2', 'children'),
+              Input('keywords-graph-ref', 'children'))
 
 # accessibility
 @app.callback(
