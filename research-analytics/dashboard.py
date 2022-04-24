@@ -178,23 +178,10 @@ def render_content(data):
     else:
         return html.Div(
             [
-                html.Div([html.P("Visualize in-depth data about research topics", style = {'order':'1', 'color':'black', 'margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
-                          html.Img(src='/assets/dashboard.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
-                                                                                                'display':'flex', 'flex-direction': 'column',
-                                                                                                'text-align':'center',
-                                                                                                'border': '2px solid white', 'border-radius':'20px'}),
-                html.Div([html.P("Play with interactive network graphs", style = {'order':'1', 'color':'black','margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
-                          html.Img(src='/assets/network.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
-                                                                                                'display':'flex', 'flex-direction': 'column',
-                                                                                                'text-align':'center',
-                                                                                                'border': '2px solid white', 'border-radius':'20px'}),
-                html.Div([html.P("Access fun data about authors", style = {'order':'1', 'color':'black', 'margin': 'auto', 'margin-top': '20px', 'margin-bottom': '0px'}),
-                          html.Img(src='/assets/author.png', style={'order':'2','max-height': '400px', 'width': 'auto', 'margin': 'auto', 'margin-top': '-80px'})], style = {'width':'25%', 'height':'25vh', 'background-color': '#d1d1d1',
-                                                                                                'display':'flex', 'flex-direction': 'column',
-                                                                                                'text-align':'center',
-                                                                                                'border': '2px solid white', 'border-radius':'20px'}),
+                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-6vh'}),
+                html.P("Or start with one of our example dashboards", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh'})
             ],
-            className="default-welcome",
+            style={'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'}
         )
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
@@ -205,8 +192,8 @@ def render_tab_content(tab):
     html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1", 
-                children=[html.Div(id = 'keywords-graph-res', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
-            html.Div(id = 'accessibility-pie-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
+                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
+            html.Div(id = 'accessibility-pie-all', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -215,8 +202,8 @@ def render_tab_content(tab):
         html.Br(),
         
         html.Div([
-            html.Div(id = 'publication-graph-res', children = [], style = {'order': '1', 'backgroundColor': '#101126'}),
-            html.Div(id = 'citations-graph-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
+            html.Div(id = 'publication-graph-all', children = [], style = {'order': '1', 'backgroundColor': '#101126'}),
+            html.Div(id = 'citations-graph-all', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
@@ -225,8 +212,8 @@ def render_tab_content(tab):
         html.Br(),
         
         html.Div([
-            html.Div(id = 'fields-pie-res', children = [], style = {'order': '1', 'backgroundColor': '#101126'}),
-            html.Div(id = 'active-authors-graph-res', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
+            html.Div(id = 'fields-pie-all', children = [], style = {'order': '1', 'backgroundColor': '#101126'}),
+            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
@@ -483,6 +470,22 @@ def create_top_key_words_ref(data, query):
     fig = plots.make_top_key_words(dff, query)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
+@app.callback(
+    Output('keywords-graph-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'),
+    Input('search-query', 'value'))
+def create_top_key_words_all(data_res, data_ref, query):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_res = data_preprocess.extract_key_words(dff_res)
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_ref = data_preprocess.extract_key_words(dff_ref)
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_top_key_words(dff_all, query)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
               Input('keywords-graph-res', 'children'))
@@ -507,6 +510,19 @@ def create_accessibility_pie_ref(data):
     fig = plots.make_access_pie(dff)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
+@app.callback(
+    Output('accessibility-pie-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_accessibility_pie_all(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res)
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_access_pie(dff_all)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
 # publications per year
 @app.callback(
     Output('publication-graph-res', 'children'),
@@ -524,6 +540,19 @@ def create_publication_graph_ref(data):
     fig = plots.make_pub_per_year_line(dff)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
+@app.callback(
+    Output('publication-graph-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_publication_graph_all(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_pub_per_year_line(dff_all)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
 # citations per year
 @app.callback(
     Output('citations-graph-res', 'children'),
@@ -531,6 +560,19 @@ def create_publication_graph_ref(data):
 def create_citations_graph_res(data):
     dff = pd.DataFrame(data['data'])
     fig = plots.make_citations_per_year_line(dff)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
+@app.callback(
+    Output('citations-graph-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_citations_graph_all(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_citations_per_year_line(dff_all)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
@@ -558,6 +600,19 @@ def create_citations_graph_ref(data):
     fig = plots.make_fields_pie(dff)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
+@app.callback(
+    Output('fields-pie-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_fields_pie_res(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_fields_pie(dff_all)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
 # most active authors
 @app.callback(
     Output('active-authors-graph-res', 'children'),
@@ -573,6 +628,19 @@ def create_active_authors_graph_res(data):
 def create_citations_graph_ref_ref(data):
     dff = pd.DataFrame(data)
     fig = plots.make_active_authors(dff)
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+
+@app.callback(
+    Output('active-authors-graph-all', 'children'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_active_authors_graph_res(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fig = plots.make_active_authors(dff_all)
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # Cytoscapes -------------------------------------------------------------------
