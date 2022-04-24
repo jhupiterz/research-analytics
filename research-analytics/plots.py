@@ -75,7 +75,7 @@ def make_yearly_popularity(df):
 
 def make_pub_per_year_line(df):
   #print(df.groupby(['year', 'result'], as_index=False).count())
-  fig = px.line(df, x=df.groupby('year').count().index,
+  fig = px.line(df, x=df.groupby(['year', 'result'], as_index=False).count().year,
               y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], color = df.groupby(['year', 'result'], as_index=False).count()['result'], title='Publications per year')
   fig.update_layout(title = "<span style='font-size: 22px;'><b>Publications per Year<b></span>", title_x=0.5,
                       font=dict(
@@ -88,7 +88,7 @@ def make_pub_per_year_line(df):
     
   fig.update_traces(marker_color='#eda109')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
-  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>=1950].groupby('year').count()['citationCount'].max()])
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()])
   return fig
 
 def make_pub_per_year(df, which_api):
@@ -137,7 +137,7 @@ def make_citations_per_year_line(df):
     
   fig.update_traces(marker_color='#eda109')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
-  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>=1950].groupby('year').sum()['citationCount'].max()])
+  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()])
   return fig
 
 def make_citations_per_year(df, which_api):
