@@ -164,10 +164,10 @@ def render_content(data):
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
                         style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
-                dcc.Tab(label='📚 Paper network 📚', value='tab-2-example-graph',
+                dcc.Tab(label='📚 Author network 📚', value='tab-2-example-graph',
                         style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
-                dcc.Tab(label='🥷 Author network 🥷', value='tab-3-example-graph',
+                dcc.Tab(label='🥷 Paper network 🥷', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'})])],
                         style = {'width': '95%', 'height': '6vh', 'display': 'flex',
@@ -225,45 +225,7 @@ def render_tab_content(tab):
     ])
     if tab == 'tab-2-example-graph':
         return html.Div([
-    html.Div([
-        html.Div([
-            dcc.Loading(id = "loading-icon-2", 
-                children=[html.Div(id = 'keywords-graph-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type='default'),
-            html.Div(id = 'accessibility-pie-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'})],
-            style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
-                   'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
-                   'margin-top': '3vh','justify-content': 'space-evenly'}),
-        
-        html.Br(),
-        html.Br(),
-        
-        html.Div([
-            html.Div(id = 'publication-graph-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
-            html.Div(id = 'citations-graph-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'}),
-        ], style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
-                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
-        
-        html.Br(),
-        html.Br(),
-        
-        html.Div([
-            html.Div(id = 'fields-pie-ref', children= [], style = {'order': '1', 'backgroundColor': '#101126'}),
-            html.Div(id = 'active-authors-graph-ref', children= [], style = {'order': '2', 'backgroundColor': '#101126'})],
-            style={'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
-                   'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                   'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
-        ],
-        
-        style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
-                'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '3vh', 'border-radius': '20px'}),
-    ])
-    if tab == 'tab-3-example-graph':
-        return html.Div([
-            
             html.Div([
-                html.Div([
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     cyto.Cytoscape(
@@ -304,9 +266,30 @@ def render_tab_content(tab):
                     
                 style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
                         'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'}),
+            
+            html.Div([
+                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
+                                                        'color': '#101126'}),
+                    html.P("Click on a node to display information about an author",
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
+                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
+                    html.Div([
+                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '30vh'}),
+                        html.Div([
+                            html.P(html.B("AUTHOR INFO"),
+                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid", 'overflow-y':'auto'})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
+                        )],
+                    
+                style = {'order': '2', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'})
+    
+    ], style={'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto'})
         
-                html.Br(),
-                html.Br(),
+    if tab == 'tab-3-example-graph':
+        return html.Div([
 
                 html.Div([
                     html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
@@ -351,34 +334,10 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '2', 'width':'100%', 'height': '100vh', 'display': 'flex',
+                style = {'order': '1', 'width':'100%', 'height': '100vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-                        'margin-bottom': '3vh'})],
+                        'margin-bottom': '3vh'}),
 
-                style = {'order': '1', 'width': '50%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'margin-left': '3vh', 'border-radius': '20px'}),
-        
-        html.Div([
-                html.Div([
-                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                        'color': '#101126'}),
-                    html.P("Click on a node to display information about an author",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
-                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
-                    html.Div([
-                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '30vh'}),
-                        html.Div([
-                            html.P(html.B("AUTHOR INFO"),
-                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid", 'overflow-y':'auto'})],
-                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
-                        )],
-                    
-                style = {'order': '1', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'}),
-        
-                html.Br(),
-                html.Br(),
 
                 html.Div([
                     html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
@@ -398,8 +357,6 @@ def render_tab_content(tab):
                 style = {'order': '2', 'width':'100%', 'height': '100vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
                         'margin-bottom': '3vh'})],
-
-                style = {'order': '2', 'width': '50%', 'height': '60%', 'display': 'flex', 'flex-direction': 'column', 'margin-right': '3vh', 'border-radius': '20px'})],
             
             style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '3vh'})
 
