@@ -173,7 +173,6 @@ def render_content(data):
                         style = {'width': '95%', 'height': '6vh', 'display': 'flex',
                                     'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
-        html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
         return html.Div(
@@ -189,7 +188,6 @@ def render_content(data):
 def render_tab_content(tab):
     if tab == 'tab-1-example-graph':
         return html.Div([
-    html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1", 
                 children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
@@ -219,10 +217,10 @@ def render_tab_content(tab):
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
         ],
         
-        style = {'backgroundColor': '#101126', 'width': '95%', 'display': 'flex',
+        style = {'backgroundColor': '#101126', 'width': '94vw', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'margin-bottom': '3vh', 'border-radius': '20px'}),
-    ])
+                'justify-content': 'space-evenly', 'border-radius': '20px', 'margin-bottom': '3vh'})
+    
     if tab == 'tab-2-example-graph':
         return html.Div([
             html.Div([
@@ -264,8 +262,8 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'}),
+                style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column',
+                         'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left', 'border-radius': '20px'}),
             
             html.Div([
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
@@ -278,15 +276,17 @@ def render_tab_content(tab):
                         html.Div([
                             html.P(html.B("AUTHOR INFO"),
                                 style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '35vh', 'height': '35vh', 'border': "0.2vh black solid", 'overflow-y':'auto'})],
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '80%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '35vh', 'height': '40vh', 'border': "0.2vh black solid", 'overflow-y':'auto', 'border-radius': '5px'})],
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
                 style = {'order': '2', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '100%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left'})
+                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
     
-    ], style={'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto'})
+    ], style={'display': 'flex', 'flex-direction': 'row', 'align-items':'center',
+              'justify-content':'space-between', 'min-height':'75vh', 'width': '94vw',
+              'margin': 'auto', 'border-radius': '20px'})
         
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -334,9 +334,9 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '1', 'width':'100%', 'height': '100vh', 'display': 'flex',
+                style = {'order': '1', 'width':'45%', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-                        'margin-bottom': '3vh'}),
+                        'margin-bottom': '3vh', 'border-radius': '20px'}),
 
 
                 html.Div([
@@ -349,16 +349,18 @@ def render_tab_content(tab):
                         html.Div([
                             html.P(html.B("PAPER INFO"),
                                    style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
-                            html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '95%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '75vh', 'border': "0.2vh black solid", "margin-top": "1.5vh", 'overflow-y':'auto'})],
+                            html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
+                        style = {'order': '2', 'width': '95%', 'height': '45vh', 'border': "0.2vh black solid", "margin-top": "1.5vh", 'overflow-y':'auto', 'border-radius': '5px'})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0vh', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'100%', 'height': '100vh', 'display': 'flex',
+                style = {'order': '2', 'width':'45%', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
-                        'margin-bottom': '3vh'})],
+                        'margin-bottom': '3vh', 'border-radius': '20px'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'width': '97%', 'margin': 'auto', 'margin-bottom': '3vh'})
+            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center',
+                     'justify-content':'space-between', 'min-height':'75vh', 'width': '94vw',
+                     'margin': 'auto', 'border-radius': '20px'})
 
 # Topic title
 @app.callback(
