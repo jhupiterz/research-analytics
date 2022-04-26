@@ -113,7 +113,7 @@ h1 {
   position: relative;
   right: 1.25rem;
   /* color: white; */
-  border-radius: 5px;
+  border-radius: 30px;
   border: none;
   height: 50px;
   width: 500px;
@@ -130,6 +130,7 @@ footer {
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;
+  margin-bottom: -2vh;
   background-color: var(--highlights);
   color: black;
   font-size: 1rem;
@@ -137,7 +138,7 @@ footer {
 
 footer p {
   padding: 10px;
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 
 footer p:first-child {

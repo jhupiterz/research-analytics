@@ -164,10 +164,10 @@ def render_content(data):
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
                         style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '1', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
-                dcc.Tab(label='📚 Author network 📚', value='tab-2-example-graph',
+                dcc.Tab(label='🥷 Author network 🥷', value='tab-2-example-graph',
                         style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '2', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'}),
-                dcc.Tab(label='🥷 Paper network 🥷', value='tab-3-example-graph',
+                dcc.Tab(label='📚 Paper network 📚', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px'},
                         selected_style = {'order': '3', 'background-color': '#eda109', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px'})])],
                         style = {'width': '95%', 'height': '6vh', 'display': 'flex',
@@ -229,8 +229,8 @@ def render_tab_content(tab):
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
-                        layout={'name': 'circle', 'height': '60vh', 'width': '60vw'},
-                        style = {'order': '3', 'height': '65vh', 'width': '45%'},
+                        layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
+                        style = {'order': '3', 'height': '55vh', 'width': '38vw'},
                         stylesheet = [
                             {
                                 'selector': 'label',
@@ -299,8 +299,8 @@ def render_tab_content(tab):
                     html.Button('Reset view', id='bt-reset-papers', className= 'reset-button'),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
-                        layout={'name': 'cose', 'height': '90vh', 'width': '70vh'},
-                        style={'order': '2', 'height': '90vh', 'width': '70vh'},
+                        layout={'name': 'cose', 'height': '85vh', 'width': '70vh'},
+                        style={'order': '2', 'height': '85vh', 'width': '70vh'},
                         stylesheet = [
                             {
                                 'selector': 'node',
@@ -627,7 +627,7 @@ def generate_collaboration_network(data, n_clicks, zoom):
     Input('store-references-query-response', 'data'),
     Input('store-initial-query-response', 'data'),
     Input('bt-reset-papers', 'n_clicks'),
-    Input('cytoscape-event-callbacks-1', 'zoom'))
+    Input('cytoscape-event-callbacks-2', 'zoom'))
 def generate_collaboration_network(data_ref, data_res, n_clicks, zoom):
     ref_df = pd.DataFrame(data_ref)
     ref_df['reference'] = semantic_api.build_references(ref_df)
@@ -638,7 +638,7 @@ def generate_collaboration_network(data_ref, data_res, n_clicks, zoom):
         if n_clicks > 0:
             zoom = 1
             return elements, zoom
-    return elements
+    return elements, zoom
               
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
