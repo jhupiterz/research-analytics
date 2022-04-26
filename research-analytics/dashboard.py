@@ -486,7 +486,6 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
-    print(filter)
     if filter == 'all':
         fig = plots.make_access_pie(dff_all)
     else:
@@ -497,7 +496,7 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return fig
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # Generate the dropdown menu according to all fields of study in data
 @app.callback(
