@@ -193,8 +193,8 @@ def render_tab_content(tab):
         html.Div([
             dcc.Loading(id = "loading-icon-1", 
                 children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
-            html.Div(id = 'accessibility-pie-all', children = [dcc.Dropdown(id='dp-access', value='all', placeholder="Select a field of study", style={'order':'2','color': 'black', 'width': '11vw', 'margin-left':'-5vw'}),
-                                                               dcc.Graph(id='access-pie-all', style = {'order':'1','width':'40vw', 'height':'45vh', 'margin-right': '-5vw'})], style = {'order': '2', 'backgroundColor': '#101126', 'display':'flex', 'flex-direction':'row', 'align-items':'center'})],
+            html.Div(id = 'accessibility-pie-all', children = [dcc.Dropdown(id='dp-access', value='all', placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'}),
+                                                               dcc.Graph(id='access-pie-all', className = 'access-pie', style={'order':'1'})], style = {'order': '2', 'backgroundColor': '#101126', 'display':'flex', 'flex-direction':'row', 'align-items':'center'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -478,16 +478,28 @@ def create_accessibility_pie_ref(data):
 @app.callback(
     Output('access-pie-all', 'figure'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_accessibility_pie_all(data_res, data_ref):
+    Input('store-references-query-response', 'data'),
+    Input('dp-access', 'value'))
+def create_accessibility_pie_all(data_res, data_ref, filter):
     dff_res = pd.DataFrame(data_res)
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
-    fig = plots.make_access_pie(dff_all)
+    print(filter)
+    if filter == 'all':
+        fig = plots.make_access_pie(dff_all)
+    else:
+        index_list = []
+        for index, row in dff_all.iterrows():
+            if isinstance(row.fieldsOfStudy, list):
+                if filter in row.fieldsOfStudy:
+                    index_list.append(index)
+        dff_filtered = dff_all.loc[index_list]
+        fig = plots.make_access_pie(dff_filtered)
     return fig
 
+# Generate the dropdown menu according to all fields of study in data
 @app.callback(
     Output('dp-access', 'options'),
     Input('store-initial-query-response', 'data'),

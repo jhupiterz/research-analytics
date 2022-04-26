@@ -186,3 +186,22 @@ footer a {
   height: 2vh;
   text-align: center;
 }
+
+/* Dropdown menus */
+
+.dp-access-pie {
+  order: 2;
+  position: relative;
+  z-index: 1;
+  color: black;
+  width: 11vw;
+  margin-left: -5vw;
+}
+
+/* Graphs */
+
+.access-pie {
+  order: 1;
+  width: 40vw;
+  height: 45vh;
+}
