@@ -4,7 +4,9 @@
 #--------------------------------------------------------------------------#
 
 # imports ------------------------------------------------------------------
+from cmath import nan
 import plots
+import utils
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
 import requests
@@ -191,7 +193,8 @@ def render_tab_content(tab):
         html.Div([
             dcc.Loading(id = "loading-icon-1", 
                 children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
-            html.Div(id = 'accessibility-pie-all', children = [], style = {'order': '2', 'backgroundColor': '#101126'})],
+            html.Div(id = 'accessibility-pie-all', children = [dcc.Dropdown(id='dp-access', value='all', placeholder="Select a field of study", style={'order':'2','color': 'black', 'width': '11vw', 'margin-left':'-5vw'}),
+                                                               dcc.Graph(id='access-pie-all', style = {'order':'1','width':'40vw', 'height':'45vh', 'margin-right': '-5vw'})], style = {'order': '2', 'backgroundColor': '#101126', 'display':'flex', 'flex-direction':'row', 'align-items':'center'})],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -473,7 +476,7 @@ def create_accessibility_pie_ref(data):
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
-    Output('accessibility-pie-all', 'children'),
+    Output('access-pie-all', 'figure'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
 def create_accessibility_pie_all(data_res, data_ref):
@@ -483,7 +486,22 @@ def create_accessibility_pie_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_access_pie(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return fig
+
+@app.callback(
+    Output('dp-access', 'options'),
+    Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'))
+def create_accessibility_pie_all(data_res, data_ref):
+    dff_res = pd.DataFrame(data_res)
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    fields_of_study = dff_all['fieldsOfStudy'].tolist()
+    res = [field for field in fields_of_study if isinstance(field, list)]
+    flat_list_fields = utils.flatten_list(res)
+    return list(set(flat_list_fields))
 
 # publications per year
 @app.callback(

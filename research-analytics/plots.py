@@ -45,6 +45,7 @@ def make_fields_pie(df):
     fig = px.pie(most_common_fields_df, values='occurence', names= 'field')
 
     fig.update_layout(
+    showlegend=False,
     title = "<span style='font-size: 22px;'><b>Fields of Study<b></span>", title_x=0.5,
     font=dict(
         family="Courier New, monospace",
