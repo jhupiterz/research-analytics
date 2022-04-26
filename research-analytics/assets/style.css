@@ -174,3 +174,14 @@ footer a {
 .default-welcome p {
   font-size: 1.3rem;
 }
+
+/* Reset buttons cytoscapes */
+
+.reset-button {
+  order: 2;
+  border: 1px solid var(--secondary);
+  border-radius: 3px;
+  width: 5vw;
+  height: 2vh;
+  text-align: center;
+}

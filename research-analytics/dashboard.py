@@ -226,10 +226,11 @@ def render_tab_content(tab):
             html.Div([
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
+                    html.Button('Reset view', id='bt-reset', className= 'reset-button'),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '60vh', 'width': '60vw'},
-                        style = {'order': '2', 'height': '60vh', 'width': '60vw'},
+                        style = {'order': '3', 'height': '65vh', 'width': '45%'},
                         stylesheet = [
                             {
                                 'selector': 'label',
@@ -294,6 +295,8 @@ def render_tab_content(tab):
                 html.Div([
                     html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                          'color': 'white'}),
+                    
+                    html.Button('Reset view', id='bt-reset-papers', className= 'reset-button'),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         layout={'name': 'cose', 'height': '90vh', 'width': '70vh'},
@@ -605,22 +608,36 @@ def create_active_authors_graph_res(data_res, data_ref):
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
     Output('cytoscape-event-callbacks-1', 'elements'),
-    Input('store-initial-query-response', 'data'))
-def generate_collaboration_network(data):
+    Output('cytoscape-event-callbacks-1', 'zoom'),
+    Input('store-initial-query-response', 'data'),
+    Input('bt-reset', 'n_clicks'),
+    Input('cytoscape-event-callbacks-1', 'zoom'))
+def generate_collaboration_network(data, n_clicks, zoom):
     dff = pd.DataFrame(data['data'])
     elements = plots.generate_graph_elements_collab(dff)
-    return elements
+    if n_clicks:
+        if n_clicks > 0:
+            zoom = 1
+            return elements, zoom
+    return elements, zoom
 
 @app.callback(
     Output('cytoscape-event-callbacks-2', 'elements'),
+    Output('cytoscape-event-callbacks-2', 'zoom'),
     Input('store-references-query-response', 'data'),
-    Input('store-initial-query-response', 'data'))
-def generate_collaboration_network(data_ref, data_res):
+    Input('store-initial-query-response', 'data'),
+    Input('bt-reset-papers', 'n_clicks'),
+    Input('cytoscape-event-callbacks-1', 'zoom'))
+def generate_collaboration_network(data_ref, data_res, n_clicks, zoom):
     ref_df = pd.DataFrame(data_ref)
     ref_df['reference'] = semantic_api.build_references(ref_df)
     res_df = pd.DataFrame(data_res['data'])
     res_df['reference'] = semantic_api.build_references(res_df)
     elements= plots.generate_graph_elements_network(ref_df, res_df)
+    if n_clicks:
+        if n_clicks > 0:
+            zoom = 1
+            return elements, zoom
     return elements
               
 @app.callback(Output('author-info-1', 'children'),
