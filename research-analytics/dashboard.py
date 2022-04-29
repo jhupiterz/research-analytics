@@ -193,8 +193,8 @@ def render_tab_content(tab):
         html.Div([
             dcc.Loading(id = "loading-icon-1", 
                 children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#101126'})], type = 'default'),
-            html.Div(id = 'accessibility-pie-all', children = [dcc.Dropdown(id='dp-access', value='all', placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'}),
-                                                               dcc.Graph(id='access-pie-all', className = 'access-pie', style={'order':'1'})], style = {'order': '2', 'backgroundColor': '#101126', 'display':'flex', 'flex-direction':'row', 'align-items':'center'})],
+            html.Div(id = 'accessibility-pie-all', children = [html.Div(id = 'dp-access', children=[]),
+                                                               html.Div(id = 'access-pie-all', children= [], style = {'order': '2', 'backgroundColor': '#101126', 'display':'flex', 'flex-direction':'row', 'align-items':'center'})])],
             style={'backgroundColor': '#101126', 'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -476,10 +476,10 @@ def create_accessibility_pie_ref(data):
     return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 @app.callback(
-    Output('access-pie-all', 'figure'),
+    Output('access-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'),
-    Input('dp-access', 'value'))
+    Input('dp-access-component', 'value'))
 def create_accessibility_pie_all(data_res, data_ref, filter):
     dff_res = pd.DataFrame(data_res)
     dff_res['result'] = 'direct'
@@ -496,11 +496,11 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1'})
 
 # Generate the dropdown menu according to all fields of study in data
 @app.callback(
-    Output('dp-access', 'options'),
+    Output('dp-access', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
 def create_accessibility_pie_all(data_res, data_ref):
@@ -512,7 +512,8 @@ def create_accessibility_pie_all(data_res, data_ref):
     fields_of_study = dff_all['fieldsOfStudy'].tolist()
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
-    return list(set(flat_list_fields))
+    options = list(set(flat_list_fields))
+    return dcc.Dropdown(id = 'dp-access-component', value = 'all', options = options, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'})
 
 # publications per year
 @app.callback(
