@@ -43,7 +43,7 @@ def make_fields_pie(df):
     most_common_fields = Counter(flat_list_fields).most_common()
     most_common_fields_df = pd.DataFrame(most_common_fields, columns=["field", "occurence"])
     
-    fig = px.pie(most_common_fields_df, values='occurence', names= 'field')
+    fig = px.pie(most_common_fields_df.loc[0:7], values='occurence', names= 'field')
 
     fig.update_layout(
     showlegend=True,

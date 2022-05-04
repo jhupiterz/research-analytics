@@ -26,6 +26,7 @@ app = dash.Dash(
     __name__, suppress_callback_exceptions = True,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1", 'charSet':'“UTF-8”'}])
 
+
 app.title = "Research Intelligence"
 
 # Layout --------------------------------------------------------------------
@@ -644,11 +645,16 @@ def create_active_authors_graph_res(data_res, data_ref):
     Output('cytoscape-event-callbacks-1', 'elements'),
     Output('cytoscape-event-callbacks-1', 'zoom'),
     Input('store-initial-query-response', 'data'),
+    Input('store-references-query-response', 'data'),
     Input('bt-reset', 'n_clicks'),
     Input('cytoscape-event-callbacks-1', 'zoom'))
-def generate_collaboration_network(data, n_clicks, zoom):
-    dff = pd.DataFrame(data['data'])
-    elements = plots.generate_graph_elements_collab(dff)
+def generate_collaboration_network(data_res, data_ref, n_clicks, zoom):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    dff_ref = pd.DataFrame(data_ref)
+    dff_ref['result'] = 'reference'
+    dff_all = pd.concat([dff_res, dff_ref])
+    elements = plots.generate_graph_elements_collab(dff_all)
     if n_clicks:
         if n_clicks > 0:
             zoom = 1
