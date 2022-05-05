@@ -654,6 +654,9 @@ def generate_collaboration_network(data_res, data_ref, n_clicks, zoom):
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
+    #dff_all.drop_duplicates(inplace=True)
+    dff_all = dff_all.loc[dff_all.astype(str).drop_duplicates().index]
+    #print(dff_all.head(5))
     elements = plots.generate_graph_elements_collab(dff_all)
     if n_clicks:
         if n_clicks > 0:
@@ -680,6 +683,7 @@ def generate_collaboration_network(data_ref, data_res, n_clicks, zoom):
             return elements, zoom
     return elements, zoom
               
+# Retrieves info on author
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
@@ -694,8 +698,10 @@ def displayTapNodeData(data):
                             html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
                             html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
                             style = {'text-align': 'left', 'color': '#101126'})
+
         return paragraph
 
+# Retrieves info on paper
 @app.callback(Output('paper-info-1', 'children'),
               Input('cytoscape-event-callbacks-2', 'tapNodeData'))
 def displayTapNodeData(data):
