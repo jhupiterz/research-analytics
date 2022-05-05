@@ -395,7 +395,6 @@ def generate_collab_network_df(df):
       authors_list = []
       ids_list = []
       for dict_ in row.authors:
-          #print("PAPER AUTHORS", row)
           authors_list.append(dict_['name'])
           ids_list.append(dict_['authorId'])
       authors_list_of_list.append(authors_list)
@@ -420,7 +419,6 @@ def generate_collab_network_df(df):
   collabs_df['author1'] = list(zip(collabs_df.author1, collabs_df.id1))
   collabs_df['author2'] = list(zip(collabs_df.author2, collabs_df.id2))
   collabs_df.drop(['id1', 'id2', 'weight1'], axis = 1, inplace = True)
-  #print(collabs_df.head(100))
   return collabs_df
 
 def generate_graph_elements_collab(df):

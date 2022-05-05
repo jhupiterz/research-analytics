@@ -234,6 +234,7 @@ def render_tab_content(tab):
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
+                    html.Div(id = 'dp-access', ),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
