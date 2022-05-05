@@ -645,19 +645,12 @@ def create_active_authors_graph_res(data_res, data_ref):
     Output('cytoscape-event-callbacks-1', 'elements'),
     Output('cytoscape-event-callbacks-1', 'zoom'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'),
     Input('bt-reset', 'n_clicks'),
     Input('cytoscape-event-callbacks-1', 'zoom'))
-def generate_collaboration_network(data_res, data_ref, n_clicks, zoom):
+def generate_collaboration_network(data_res, n_clicks, zoom):
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
-    dff_ref = pd.DataFrame(data_ref)
-    dff_ref['result'] = 'reference'
-    dff_all = pd.concat([dff_res, dff_ref])
-    #dff_all.drop_duplicates(inplace=True)
-    dff_all = dff_all.loc[dff_all.astype(str).drop_duplicates().index]
-    #print(dff_all.head(5))
-    elements = plots.generate_graph_elements_collab(dff_all)
+    elements = plots.generate_graph_elements_collab(dff_res)
     if n_clicks:
         if n_clicks > 0:
             zoom = 1
@@ -671,7 +664,7 @@ def generate_collaboration_network(data_res, data_ref, n_clicks, zoom):
     Input('store-initial-query-response', 'data'),
     Input('bt-reset-papers', 'n_clicks'),
     Input('cytoscape-event-callbacks-2', 'zoom'))
-def generate_collaboration_network(data_ref, data_res, n_clicks, zoom):
+def generate_citation_network(data_ref, data_res, n_clicks, zoom):
     ref_df = pd.DataFrame(data_ref)
     ref_df['reference'] = semantic_api.build_references(ref_df)
     res_df = pd.DataFrame(data_res['data'])

@@ -389,37 +389,39 @@ def make_top_authors(df):
   return fig
 
 def generate_collab_network_df(df):
-    authors_list_of_list = []
-    ids_list_of_list = []
-    for index, row in df.iterrows():
-        authors_list = []
-        ids_list = []
-        for dict_ in row.authors:
-            authors_list.append(dict_['name'])
-            ids_list.append(dict_['authorId'])
-        authors_list_of_list.append(authors_list)
-        ids_list_of_list.append(ids_list)
-    authors_combinations = []
-    ids_combinations = []
-    for authors in authors_list_of_list:
-        res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
-        authors_combinations.append(res)
-    for ids in ids_list_of_list:
-        rex = [(a, b) for idx, a in enumerate(ids) for b in ids[idx + 1:]]
-        ids_combinations.append(rex)
-    flat_authors_combinations = utils.flatten_list(authors_combinations)
-    flat_ids_combinations = utils.flatten_list(ids_combinations)
-    most_common_collab = Counter(flat_authors_combinations).most_common(50)
-    most_common_collab_ids = Counter(flat_ids_combinations).most_common(50)
-    unpacked_most_collab = [(a, b, c) for (a, b ), c in most_common_collab]
-    unpacked_most_collab_ids = [(a, b, c) for (a, b ), c in most_common_collab_ids]
-    nx_df = pd.DataFrame(unpacked_most_collab, columns=['author1', 'author2', 'weight'])
-    nx_id_df = pd.DataFrame(unpacked_most_collab_ids, columns=['id1', 'id2', 'weight1'])
-    collabs_df = pd.concat([nx_df, nx_id_df], axis=1)
-    collabs_df['author1'] = list(zip(collabs_df.author1, collabs_df.id1))
-    collabs_df['author2'] = list(zip(collabs_df.author2, collabs_df.id2))
-    collabs_df.drop(['id1', 'id2', 'weight1'], axis = 1, inplace = True)
-    return collabs_df
+  authors_list_of_list = []
+  ids_list_of_list = []
+  for index, row in df.iterrows():
+      authors_list = []
+      ids_list = []
+      for dict_ in row.authors:
+          #print("PAPER AUTHORS", row)
+          authors_list.append(dict_['name'])
+          ids_list.append(dict_['authorId'])
+      authors_list_of_list.append(authors_list)
+      ids_list_of_list.append(ids_list)
+  authors_combinations = []
+  ids_combinations = []
+  for authors in authors_list_of_list:
+      res = [(a, b) for idx, a in enumerate(authors) for b in authors[idx + 1:]]
+      authors_combinations.append(res)
+  for ids in ids_list_of_list:
+      rex = [(a, b) for idx, a in enumerate(ids) for b in ids[idx + 1:]]
+      ids_combinations.append(rex)
+  flat_authors_combinations = utils.flatten_list(authors_combinations)
+  flat_ids_combinations = utils.flatten_list(ids_combinations)
+  most_common_collab = Counter(flat_authors_combinations).most_common(50)
+  most_common_collab_ids = Counter(flat_ids_combinations).most_common(50)
+  unpacked_most_collab = [(a, b, c) for (a, b ), c in most_common_collab]
+  unpacked_most_collab_ids = [(a, b, c) for (a, b ), c in most_common_collab_ids]
+  nx_df = pd.DataFrame(unpacked_most_collab, columns=['author1', 'author2', 'weight'])
+  nx_id_df = pd.DataFrame(unpacked_most_collab_ids, columns=['id1', 'id2', 'weight1'])
+  collabs_df = pd.concat([nx_df, nx_id_df], axis=1)
+  collabs_df['author1'] = list(zip(collabs_df.author1, collabs_df.id1))
+  collabs_df['author2'] = list(zip(collabs_df.author2, collabs_df.id2))
+  collabs_df.drop(['id1', 'id2', 'weight1'], axis = 1, inplace = True)
+  #print(collabs_df.head(100))
+  return collabs_df
 
 def generate_graph_elements_collab(df):
     nx_df = generate_collab_network_df(df)
