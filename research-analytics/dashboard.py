@@ -234,7 +234,7 @@ def render_tab_content(tab):
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
-                    html.Div(id = 'dp-access', ),
+                    html.Div(id = 'dp-access', children = []),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
@@ -647,11 +647,21 @@ def create_active_authors_graph_res(data_res, data_ref):
     Output('cytoscape-event-callbacks-1', 'zoom'),
     Input('store-initial-query-response', 'data'),
     Input('bt-reset', 'n_clicks'),
+    Input('dp-access-component', 'value'),
     Input('cytoscape-event-callbacks-1', 'zoom'))
-def generate_collaboration_network(data_res, n_clicks, zoom):
+def generate_collaboration_network(data_res, n_clicks, filter, zoom):
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
-    elements = plots.generate_graph_elements_collab(dff_res)
+    if filter == 'All':
+        elements = plots.generate_graph_elements_collab(dff_res)
+    else:
+        index_list = []
+        for index, row in data_res.iterrows():
+            if isinstance(row.fieldsOfStudy, list):
+                if filter in row.fieldsOfStudy:
+                    index_list.append(index)
+        dff_filtered = dff_res.loc[index_list]
+        elements = plots.generate_graph_elements_collab(dff_filtered)
     if n_clicks:
         if n_clicks > 0:
             zoom = 1
