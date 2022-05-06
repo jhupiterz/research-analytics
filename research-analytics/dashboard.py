@@ -233,8 +233,9 @@ def render_tab_content(tab):
             html.Div([
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
-                    html.Button('Reset view', id='bt-reset', className= 'reset-button'),
-                    html.Div(id = 'dp-access-cytoscape', children = []),
+                    html.Div([
+                    html.Button('Reset view', id='bt-reset', style= {'order': '1'}),
+                    html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
@@ -673,7 +674,6 @@ def generate_collaboration_network(data_res, n_clicks, filter, zoom):
                 if filter in row.fieldsOfStudy:
                     index_list.append(index)
         dff_filtered = dff_res.loc[index_list]
-        print(dff_filtered)
         elements = plots.generate_graph_elements_collab(dff_filtered)
     if n_clicks:
         if n_clicks > 0:

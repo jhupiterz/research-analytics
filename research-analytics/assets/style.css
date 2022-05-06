@@ -179,7 +179,7 @@ footer a {
 /* Reset buttons cytoscapes */
 
 .reset-button {
-  order: 2;
+  order: 1;
   border: 1px solid var(--secondary);
   border-radius: 3px;
   width: 5vw;
