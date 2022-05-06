@@ -431,7 +431,6 @@ def generate_graph_elements_collab(df):
     for index, row in nx_df.iterrows():
         edges_list.append({'data': {'source': row.author1[1], 'target': row.author2[1]}, 'classes': 'collaboration'})
     elements = nodes_list + edges_list
-    #print(elements)
     return elements
 
 def generate_ref_network_df(df1, df2):

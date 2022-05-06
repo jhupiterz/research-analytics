@@ -234,7 +234,7 @@ def render_tab_content(tab):
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
                                                         'color': 'white'}),
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
-                    html.Div(id = 'dp-access', children = []),
+                    html.Div(id = 'dp-access-cytoscape', children = []),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
@@ -643,11 +643,23 @@ def create_active_authors_graph_res(data_res, data_ref):
 
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
+    Output('dp-access-cytoscape', 'children'),
+    Input('store-initial-query-response', 'data'))
+def create_accessibility_pie_all(data_res):
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    fields_of_study = dff_res['fieldsOfStudy'].tolist()
+    res = [field for field in fields_of_study if isinstance(field, list)]
+    flat_list_fields = utils.flatten_list(res)
+    options = ['All'] + list(set(flat_list_fields))
+    return dcc.Dropdown(id = 'dp-access-component_cytoscape', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'})
+
+@app.callback(
     Output('cytoscape-event-callbacks-1', 'elements'),
     Output('cytoscape-event-callbacks-1', 'zoom'),
     Input('store-initial-query-response', 'data'),
     Input('bt-reset', 'n_clicks'),
-    Input('dp-access-component', 'value'),
+    Input('dp-access-component_cytoscape', 'value'),
     Input('cytoscape-event-callbacks-1', 'zoom'))
 def generate_collaboration_network(data_res, n_clicks, filter, zoom):
     dff_res = pd.DataFrame(data_res['data'])
@@ -656,11 +668,12 @@ def generate_collaboration_network(data_res, n_clicks, filter, zoom):
         elements = plots.generate_graph_elements_collab(dff_res)
     else:
         index_list = []
-        for index, row in data_res.iterrows():
+        for index, row in dff_res.iterrows():
             if isinstance(row.fieldsOfStudy, list):
                 if filter in row.fieldsOfStudy:
                     index_list.append(index)
         dff_filtered = dff_res.loc[index_list]
+        print(dff_filtered)
         elements = plots.generate_graph_elements_collab(dff_filtered)
     if n_clicks:
         if n_clicks > 0:
