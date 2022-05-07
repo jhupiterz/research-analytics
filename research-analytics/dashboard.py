@@ -237,7 +237,7 @@ def render_tab_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'circle', 'height': '58vh', 'width': '44vw'},
-                        style = {'order': '3', 'height': '58vh', 'width': '44vw'},
+                        style = {'order': '3', 'height': '58vh', 'width': '44vw', 'margin': 'auto'},
                         stylesheet = [
                             {
                                 'selector': 'label',
@@ -294,7 +294,7 @@ def render_tab_content(tab):
     
     ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center',
               'justify-content':'space-between', 'min-height':'70vh', 'width': '94vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-              'margin': 'auto', 'border-radius': '20px'})
+              'margin': 'auto', 'margin-bottom': '5vh', 'border-radius': '20px'})
         
     if tab == 'tab-3-example-graph':
         return html.Div([
