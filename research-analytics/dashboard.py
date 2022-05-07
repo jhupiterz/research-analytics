@@ -236,8 +236,8 @@ def render_tab_content(tab):
                     html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
-                        layout={'name': 'circle', 'height': '58vh', 'width': '44vw'},
-                        style = {'order': '3', 'height': '58vh', 'width': '44vw', 'margin': 'auto'},
+                        layout={'name': 'random', 'height': '58vh', 'width': '44vw'},
+                        style = {'order': '3', 'height': '58vh', 'width': '44vw', 'margin': 'auto', 'margin-top': '5vh'},
                         stylesheet = [
                             {
                                 'selector': 'label',
@@ -271,7 +271,7 @@ def render_tab_content(tab):
                             ])],
                     
                 style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column',
-                         'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left', 'border-radius': '20px'}),
+                         'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '20px'}),
             
             html.Div(className= 'vl', style = {'order': '2'}),
             
