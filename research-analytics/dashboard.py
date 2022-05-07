@@ -195,10 +195,10 @@ def render_tab_content(tab):
             dcc.Loading(id = "loading-icon-1",
                 children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
             html.Div(id = 'accessibility-pie-all', children = [html.Div(id = 'dp-access', children=[], style = {'order': '2', 'margin-left': '-2vw'}),
-                                                               html.Div(id = 'access-pie-all', children= [], style = {'order': '1',
+                                                               html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'backgroundColor': '#F5F3F5',
                                                                                                                       'display':'flex', 'flex-direction':'row',
                                                                                                                       'align-items':'center', 'margin-right': '-2vw'})],
-                     style = {'backgroundColor':'white', 'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+                     style = {'backgroundColor':'white', 'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'justify-content':'space-between', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'width': '40vw'})],
             style={'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -213,7 +213,6 @@ def render_tab_content(tab):
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
         
-        html.Br(),
         html.Br(),
         
         html.Div([
@@ -232,23 +231,23 @@ def render_tab_content(tab):
         return html.Div([
             html.Div([
                     html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                        'color': 'white'}),
+                                                        'color': '#13070C', 'margin': 5}),
                     html.Div([
                     html.Button('Reset view', id='bt-reset', style= {'order': '1'}),
                     html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
-                        layout={'name': 'circle', 'height': '55vh', 'width': '38vw'},
-                        style = {'order': '3', 'height': '55vh', 'width': '38vw'},
+                        layout={'name': 'circle', 'height': '58vh', 'width': '44vw'},
+                        style = {'order': '3', 'height': '58vh', 'width': '44vw'},
                         stylesheet = [
                             {
                                 'selector': 'label',
                                 'style': {
                                     'content': 'data(label)',
-                                    'color': 'white',
+                                    'color': '#13070C',
                                     'font-size':'14vh',
                                     'font-family':'Arial, sans serif',
-                                    'background-color': '#eda109'
+                                    'background-color': '#35A7FF'
                                 }
                             },
                             {
@@ -260,19 +259,19 @@ def render_tab_content(tab):
                             {
                                 'selector': '.author',
                                 'style': {
-                                    'background-color': '#eda109'
+                                    'background-color': '#35A7FF'
                                 }
                             },
                             {
                                 'selector': '.collaboration',
                                 'style': {
-                                    'line-color': 'lightgrey',
-                                    'width': 0.7
+                                    'line-color': '#13070C',
+                                    'width': 1
                                 }
                             }
                             ])],
                     
-                style = {'order': '1', 'backgroundColor': '#101126', 'display': 'flex', 'flex-direction': 'column',
+                style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
                          'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left', 'border-radius': '20px'}),
             
             html.Div([
@@ -282,7 +281,7 @@ def render_tab_content(tab):
                            style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
-                        html.Img(src='/assets/user.png', style={'order': '1', 'height': '30vh'}),
+                        html.Img(src='/assets/account.png', style={'order': '1', 'height': '30vh'}),
                         html.Div([
                             html.P(html.B("AUTHOR INFO"),
                                 style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
@@ -291,11 +290,11 @@ def render_tab_content(tab):
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'backgroundColor': '#eda109', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
+                style = {'order': '2', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})
     
     ], style={'display': 'flex', 'flex-direction': 'row', 'align-items':'center',
-              'justify-content':'space-between', 'min-height':'75vh', 'width': '94vw',
+              'justify-content':'space-between', 'min-height':'80vh', 'width': '94vw',
               'margin': 'auto', 'border-radius': '20px'})
         
     if tab == 'tab-3-example-graph':
@@ -348,7 +347,7 @@ def render_tab_content(tab):
                     
                 style = {'order': '1', 'width':'45%', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-                        'margin-bottom': '3vh', 'border-radius': '20px'}),
+                        'margin-bottom': '3vh', 'border-radius': '20px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
 
 
                 html.Div([
@@ -384,7 +383,7 @@ def display_topic(value):
     else:
         return "Welcome researcher! 🧠"
 
-# Top flashacards -----------------------------------------------
+# Top flashcards -----------------------------------------------
 @app.callback(
     Output('earliest-pub-results', 'children'),
     Input('store-initial-query-response', 'data'))
@@ -429,7 +428,7 @@ def create_top_key_words_res(data, query):
     dff = pd.DataFrame(data['data'])
     dff = data_preprocess.extract_key_words(dff)
     fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px'})
 
 @app.callback(
     Output('keywords-graph-ref', 'children'),
@@ -455,7 +454,7 @@ def create_top_key_words_all(data_res, data_ref, query):
     dff_ref = data_preprocess.extract_key_words(dff_ref)
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_top_key_words(dff_all, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'38vh', 'border-radius': '10px', 'margin': 5})
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -496,7 +495,7 @@ def create_accessibility_pie_all(data_res, data_ref):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'})
+    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin': 5})
 
 
 @app.callback(
@@ -520,7 +519,7 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1'})
+    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '10px', 'margin': 5, 'width': '36vw', 'height':'40vh'})
 
 # publications per year
 @app.callback(
@@ -550,7 +549,7 @@ def create_publication_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_pub_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
 
 # citations per year
 @app.callback(
@@ -572,7 +571,7 @@ def create_citations_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_citations_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
 
 @app.callback(
     Output('citations-graph-ref', 'children'),
@@ -610,7 +609,7 @@ def create_fields_pie_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_fields_pie(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
 
 # most active authors
 @app.callback(
@@ -640,7 +639,7 @@ def create_active_authors_graph_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_active_authors(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
 
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
