@@ -1,6 +1,6 @@
 /* Layout */
 :root {
-  --primary: #18192e;
+  --primary: #F5F3F5;
   --secondary: white;
   --highlights: #eda109;
 }
@@ -8,7 +8,7 @@
 body {
   margin: 0;
   padding: 0;
-  color: var(--secondary);
+  color: #F5F3F5;
   background-color: var(--primary);
   font-family: Arial, sans-serif;
 }
@@ -32,7 +32,8 @@ a {
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background-color: #242535;
+  height: 5vh;
+  background-color: #35A7FF;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -86,8 +87,9 @@ h1 {
 }
 
 .doc-link:hover {
+  border: 1px solid #13070C;
   background-color: var(--secondary);
-  color: var(--primary);
+  color: #13070C;
 }
 
 /* Search bar */
@@ -131,7 +133,7 @@ footer {
   align-items: center;
   justify-content: center;
   margin-bottom: -2vh;
-  background-color: var(--highlights);
+  background-color: #35A7FF;
   color: black;
   font-size: 1rem;
 }
