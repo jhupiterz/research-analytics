@@ -230,8 +230,7 @@ def render_tab_content(tab):
     if tab == 'tab-2-example-graph':
         return html.Div([
             html.Div([
-                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                        'color': '#13070C', 'margin': 5}),
+                
                     html.Div([
                     html.Button('Reset view', id='bt-reset', style= {'order': '1'}),
                     html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
@@ -271,12 +270,12 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
+                style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column',
                          'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '3vh', 'float': 'left', 'border-radius': '20px'}),
             
+            html.Div(className= 'vl', style = {'order': '2'}),
+            
             html.Div([
-                    html.H2("Collaboration network", style = {'order':'1','font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                        'color': '#101126'}),
                     html.P("Click on a node to display information about an author",
                            style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
@@ -290,11 +289,11 @@ def render_tab_content(tab):
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})
+                style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
+                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
     
-    ], style={'display': 'flex', 'flex-direction': 'row', 'align-items':'center',
-              'justify-content':'space-between', 'min-height':'80vh', 'width': '94vw',
+    ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center',
+              'justify-content':'space-between', 'min-height':'70vh', 'width': '94vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
               'margin': 'auto', 'border-radius': '20px'})
         
     if tab == 'tab-3-example-graph':

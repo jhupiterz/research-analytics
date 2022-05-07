@@ -125,6 +125,13 @@ h1 {
   /* background-color: #262629; */
 }
 
+/* Vertical line */
+
+.vl {
+  border-left: 2px solid black;
+  height: 50vh;
+}
+
 /* Footer */
 
 footer {
