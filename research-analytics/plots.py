@@ -9,6 +9,7 @@ from datetime import date
 import pandas as pd
 from collections import Counter
 import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 import plotly.express as px
 
 # function definitions -----------------------------------------------------
@@ -128,21 +129,22 @@ def make_pub_per_year(df, which_api):
 
 def make_citations_per_year_line(df):
   #print(df.groupby(['year', 'result'], as_index=False).sum())
-  fig = px.line(df, x=df.groupby(['year', 'result'], as_index=False).sum().year,
-              y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], color=df.groupby(['year', 'result'], as_index=False).sum()['result'], title='Citations per year',
-              color_discrete_map={'reference': "#6BF178", 'direct': "#35A7FF"})
-  fig.update_layout(title = "<span style='font-size: 22px;'><b>Citations per Year<b></span>", title_x=0.5,
-                      font=dict(
-                                family="Courier New, monospace",
-                                size=12,
-                                color="#13070C"
-      ),
-      paper_bgcolor = "rgba(104, 207, 247,0.1)",
-      plot_bgcolor = "rgba(104, 207, 247,0.1)")
+  fig = make_subplots(specs=[[{"secondary_y": True}]])
+  
+  fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).sum().year,
+              y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], name = "# citations", line=dict(color='rgba(252, 3, 194, 0.4)', width=2)) , secondary_y=False)
+  
+  fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).count().year,
+              y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color='rgba(40, 252, 3, 0.4)', width=2)) , secondary_y=True)
+  
+  fig.update_layout(legend_x= 0, legend_y=1,
+      paper_bgcolor = "rgba(104, 207, 247,0.0)",
+      plot_bgcolor = "rgba(104, 207, 247,0.0)")
     
-  fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
+  #fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
-  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()])
+  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()], secondary_y=False)
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()], secondary_y=True)
   return fig
 
 def make_citations_per_year(df, which_api):
@@ -193,11 +195,10 @@ def make_active_authors(df):
                               size=12,
                               color="#13070C"
     ),
-    paper_bgcolor = "rgba(104, 207, 247,0.1)",
-    plot_bgcolor = "rgba(104, 207, 247,0.1)")
+    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+    plot_bgcolor = "rgba(104, 207, 247,0.0)")
 
     fig.update_traces(marker_color='#35A7FF')
-    fig.update_xaxes(title="Authors")
     fig.update_yaxes(title="Number of Publications", range= [0, 1.1* most_active_authors_df.occurence.max()])
     return fig
 

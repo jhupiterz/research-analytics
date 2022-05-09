@@ -215,20 +215,12 @@ def render_tab_content(tab):
         html.Br(),
         
         html.Div([
-            html.Div(id = 'publication-graph-all', children = [], style = {'order': '1', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-            html.Div(id = 'citations-graph-all', children = [], style = {'order': '2', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
             style={'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
-        
-        html.Br(),
-        
-        html.Div([
-            #html.Div(id = 'fields-pie-all', children = [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
-            style={'width': '95%', 'height':'30%', 'display': 'flex',
-                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
-                'margin-bottom': '3vh', 'justify-content': 'space-evenly'})
+
         ],
         
         style = {'width': '94vw', 'display': 'flex',
