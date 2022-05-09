@@ -11,6 +11,7 @@ from data_collection import semantic_api
 from data_preprocessing import data_preprocess
 import requests
 import pandas as pd
+import plotly.express as px
 import dash
 import dash_cytoscape as cyto
 from dash import dcc
@@ -162,19 +163,19 @@ def store_references_data(data):
 def render_content(data):
     if data != None:
         return (html.Div([
-            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '94vw', 'text-align':'center','display':'flex', 'flex-direction':'row'},
+            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '85vw', 'text-align':'center','display':'flex', 'flex-direction':'row', 'margin': 'auto', "verticalAlign" : "middle"},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
                         style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '1', 'background-color': '#6BF178', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+                        selected_style = {'order': '1', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
                 dcc.Tab(label='🥷 Author network 🥷', value='tab-2-example-graph',
                         style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '2', 'background-color': '#6BF178', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+                        selected_style = {'order': '2', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
                 dcc.Tab(label='📚 Paper network 📚', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '3', 'background-color': '#6BF178', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})])],
-                        style = {'width': '95%', 'height': '6vh', 'display': 'flex',
-                                    'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
+                        selected_style = {'order': '3', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})])],
+                        style = {'width': '85vw', 'height': '6vh', 'display': 'flex', "horizontalAlign" : "middle", 'margin-left':'8vw',
+                                 'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
@@ -193,16 +194,16 @@ def render_tab_content(tab):
         return html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
+                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
             
             html.Div(id = 'accessibility-pie-all', children = [
                 
                 html.Div([
                     html.Div(id = 'dp-access', children=[], style = {'order': '2', 'margin-top': '-3vw', 'margin-bottom': '2vh'}),
                     html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-                                                                                                                       'border-radius':'10px', 'align-items':'center', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'margin-right': '1vw'}),
+                                                                                                                       'border-radius':'10px', 'align-items':'center', 'backgroundColor': 'white', 'margin-right': '1vw'}),
                     
-                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'height': '35vh', 'margin-left': '1vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'height': '35vh', 'margin-left': '1vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
                      
                      style = {'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center',
                               'justify-content':'space-between', 'align-content':'center'})],
@@ -215,10 +216,10 @@ def render_tab_content(tab):
         html.Br(),
         
         html.Div([
-            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'}),
+            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'})],
             style={'width': '95%', 'height':'30%', 'display': 'flex',
-                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
+                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'width':'80vw',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
 
         ],

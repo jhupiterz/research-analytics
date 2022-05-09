@@ -20,9 +20,7 @@ def make_access_pie(df):
   #print(oa_publications)
   df_ = oa_publications
   fig = px.pie(df_, values='title', names= df_.index, color=df_.index, labels={'isOpenAccess': 'Open Access', 'title': 'Count'},
-               color_discrete_map={
-                                   'True':'#6BF178',
-                                   'False':'#35A7FF'})
+               color_discrete_sequence= [px.colors.sequential.Plotly3[0], px.colors.sequential.Plotly3[-1]])
   
   fig.update_layout(
     showlegend=False,
@@ -44,7 +42,8 @@ def make_fields_pie(df):
     most_common_fields = Counter(flat_list_fields).most_common()
     most_common_fields_df = pd.DataFrame(most_common_fields, columns=["field", "occurence"])
     
-    fig = px.pie(most_common_fields_df.loc[0:7], values='occurence', names= 'field')
+    fig = px.pie(most_common_fields_df.loc[0:7], values='occurence', names= 'field',
+                 color_discrete_sequence=px.colors.sequential.Plotly3)
 
     fig.update_layout(
     showlegend=False,
@@ -132,10 +131,10 @@ def make_citations_per_year_line(df):
   fig = make_subplots(specs=[[{"secondary_y": True}]])
   
   fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).sum().year,
-              y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], name = "# citations", line=dict(color='rgba(252, 3, 194, 0.4)', width=2)) , secondary_y=False)
+              y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], name = "# citations", line=dict(color=px.colors.sequential.Plotly3[0], width=2)) , secondary_y=False)
   
   fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).count().year,
-              y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color='rgba(40, 252, 3, 0.4)', width=2)) , secondary_y=True)
+              y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color=px.colors.sequential.Plotly3[9], width=2)) , secondary_y=True)
   
   fig.update_layout(legend_x= 0, legend_y=1,
       paper_bgcolor = "rgba(104, 207, 247,0.0)",
@@ -198,7 +197,7 @@ def make_active_authors(df):
     paper_bgcolor = "rgba(104, 207, 247,0.0)",
     plot_bgcolor = "rgba(104, 207, 247,0.0)")
 
-    fig.update_traces(marker_color='#35A7FF')
+    fig.update_traces(marker_color= px.colors.sequential.Plotly3[1])
     fig.update_yaxes(title="Number of Publications", range= [0, 1.1* most_active_authors_df.occurence.max()])
     return fig
 
@@ -283,7 +282,7 @@ def make_top_key_words(df, query):
     ),
     paper_bgcolor = "rgba(104, 207, 247,0.0)",
     plot_bgcolor = "rgba(104, 207, 247,0.0)")
-  fig.update_traces(marker_color='#35A7FF')
+  fig.update_traces(marker_color= px.colors.sequential.Plotly3[1])
   fig.update_yaxes(range= [0, 1.1* top_key_words_plot['occurence'].max()])
   return fig
 
