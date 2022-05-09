@@ -193,12 +193,20 @@ def render_tab_content(tab):
         return html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
-            html.Div(id = 'accessibility-pie-all', children = [html.Div(id = 'dp-access', children=[], style = {'order': '2', 'margin-left': '-2vw'}),
-                                                               html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'backgroundColor': '#F5F3F5',
-                                                                                                                      'display':'flex', 'flex-direction':'row',
-                                                                                                                      'align-items':'center', 'margin-right': '-2vw'})],
-                     style = {'backgroundColor':'white', 'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'justify-content':'space-between', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'width': '40vw'})],
+                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
+            
+            html.Div(id = 'accessibility-pie-all', children = [
+                
+                html.Div([
+                    html.Div(id = 'dp-access', children=[], style = {'order': '2', 'margin-top': '-3vw', 'margin-bottom': '2vh'}),
+                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
+                                                                                                                       'border-radius':'10px', 'align-items':'center', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'margin-right': '1vw'}),
+                    
+                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'height': '35vh', 'margin-left': '1vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+                     
+                     style = {'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center',
+                              'justify-content':'space-between', 'align-content':'center'})],
+                 
             style={'width': '95%', 'height':'30%', 'display': 'flex',
                     'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
@@ -216,7 +224,7 @@ def render_tab_content(tab):
         html.Br(),
         
         html.Div([
-            html.Div(id = 'fields-pie-all', children = [], style = {'order': '1', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+            #html.Div(id = 'fields-pie-all', children = [], style = {'order': '1', 'backgroundColor': 'rgba(104, 207, 247,0.1)', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
             html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': '#F5F3F5', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
             style={'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto',
@@ -378,7 +386,7 @@ def render_tab_content(tab):
     Input('search-query', 'value'))
 def display_topic(value):
     if value != None:
-        return f"Topic: {value}"
+        return "Welcome researcher! 🧠"
     else:
         return "Welcome researcher! 🧠"
 
@@ -453,7 +461,7 @@ def create_top_key_words_all(data_res, data_ref, query):
     dff_ref = data_preprocess.extract_key_words(dff_ref)
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_top_key_words(dff_all, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'38vh', 'border-radius': '10px', 'margin': 5})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'35vh', 'border-radius': '10px'})
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -494,7 +502,7 @@ def create_accessibility_pie_all(data_res, data_ref):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin': 5})
+    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin':'auto', 'margin-right': '-2vw'})
 
 
 @app.callback(
@@ -518,7 +526,7 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '10px', 'margin': 5, 'width': '36vw', 'height':'40vh'})
+    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '10px', 'width': '20vw', 'height':'35vh'})
 
 # publications per year
 @app.callback(
@@ -608,7 +616,7 @@ def create_fields_pie_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_fields_pie(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
+    return dcc.Graph(figure=fig, style = {'width':'20vw', 'height':'40vh', 'border-radius': '10px'})
 
 # most active authors
 @app.callback(

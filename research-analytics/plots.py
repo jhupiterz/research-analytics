@@ -31,8 +31,8 @@ def make_access_pie(df):
         size=14,
         color="#13070C"
     ),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white")
+    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+    plot_bgcolor = "rgba(104, 207, 247,0.0)")
   return fig
 
 def make_fields_pie(df):
@@ -46,15 +46,15 @@ def make_fields_pie(df):
     fig = px.pie(most_common_fields_df.loc[0:7], values='occurence', names= 'field')
 
     fig.update_layout(
-    showlegend=True,
+    showlegend=False,
     title = "<span style='font-size: 22px;'><b>Fields of Study<b></span>", title_x=0.5,
     font=dict(
         family="Courier New, monospace",
         size=14,
         color="#13070C"
     ),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white")
+    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+    plot_bgcolor = "rgba(104, 207, 247,0.0)")
     return fig
 
 def make_yearly_popularity(df):
@@ -87,8 +87,8 @@ def make_pub_per_year_line(df):
                                 size=12,
                                 color="#13070C"
       ),
-      paper_bgcolor = "white",
-      plot_bgcolor = "white")
+      paper_bgcolor = "rgba(104, 207, 247,0.1)",
+      plot_bgcolor = "rgba(104, 207, 247,0.1)")
     
   fig.update_traces(marker_color='#6BF178')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
@@ -137,8 +137,8 @@ def make_citations_per_year_line(df):
                                 size=12,
                                 color="#13070C"
       ),
-      paper_bgcolor = "white",
-      plot_bgcolor = "white")
+      paper_bgcolor = "rgba(104, 207, 247,0.1)",
+      plot_bgcolor = "rgba(104, 207, 247,0.1)")
     
   fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
@@ -193,8 +193,8 @@ def make_active_authors(df):
                               size=12,
                               color="#13070C"
     ),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white")
+    paper_bgcolor = "rgba(104, 207, 247,0.1)",
+    plot_bgcolor = "rgba(104, 207, 247,0.1)")
 
     fig.update_traces(marker_color='#35A7FF')
     fig.update_xaxes(title="Authors")
@@ -280,10 +280,10 @@ def make_top_key_words(df, query):
         size=12,
         color="#13070C"
     ),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white")
+    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+    plot_bgcolor = "rgba(104, 207, 247,0.0)")
   fig.update_traces(marker_color='#35A7FF')
-  fig.update_yaxes(title="Number of occurences", range= [0, 1.1* top_key_words_plot['occurence'].max()])
+  fig.update_yaxes(range= [0, 1.1* top_key_words_plot['occurence'].max()])
   return fig
 
 def make_first_pub_box(df):
