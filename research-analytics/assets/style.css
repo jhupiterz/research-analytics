@@ -1,6 +1,6 @@
 /* Layout */
 :root {
-  --primary: #F5F3F5;
+  --primary: rgba(104, 207, 247,0.2);
   --secondary: white;
   --highlights: #eda109;
 }
@@ -33,7 +33,7 @@ a {
   align-items: center;
   padding: 15px 30px;
   height: 5vh;
-  background-color: #35A7FF;
+  background-color: #0508b8;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -140,8 +140,8 @@ footer {
   align-items: center;
   justify-content: center;
   margin-bottom: -2vh;
-  background-color: #35A7FF;
-  color: black;
+  background-color: #0508b8;
+  color: white;
   font-size: 1rem;
 }
 
@@ -151,12 +151,12 @@ footer p {
 }
 
 footer p:first-child {
-  border-right: 2px solid black;
+  border-right: 2px solid white;
 }
 
 footer a {
   text-decoration: underline;
-  color: black;
+  color: white;
 }
 
 /* Default welcome section */
