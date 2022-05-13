@@ -183,8 +183,8 @@ def make_active_authors(df):
             authors_list.append(dict_['name'])
     most_active_authors = Counter(authors_list).most_common()
     most_active_authors_df = pd.DataFrame(most_active_authors, columns=["author", "occurence"])
-    fig = go.Figure(data=[go.Bar(x=most_active_authors_df[0:10].author,
-                              y= most_active_authors_df[0:10].occurence,
+    fig = go.Figure(data=[go.Bar(x=most_active_authors_df[0:12].author,
+                              y= most_active_authors_df[0:12].occurence,
                               texttemplate="%{y}",
                               textposition="outside",
                               textangle=0)])

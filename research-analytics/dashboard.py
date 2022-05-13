@@ -203,7 +203,7 @@ def render_tab_content(tab):
                     html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
                                                                                                                        'border-radius':'10px', 'align-items':'center', 'backgroundColor': 'white', 'margin-right': '1vw'}),
                     
-                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'height': '35vh', 'margin-left': '1vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
                      
                      style = {'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center',
                               'justify-content':'space-between', 'align-content':'center'})],
@@ -233,8 +233,8 @@ def render_tab_content(tab):
             html.Div([
                 
                     html.Div([
-                    html.Button('Reset view', id='bt-reset', style= {'order': '1'}),
-                    html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
+                    html.Button('Reset view', id='bt-reset', style= {'order': '1', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'}),
+                    html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2', 'width':'8vw'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'random', 'height': '58vh', 'width': '44vw'},
@@ -247,7 +247,7 @@ def render_tab_content(tab):
                                     'color': '#13070C',
                                     'font-size':'14vh',
                                     'font-family':'Arial, sans serif',
-                                    'background-color': '#35A7FF'
+                                    'background-color': '#0508b8'
                                 }
                             },
                             {
@@ -259,63 +259,58 @@ def render_tab_content(tab):
                             {
                                 'selector': '.author',
                                 'style': {
-                                    'background-color': '#35A7FF'
+                                    'background-color': '#0508b8'
                                 }
                             },
                             {
                                 'selector': '.collaboration',
                                 'style': {
-                                    'line-color': '#13070C',
+                                    'line-color': '#737373',
                                     'width': 1
                                 }
                             }
                             ])],
                     
                 style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column',
-                         'align-items': 'center', 'width': '45%', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '20px'}),
+                         'align-items': 'center', 'width': '55vw', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '20px'}),
             
             html.Div(className= 'vl', style = {'order': '2'}),
             
             html.Div([
                     html.P("Click on a node to display information about an author",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
-                        html.Img(src='/assets/account.png', style={'order': '1', 'height': '30vh'}),
                         html.Div([
-                            html.P(html.B("AUTHOR INFO"),
-                                style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '80%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '35vh', 'height': '40vh', 'border': "0.2vh black solid", 'overflow-y':'auto', 'border-radius': '5px'})],
+                        style = {'order': '2', 'width': '35vh', 'height': '40vh', 'overflow-y':'auto', 'border-radius': '5px'})],
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
                         )],
                     
                 style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '45%', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
+                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
     
-    ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center',
-              'justify-content':'space-between', 'min-height':'70vh', 'width': '94vw', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
+    ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'width': '85vw',
+              'justify-content':'space-between', 'min-height':'70vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
               'margin': 'auto', 'margin-bottom': '5vh', 'border-radius': '20px'})
         
     if tab == 'tab-3-example-graph':
         return html.Div([
 
                 html.Div([
-                    html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                         'color': 'white'}),
                     
-                    html.Button('Reset view', id='bt-reset-papers', className= 'reset-button'),
+                    html.Button('Reset view', id='bt-reset-papers', style= {'order': '1', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
-                        layout={'name': 'random', 'height': '85vh', 'width': '70vh'},
-                        style={'order': '2', 'height': '85vh', 'width': '70vh'},
+                        layout={'name': 'random', 'height': '58vh', 'width': '50vw'},
+                        style={'order': '2', 'height': '58vh', 'width': '50vw'},
                         stylesheet = [
                             {
                                 'selector': 'node',
                                 'style': {
-                                    'background-color': '#cb8deb',
-                                    'height': '8vh',
-                                    'width': '8vh'
+                                    'background-color': '#0508b8',
+                                    'height': '9vh',
+                                    'width': '9vh'
                                 } 
                             },
                             {
@@ -339,38 +334,35 @@ def render_tab_content(tab):
                             {
                                 'selector': '.citation',
                                 'style': {
-                                    'line-color': 'white',
-                                    'width': '0.4vh'
+                                    'line-color': '#737373',
+                                    'width': 1
                                 }
                             }
                             ])],
                     
-                style = {'order': '1', 'width':'45%', 'height': '65vh', 'display': 'flex',
-                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#101126',
-                        'margin-bottom': '3vh', 'border-radius': '20px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-
+                style = {'order': '1', 'width':'55vw', 'height': '65vh', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center',
+                        'margin-bottom': '3vh', 'border-radius': '20px'}),
+                
+                html.Div(className= 'vl', style = {'order': '2'}),
 
                 html.Div([
-                    html.H2("Citation network", style = {'order': '1', 'font-size': '2.5vh', 'font-family': 'Courier New, monospace',
-                                                            'color': '#101126'}),
                     html.P("Click on a node to display information about a paper",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center',
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
                                     'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
                         html.Div([
-                            html.P(html.B("PAPER INFO"),
-                                   style = {'font-family': 'Courier New, monospace', 'color': '#101126', 'text-align': 'center'}),
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '45vh', 'border': "0.2vh black solid", "margin-top": "1.5vh", 'overflow-y':'auto', 'border-radius': '5px'})],
+                        style = {'order': '2', 'width': '95%', 'height': '45vh', "margin-top": "1.5vh", 'overflow-y':'auto', 'border-radius': '5px'})],
                                 style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0vh', 'justify-content': 'space-around'}
                         )],
                     
-                style = {'order': '2', 'width':'45%', 'height': '65vh', 'display': 'flex',
-                        'flex-direction': 'column', 'align-items': 'center', 'backgroundColor': '#eda109',
+                style = {'order': '3', 'width':'30vw', 'height': '65vh', 'display': 'flex',
+                        'flex-direction': 'column', 'align-items': 'center',
                         'margin-bottom': '3vh', 'border-radius': '20px'})],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center',
-                     'justify-content':'space-between', 'min-height':'75vh', 'width': '94vw',
+            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'backgroundColor': 'white',
+                     'justify-content':'space-between', 'min-height':'70vh', 'width': '85vw', 'margin-bottom': '5vh',
                      'margin': 'auto', 'border-radius': '20px'})
 
 # Topic title
@@ -495,7 +487,7 @@ def create_accessibility_pie_all(data_res, data_ref):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin':'auto', 'margin-right': '-2vw'})
+    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin':'auto', 'margin-right': '-2vw', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'})
 
 
 @app.callback(

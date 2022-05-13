@@ -1,6 +1,6 @@
 /* Layout */
 :root {
-  --primary: rgba(104, 207, 247,0.2);
+  --primary: rgba(5, 8, 184, 0.1);
   --secondary: white;
   --highlights: #eda109;
 }
@@ -88,7 +88,7 @@ h1 {
 
 .doc-link:hover {
   border: 1px solid #13070C;
-  background-color: var(--secondary);
+  background-color: white;
   color: #13070C;
 }
 
