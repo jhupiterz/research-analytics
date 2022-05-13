@@ -33,7 +33,7 @@ a {
   align-items: center;
   padding: 15px 30px;
   height: 5vh;
-  background-color: #0508b8;
+  background-color: rgba(60, 25, 240, 0.8);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -140,7 +140,7 @@ footer {
   align-items: center;
   justify-content: center;
   margin-bottom: -2vh;
-  background-color: #0508b8;
+  background-color: rgba(60, 25, 240, 0.8);
   color: white;
   font-size: 1rem;
 }
@@ -189,22 +189,35 @@ footer a {
 
 .reset-button {
   order: 1;
-  border: 1px solid var(--secondary);
-  border-radius: 3px;
-  width: 5vw;
-  height: 2vh;
+  border: 1px solid lightgrey;
+  background-color: white;
+  border-radius: 5px;
+  width: 11vw;
+  height: 3.5vh;
   text-align: center;
 }
 
 /* Dropdown menus */
 
 .dp-access-pie {
-  order: 2;
   position: relative;
+  border:  1px solid var(--secondary);
+  border-radius: 5px;
+  z-index: 5;
+  color: black;
+  width: 11vw;
+  height: 3vh;
+}
+
+.dp-access-piie {
+  position: relative;
+  border:  1px solid var(--secondary);
+  border-radius: 5px;
+  margin-top: -5vh;
   z-index: 1;
   color: black;
   width: 11vw;
-  margin-left: -5vw;
+  height: 3vh;
 }
 
 /* Graphs */

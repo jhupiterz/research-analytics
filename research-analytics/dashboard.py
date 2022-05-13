@@ -39,7 +39,7 @@ app.layout = html.Div(
                 html.A(
                     [
                         html.Img(
-                            src="/assets/brain.png",
+                            src="/assets/web.png",
                             alt="research intelligence",
                         ),
                         html.H3("research analytics"),
@@ -163,18 +163,18 @@ def store_references_data(data):
 def render_content(data):
     if data != None:
         return (html.Div([
-            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '85vw', 'text-align':'center','display':'flex', 'flex-direction':'row', 'margin': 'auto', "verticalAlign" : "middle"},
+            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '85vw', 'text-align':'center','display':'flex', 'flex-direction':'row', 'margin': 'auto'},
                         children=[
                 dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '1', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-                dcc.Tab(label='🥷 Author network 🥷', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '2', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-                dcc.Tab(label='📚 Paper network 📚', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '3', 'background-color': px.colors.sequential.Plotly3[-1], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin-left': '15px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})])],
-                        style = {'width': '85vw', 'height': '6vh', 'display': 'flex', "horizontalAlign" : "middle", 'margin-left':'8vw',
+                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'},
+                        selected_style = {'order': '1', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'}),
+                dcc.Tab(label='🔌 Author network 🔌', value='tab-2-example-graph',
+                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
+                        selected_style = {'order': '2', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+                dcc.Tab(label='🕸️ Paper network 🕸️', value='tab-3-example-graph',
+                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'},
+                        selected_style = {'order': '3', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'})])],
+                        style = {'width': '85vw', 'height': '6vh', 'display': 'flex', 'margin-left':'8vw',
                                  'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
@@ -194,47 +194,47 @@ def render_tab_content(tab):
         return html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
+                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
             
             html.Div(id = 'accessibility-pie-all', children = [
                 
                 html.Div([
-                    html.Div(id = 'dp-access', children=[], style = {'order': '2', 'margin-top': '-3vw', 'margin-bottom': '2vh'}),
-                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-                                                                                                                       'border-radius':'10px', 'align-items':'center', 'backgroundColor': 'white', 'margin-right': '1vw'}),
+                    html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
+                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'5px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
+                                                                                                                       'border-radius':'5px', 'align-items':'center', 'backgroundColor': 'white', 'margin-right': '1vw', 'margin': 'auto', 'margin-left': '4vw'}),
                     
-                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})],
+                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'5px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin': 'auto', 'margin-left': '1vw'})],
                      
                      style = {'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center',
-                              'justify-content':'space-between', 'align-content':'center'})],
+                              'align-content':'center'})],
                  
-            style={'width': '95%', 'height':'30%', 'display': 'flex',
-                    'flex-direction': 'row', 'align-items': 'center', 'margin' : 'auto',
+            style={'width': '95%', 'height':'30%', 'display': 'flex', 'width':'80vw',
+                    'flex-direction': 'row', 'align-items': 'center',
                     'margin-top': '3vh','justify-content': 'space-evenly'}),
         
         html.Br(),
         html.Br(),
         
         html.Div([
-            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'}),
-            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'10px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'})],
+            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'}),
+            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'})],
             style={'width': '95%', 'height':'30%', 'display': 'flex',
                 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'width':'80vw',
                 'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
 
         ],
         
-        style = {'width': '94vw', 'display': 'flex',
+        style = {'width': '85vw', 'display': 'flex',
                 'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'border-radius': '20px', 'margin-bottom': '3vh'})
+                'justify-content': 'space-evenly', 'border-radius': '5px', 'margin-bottom': '3vh'})
     
     if tab == 'tab-2-example-graph':
         return html.Div([
             html.Div([
                 
                     html.Div([
-                    html.Button('Reset view', id='bt-reset', style= {'order': '1', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'}),
-                    html.Div(id = 'dp-access-cytoscape', children = [], style = {'order': '2', 'width':'8vw'})], style={'order':'2', 'display':'flex', 'width':'55vh', 'flex-direction':'row', 'justify-content': 'space-between'}),
+                    html.Button('Reset view', id='bt-reset', className= 'reset-button'),
+                    html.Div(id = 'dp-access-cytoscape', children = [], style={'order':'2'})], style={'order':'2', 'display':'flex', 'width':'44vw', 'flex-direction':'row', 'justify-content': 'space-between'}),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'random', 'height': '58vh', 'width': '44vw'},
@@ -247,7 +247,7 @@ def render_tab_content(tab):
                                     'color': '#13070C',
                                     'font-size':'14vh',
                                     'font-family':'Arial, sans serif',
-                                    'background-color': '#0508b8'
+                                    'background-color': 'rgba(60, 25, 240, 0.8)'
                                 }
                             },
                             {
@@ -272,7 +272,7 @@ def render_tab_content(tab):
                             ])],
                     
                 style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column',
-                         'align-items': 'center', 'width': '55vw', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '20px'}),
+                         'align-items': 'center', 'width': '55vw', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '5px'}),
             
             html.Div(className= 'vl', style = {'order': '2'}),
             
@@ -288,18 +288,18 @@ def render_tab_content(tab):
                         )],
                     
                 style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '20px', 'margin-bottom': '3vh'})
+                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '5px', 'margin-bottom': '3vh'})
     
     ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'width': '85vw',
               'justify-content':'space-between', 'min-height':'70vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-              'margin': 'auto', 'margin-bottom': '5vh', 'border-radius': '20px'})
+              'margin': 'auto', 'margin-bottom': '5vh', 'border-radius': '5px'})
         
     if tab == 'tab-3-example-graph':
         return html.Div([
 
                 html.Div([
                     
-                    html.Button('Reset view', id='bt-reset-papers', style= {'order': '1', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'}),
+                    html.Button('Reset view', id='bt-reset-papers', className= 'reset-button'),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         layout={'name': 'random', 'height': '58vh', 'width': '50vw'},
@@ -308,7 +308,7 @@ def render_tab_content(tab):
                             {
                                 'selector': 'node',
                                 'style': {
-                                    'background-color': '#0508b8',
+                                    'background-color': 'rgba(60, 25, 240, 0.8)',
                                     'height': '9vh',
                                     'width': '9vh'
                                 } 
@@ -342,7 +342,7 @@ def render_tab_content(tab):
                     
                 style = {'order': '1', 'width':'55vw', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center',
-                        'margin-bottom': '3vh', 'border-radius': '20px'}),
+                        'margin-bottom': '3vh', 'border-radius': '5px'}),
                 
                 html.Div(className= 'vl', style = {'order': '2'}),
 
@@ -359,11 +359,11 @@ def render_tab_content(tab):
                     
                 style = {'order': '3', 'width':'30vw', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center',
-                        'margin-bottom': '3vh', 'border-radius': '20px'})],
+                        'margin-bottom': '3vh', 'border-radius': '5px'})],
             
             style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'backgroundColor': 'white',
                      'justify-content':'space-between', 'min-height':'70vh', 'width': '85vw', 'margin-bottom': '5vh',
-                     'margin': 'auto', 'border-radius': '20px'})
+                     'margin': 'auto', 'border-radius': '5px'})
 
 # Topic title
 @app.callback(
@@ -420,7 +420,7 @@ def create_top_key_words_res(data, query):
     dff = pd.DataFrame(data['data'])
     dff = data_preprocess.extract_key_words(dff)
     fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px'})
 
 @app.callback(
     Output('keywords-graph-ref', 'children'),
@@ -446,7 +446,7 @@ def create_top_key_words_all(data_res, data_ref, query):
     dff_ref = data_preprocess.extract_key_words(dff_ref)
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_top_key_words(dff_all, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'35vh', 'border-radius': '10px'})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'35vh', 'border-radius': '5px'})
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -487,7 +487,7 @@ def create_accessibility_pie_all(data_res, data_ref):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2', 'margin':'auto', 'margin-right': '-2vw', 'backgroundColor': 'white', 'width':'8vw', 'border': '1px solid black', 'border-radius': '5px'})
+    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-piie')
 
 
 @app.callback(
@@ -511,7 +511,7 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '10px', 'width': '20vw', 'height':'35vh'})
+    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '5px', 'width': '20vw', 'height':'35vh'})
 
 # publications per year
 @app.callback(
@@ -541,7 +541,7 @@ def create_publication_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_pub_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
 
 # citations per year
 @app.callback(
@@ -563,7 +563,7 @@ def create_citations_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_citations_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
 
 @app.callback(
     Output('citations-graph-ref', 'children'),
@@ -601,7 +601,7 @@ def create_fields_pie_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_fields_pie(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'20vw', 'height':'40vh', 'border-radius': '10px'})
+    return dcc.Graph(figure=fig, style = {'width':'20vw', 'height':'40vh', 'border-radius': '5px'})
 
 # most active authors
 @app.callback(
@@ -631,7 +631,7 @@ def create_active_authors_graph_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_active_authors(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '10px', 'margin': 5})
+    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
 
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
@@ -644,7 +644,7 @@ def create_accessibility_pie_all(data_res):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component_cytoscape', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie', style={'order':'2'})
+    return dcc.Dropdown(id = 'dp-access-component_cytoscape', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie')
 
 @app.callback(
     Output('cytoscape-event-callbacks-1', 'elements'),
@@ -730,4 +730,4 @@ def displayTapNodeData(data):
         return paragraph
 
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+    app.run_server(debug=False, use_reloader=False)
