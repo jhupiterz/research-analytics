@@ -40,9 +40,9 @@ app.layout = html.Div(
                     [
                         html.Img(
                             src="/assets/web.png",
-                            alt="research intelligence",
+                            alt="research intelligence", style = {'width': '10vw', 'margin-left': '-3vw'}
                         ),
-                        html.H3("research analytics"),
+                        html.H3("research analytics", style= {'margin-left': '-3vw'}),
                     ],
                     href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
                     target='_blank',
@@ -181,7 +181,7 @@ def render_content(data):
     else:
         return html.Div(
             [
-                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-6vh'}),
+                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-8vh'}),
                 html.P("Or start with one of our example dashboards", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'})
             ],
             style={'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'}
