@@ -139,7 +139,6 @@ footer {
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;
-  margin-bottom: -2vh;
   background-color: rgba(60, 25, 240, 0.8);
   color: white;
   font-size: 1rem;
