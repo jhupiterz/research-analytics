@@ -165,13 +165,13 @@ def render_content(data):
         return (html.Div([
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '85vw', 'text-align':'center','display':'flex', 'flex-direction':'row', 'margin': 'auto'},
                         children=[
-                dcc.Tab(label='📊 Search results 📊', value='tab-1-example-graph',
+                dcc.Tab(label='📊  Search results  📊', value='tab-1-example-graph',
                         style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'},
                         selected_style = {'order': '1', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'}),
-                dcc.Tab(label='🔌 Author network 🔌', value='tab-2-example-graph',
+                dcc.Tab(label='🤝  Author network  🤝', value='tab-2-example-graph',
                         style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
                         selected_style = {'order': '2', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
-                dcc.Tab(label='🕸️ Paper network 🕸️', value='tab-3-example-graph',
+                dcc.Tab(label='🌐  Paper network  🌐', value='tab-3-example-graph',
                         style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'},
                         selected_style = {'order': '3', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'})])],
                         style = {'width': '85vw', 'height': '6vh', 'display': 'flex', 'margin-left':'8vw',
@@ -181,11 +181,32 @@ def render_content(data):
     else:
         return html.Div(
             [
-                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-8vh'}),
-                html.P("Or start with one of our example dashboards", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'})
+                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-14vh'}),
+                html.P("Check out the latest blog posts about data in academia", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'}), html.Br(),
+                html.Div([
+                html.A(
+                        href="https://medium.com/@juhartz/are-scholarly-papers-really-the-best-way-to-disseminate-research-f8d85d3eee62",
+                        children=[
+                            html.Img(
+                                alt="Link to my twitter",
+                                src="assets/blogpost_1.png",
+                                className="zoom"
+                            )
+                        ], target= '_blank', style = {'order': '1', 'margin-top': '5vh', 'margin-bottom': '-5vh'}
+                    ),
+                html.A(
+                        href="https://medium.com/@juhartz/what-makes-a-research-paper-impactful-a40f33206fd1",
+                        children=[
+                            html.Img(
+                                alt="Link to my twitter",
+                                src="assets/blogpost_2.png",
+                                className='zoom'
+                            )
+                        ], target= '_blank', style = {'order': '2', 'margin-top': '5vh', 'margin-left': '5vw', 'margin-bottom': '-5vh'}
+                    )
             ],
-            style={'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'}
-        )
+            style={'order':'3', 'display':'flex', 'flex-direction':'row', 'text-align':'center', 'margin': 'auto'})],
+            style = {'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'})
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
@@ -244,7 +265,7 @@ def render_tab_content(tab):
                                 'selector': 'label',
                                 'style': {
                                     'content': 'data(label)',
-                                    'color': '#13070C',
+                                    'color': 'rgba(60, 25, 240, 0.8)',
                                     'font-size':'14vh',
                                     'font-family':'Arial, sans serif',
                                     'background-color': 'rgba(60, 25, 240, 0.8)'
@@ -259,7 +280,7 @@ def render_tab_content(tab):
                             {
                                 'selector': '.author',
                                 'style': {
-                                    'background-color': '#0508b8'
+                                    'background-color': 'rgba(60, 25, 240, 0.8)'
                                 }
                             },
                             {
@@ -277,22 +298,16 @@ def render_tab_content(tab):
             html.Div(className= 'vl', style = {'order': '2'}),
             
             html.Div([
-                    html.P("Click on a node to display information about an author",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
-                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
                     html.Div([
-                        html.Div([
-                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '80%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '35vh', 'height': '40vh', 'overflow-y':'auto', 'border-radius': '5px'})],
-                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '4vh', 'justify-content': 'space-around'}
-                        )],
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
+                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'justify-content': 'space-around'})],
                     
                 style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '5px', 'margin-bottom': '3vh'})
+                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '5px', 'margin': 'auto'})
     
     ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'width': '85vw',
               'justify-content':'space-between', 'min-height':'70vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-              'margin': 'auto', 'margin-bottom': '5vh', 'border-radius': '5px'})
+              'margin': 'auto', 'border-radius': '5px', 'margin-bottom': '3vh'})
         
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -347,23 +362,17 @@ def render_tab_content(tab):
                 html.Div(className= 'vl', style = {'order': '2'}),
 
                 html.Div([
-                    html.P("Click on a node to display information about a paper",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
-                                    'font-family': 'Courier New, monospace', 'color': '#101126'}),
-                    html.Div([
                         html.Div([
                             html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '45vh', "margin-top": "1.5vh", 'overflow-y':'auto', 'border-radius': '5px'})],
-                                style = {'order':'3','width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin-top': '0vh', 'justify-content': 'space-around'}
-                        )],
+                        style = {'order': '2', 'width': '95%', 'height': '45vh', "margin": "auto", 'overflow-y':'auto', 'border-radius': '5px'})],
                     
                 style = {'order': '3', 'width':'30vw', 'height': '65vh', 'display': 'flex',
                         'flex-direction': 'column', 'align-items': 'center',
-                        'margin-bottom': '3vh', 'border-radius': '5px'})],
+                        'margin-bottom': '3vh', 'border-radius': '5px', 'margin':'auto'})],
             
             style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'backgroundColor': 'white',
-                     'justify-content':'space-between', 'min-height':'70vh', 'width': '85vw', 'margin-bottom': '5vh',
-                     'margin': 'auto', 'border-radius': '5px'})
+                     'justify-content':'space-between', 'min-height':'70vh', 'width': '85vw',
+                     'margin': 'auto', 'border-radius': '5px', 'margin-bottom': '3vh'})
 
 # Topic title
 @app.callback(
@@ -697,17 +706,19 @@ def generate_citation_network(data_ref, data_res, n_clicks, zoom):
 def displayTapNodeData(data):
     if data:
         author_info = semantic_api.get_author_info(data['id'])
-        paragraph = html.P([html.Br(), html.U("Author Id"), f": {author_info['authorId']}", html.Br(),html.Br(),
-                            html.U("Name"), f": {author_info['name']}", html.Br(),html.Br(),
-                            html.U("Affiliation(s)"), f": {author_info['affiliations']}", html.Br(),html.Br(),
-                            html.U("Homepage"), f": {author_info['homepage']}", html.Br(),html.Br(),
-                            html.U("Paper count"), f": {author_info['paperCount']}", html.Br(),html.Br(),
-                            html.U("Citation count"), f": {author_info['citationCount']}", html.Br(),html.Br(),
-                            html.U(f"h index"), f": {author_info['hIndex']}", html.Br(), html.Br(),
-                            html.A('Semantic Scholar URL', href = author_info['url'], target = '_blank'), html.Br(), html.Br(),],
-                            style = {'text-align': 'left', 'color': '#101126'})
+        paragraph = html.Div([html.Br(),
+                     html.B(author_info['name'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),html.Br(),
+                     html.Li([html.Span("Published ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['paperCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" papers.", style = {'font-size': '2vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(),html.Br(),
+                     html.Li([html.Span("Received ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['citationCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '2vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(),html.Br(),
+                     html.Li([html.Span(f"h index: ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['hIndex'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(), html.Br(),
+                     html.Li([html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank', style = {'font-size': '2vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'})],
+                             style = {'margin':'auto'})
 
         return paragraph
+    else:
+        return html.P("Click on a node to display information about an author",
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw', 'margin-top': '-10vh',
+                                    'font-family': 'Courier New, monospace', 'color': 'rgba(3, 3, 3, 0.2)', 'margin': 'auto'})
 
 # Retrieves info on paper
 @app.callback(Output('paper-info-1', 'children'),
@@ -716,18 +727,27 @@ def displayTapNodeData(data):
     if data:
         paper_info = semantic_api.get_paper_info(data['id'])
         if 'paperId' in paper_info:
-            paragraph = html.P([html.Br(), html.U("Title"), f": {paper_info['title']}", html.Br(),html.Br(),
-                                html.U("Venue"), f": {paper_info['venue']}", html.Br(),html.Br(),
-                                html.U("Year"), f": {paper_info['year']}", html.Br(),html.Br(),
-                                html.U("Ref. count"), f": {paper_info['referenceCount']}", html.Br(),html.Br(),
-                                html.U("Citation count"), f": {paper_info['citationCount']}", html.Br(),html.Br(),
-                                html.U(f"Open Access"), f": {paper_info['isOpenAccess']}", html.Br(), html.Br(),
-                                html.A('Semantic Scholar URL', href = paper_info['url'], target = '_blank'), html.Br(), html.Br(),
-                                html.U("Abstract"), f": {paper_info['abstract']}"],
-                                style = {'text-align': 'left', 'color': '#101126'})
+            if paper_info['isOpenAccess']:
+                oa = ''
+            else:
+                oa = 'NOT'
+            if paper_info['abstract'] == None:
+                paper_info['abstract'] = 'No abstract available for this paper.'
+            paragraph = html.Div([html.Br(), html.B(paper_info['title'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),
+                                html.Li([html.Span("Published in ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['year'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '1.5vh'}),
+                                html.Li([html.Span("Includes ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['referenceCount'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" references.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
+                                html.Li([html.Span("Received ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['citationCount'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
+                                html.Li([html.Span("Is ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(oa, style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" open access.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
+                                html.Li([html.A(' Semantic Scholar URL', href = paper_info['url'], target = '_blank', style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '1.5vh'}), html.Br(),
+                                html.B("Abstract", style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),
+                                html.Span(paper_info['abstract'], style = {'font-size': '2vh', 'color': 'black'})], style = {'margin': 'auto'})
         else:
-            paragraph = html.P("No info available for this paper")
+            paragraph = html.P("No info available for this paper", style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)', 'margin': 'auto'})
         return paragraph
+    else:
+        return html.P("Click on a node to display information about a paper",
+                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
+                                    'font-family': 'Courier New, monospace', 'color': 'rgba(3, 3, 3, 0.2)', 'margin-top': '20vh'})
 
 if __name__ == '__main__':
-    app.run_server(debug=False, use_reloader=False)
+    app.run_server(debug=True, use_reloader=False)
