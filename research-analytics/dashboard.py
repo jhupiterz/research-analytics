@@ -755,4 +755,4 @@ def displayTapNodeData(data):
                                     'font-family': 'Courier New, monospace', 'color': 'rgba(3, 3, 3, 0.2)', 'margin-top': '20vh'})
 
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+    app.run_server(debug=False, use_reloader=False)
