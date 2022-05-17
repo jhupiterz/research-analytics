@@ -182,7 +182,7 @@ def render_content(data):
         return html.Div(
             [
                 html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-14vh'}),
-                html.P("Check out the latest blog posts about data in academia", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'}), html.Br(),
+                html.P("👇  Or check out the latest blog posts about data-driven academia  👇", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'}), html.Br(),
                 html.Div([
                 html.A(
                         href="https://medium.com/@juhartz/are-scholarly-papers-really-the-best-way-to-disseminate-research-f8d85d3eee62",
@@ -205,7 +205,7 @@ def render_content(data):
                         ], target= '_blank', style = {'order': '2', 'margin-top': '5vh', 'margin-left': '5vw', 'margin-bottom': '-5vh'}
                     )
             ],
-            style={'order':'3', 'display':'flex', 'flex-direction':'row', 'text-align':'center', 'margin': 'auto'})],
+            style={'order':'3', 'display':'flex', 'flex-direction':'row', 'text-align':'center', 'margin': 'auto', 'margin-bottom': '7vh'})],
             style = {'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'})
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
@@ -268,7 +268,6 @@ def render_tab_content(tab):
                                     'color': 'rgba(60, 25, 240, 0.8)',
                                     'font-size':'14vh',
                                     'font-family':'Arial, sans serif',
-                                    'background-color': 'rgba(60, 25, 240, 0.8)'
                                 }
                             },
                             {
@@ -276,6 +275,13 @@ def render_tab_content(tab):
                                 'style': {
                                     'label': 'data(label)'
                                 } 
+                            },
+                            {
+                                'selector': '[selected ^= "True"]',
+                                'style': {
+                                'background-color': 'green',
+                                'line-color': 'green'
+                                }
                             },
                             {
                                 'selector': '.author',
@@ -299,7 +305,7 @@ def render_tab_content(tab):
             
             html.Div([
                     html.Div([
-                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
+                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto', 'margin-left':'5vh', 'text-align': 'left'})],
                              style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'justify-content': 'space-around'})],
                     
                 style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
@@ -380,9 +386,9 @@ def render_tab_content(tab):
     Input('search-query', 'value'))
 def display_topic(value):
     if value != None:
-        return "Welcome researcher! 🧠"
+        return "Welcome researcher!"
     else:
-        return "Welcome researcher! 🧠"
+        return "Welcome researcher!"
 
 # Top flashcards -----------------------------------------------
 @app.callback(
@@ -705,15 +711,14 @@ def generate_citation_network(data_ref, data_res, n_clicks, zoom):
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
     if data:
+        print(data)
         author_info = semantic_api.get_author_info(data['id'])
-        paragraph = html.Div([html.Br(),
-                     html.B(author_info['name'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),html.Br(),
-                     html.Li([html.Span("Published ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['paperCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" papers.", style = {'font-size': '2vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(),html.Br(),
-                     html.Li([html.Span("Received ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['citationCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '2vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(),html.Br(),
-                     html.Li([html.Span(f"h index: ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['hIndex'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'}), html.Br(), html.Br(),
-                     html.Li([html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank', style = {'font-size': '2vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'})],
-                             style = {'margin':'auto'})
-
+        paragraph = html.Div([
+                     html.B(author_info['name'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),
+                     html.Span("Published ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['paperCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" papers.", style = {'font-size': '2vh', 'color': 'black'}), html.Br(),html.Br(),
+                     html.Span("Received ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['citationCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '2vh', 'color': 'black'}), html.Br(),html.Br(),
+                     html.Span(f"h index: ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['hIndex'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(), html.Br(),
+                     html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank', style = {'font-size': '2vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'}),
         return paragraph
     else:
         return html.P("Click on a node to display information about an author",

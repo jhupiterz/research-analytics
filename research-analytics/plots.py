@@ -142,8 +142,8 @@ def make_citations_per_year_line(df):
     
   #fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
-  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()], secondary_y=False)
-  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()], secondary_y=True)
+  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()], secondary_y=False, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
+  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()], secondary_y=True, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
   return fig
 
 def make_citations_per_year(df, which_api):
