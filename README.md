@@ -11,7 +11,7 @@ The first tool developed by the project is a research analytics web app built wi
 
 ### App preview 👁️
 
-<img src="/images/sample_app.gif" alt="app sample" />
+<img src="/images/dash_RA.gif" alt="app sample" />
 
 ### Package installation 🔽
 
@@ -26,10 +26,7 @@ Once the repo is cloned, make sure to be in the right directory on your machine 
 `$python dashboard.py`
 
 The Python file will open a local port in your default browser and you'll be able to use the app.
-
-### Web app 🕸️
-
-The web app is also accessible via [this link](https://research-analytics.herokuapp.com/).
+If not, simply copy and paste the link that popped in your terminal (should look like ~ http://127.0.0.1:8050/).
 
 ### App documentation
 
