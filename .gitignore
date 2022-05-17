@@ -1,5 +1,6 @@
 __pycache__
 .DS_Store
+dont_push
 .ipynb_checkpoints
 .coverage
 *.egg-info
