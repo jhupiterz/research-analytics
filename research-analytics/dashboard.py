@@ -308,7 +308,8 @@ def render_tab_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         layout={'name': 'random', 'height': '58vh', 'width': '50vw'},
-                        className= "cyto-2",
+                        style={'order':'2','height': '58vh', 'width': '50vw'},
+                        #className= "cyto-2",
                         stylesheet = [
                             {
                                 'selector': 'node',

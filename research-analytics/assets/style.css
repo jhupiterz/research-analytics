@@ -136,20 +136,20 @@ h1 {
   min-height: 300px;
   display: flex;
   flex-direction: column;
-  text-align: center
+  text-align: center;
 }
 
 .start-page hr {
   order: 1;
   width: 60%;
-  margin-top: -14vh
+  margin-top: -14vh;
 }
 
 .start-page p {
   order: 2;
   text-align: center;
   font-size: 2.5vh;
-  color: #13070C
+  color: #13070C;
 }
 
 .blog-posts {
@@ -158,20 +158,20 @@ h1 {
   flex-direction: row;
   text-align: center;
   margin: auto;
-  margin-bottom: 7vh
+  margin-bottom: 7vh;
 }
 
 .blog-post-1 {
   order: 1;
   margin-top: 5vh;
-  margin-bottom: -5vh
+  margin-bottom: -5vh;
 }
 
 .blog-post-2 {
   order: 2;
   margin-top: 5vh;
   margin-left: 5vw;
-  margin-bottom: -5vh
+  margin-bottom: -5vh;
 }
 
 .tabs-container {
@@ -182,7 +182,7 @@ h1 {
   flex-direction: column;
   margin: auto;
   align-items: center;
-  text-align: center
+  text-align: center;
 }
 
 .tabs {
@@ -205,7 +205,7 @@ h1 {
   border: 1px;
   border-radius: 5px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  margin-right: 2vw
+  margin-right: 2vw;
 }
 
 .single-tab-selected {
@@ -218,7 +218,7 @@ h1 {
   order: 1;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .accessibility-graph {
@@ -233,7 +233,7 @@ h1 {
   background-color: white;
   margin-right: 1vw;
   margin: auto;
-  margin-left: 4vw
+  margin-left: 4vw;
 }
 
 .fields-pie-graph {
@@ -243,7 +243,7 @@ h1 {
   height: 35vh;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   margin: auto;
-  margin-left: 1vw
+  margin-left: 1vw;
 }
 
 .fields-pie-and-dropdown {
@@ -251,7 +251,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  align-content: center
+  align-content: center;
 }
 
 .tab-1-upper-graphs {
@@ -262,7 +262,7 @@ h1 {
   flex-direction: row;
   align-items: center;
   margin-top: 3vh;
-  justify-content: space-evenly
+  justify-content: space-evenly;
 }
 
 .active-authors-graph {
@@ -270,7 +270,7 @@ h1 {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  margin-left: 2vw
+  margin-left: 2vw;
 }
 
 .citations-graph {
@@ -278,7 +278,7 @@ h1 {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  margin-right: 2vw
+  margin-right: 2vw;
 }
 
 .tab-1-lower-graphs {
@@ -290,7 +290,7 @@ h1 {
   margin: auto;
   width: 80vw;
   margin-bottom: 3vh;
-  justify-content: space-evenly
+  justify-content: space-evenly;
 }
 
 .tab-1 {
@@ -301,7 +301,6 @@ h1 {
   margin: auto;
   justify-content: space-evenly;
   border-radius: 5px;
-  margin-bottom: 3vh
 }
 
 /* Cytoscape Tab 2 */
@@ -311,7 +310,7 @@ h1 {
   display: flex;
   width: 44vw;
   flex-direction: row;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .cyto-1 {
@@ -319,7 +318,7 @@ h1 {
   height: 58vh;
   width: 44vw;
   margin: auto;
-  margin-top: 5vh
+  margin-top: 5vh;
 }
 
 .cyto-1-and-button-container {
@@ -332,7 +331,7 @@ h1 {
   height: 65vh;
   margin-bottom: 2vh;
   float: left;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .author-info {
@@ -350,7 +349,7 @@ h1 {
   flex-direction: row;
   align-items: center;
   margin: auto;
-  justify-content: space-around
+  justify-content: space-around;
 }
 
 .author-info-big-container {
@@ -363,7 +362,7 @@ h1 {
   height: 65vh;
   float: left;
   border-radius: 5px;
-  margin: auto
+  margin: auto;
 }
 
 .tab-2 {
@@ -377,7 +376,7 @@ h1 {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   margin: auto;
   border-radius: 5px;
-  margin-bottom: 3vh
+  margin-bottom: 3vh;
 }
 
 /* Cytoscape Tab 3 */
@@ -385,7 +384,7 @@ h1 {
 .cyto-2 {
   order: 2;
   height: 58vh;
-  width: 50vw
+  width: 80vw
 }
 
 .cyto-2-and-button-container {
@@ -396,13 +395,13 @@ h1 {
   flex-direction: column;
   align-items: center;
   margin-bottom: 3vh;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .paper-info {
   width: 95%;
   height: 90%;
-  margin: auto
+  margin: auto;
 }
 
 .paper-info-container {
@@ -411,7 +410,7 @@ h1 {
   height: 45vh;
   margin: auto;
   overflow-y: auto;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .paper-info-big-container {
@@ -423,7 +422,7 @@ h1 {
   align-items: center;
   margin-bottom: 3vh;
   border-radius: 5px;
-  margin: auto
+  margin: auto;
 }
 
 .tab-3 {
@@ -436,7 +435,7 @@ h1 {
   width: 85vw;
   margin: auto;
   border-radius: 5px;
-  margin-bottom: 3vh
+  margin-bottom: 3vh;
 }
 /* Vertical line */
 
@@ -450,47 +449,47 @@ h1 {
 .keywords-plotly {
   width: 40vw;
   height: 35vh;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .access-pie-plotly {
   order: 1;
   border-radius: 5px;
   width: 20vw;
-  height: 35vh
+  height: 35vh;
 }
 
 .pub-graph-plotly {
   width: 40vw;
   height: 45vh;
   border-radius: 5px;
-  margin: 5
+  margin: 5;
 }
 
 .fields-pie-plotly {
   width: 20vw;
   height: 40vh;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .author-info-text {
   color: black;
-  font-size: 3vh
+  font-size: 3vh;
 }
 
 .author-info-text b {
   font-size: 3vh;
-  color: rgba(60, 25, 240, 0.8)
+  color: rgba(60, 25, 240, 0.8);
 }
 
 .author-info-text span {
   font-size: 2vh;
-  color: black
+  color: black;
 }
 
 .author-info-text a {
   font-size: 2vh;
-  color: rgba(60, 25, 240, 0.8)
+  color: rgba(60, 25, 240, 0.8);
 }
 
 .author-info-default-text {
@@ -501,31 +500,31 @@ h1 {
   margin-top: -10vh;
   font-family: Courier New, monospace;
   color: rgba(3, 3, 3, 0.2);
-  margin: auto
+  margin: auto;
 }
 
 .paper-info-text {
-  margin: auto
+  margin: auto;
 }
 
 .paper-info-text b {
   font-size: 3vh;
-  color: rgba(60, 25, 240, 0.8)
+  color: rgba(60, 25, 240, 0.8);
 }
 
 .paper-info-text span {
   font-size: 1.5vh;
-  color: black
+  color: black;
 }
 
 .paper-info-text li {
   color: black;
-  font-size: 1.5vh
+  font-size: 1.5vh;
 }
 
 .paper-info-text a {
   font-size: 1.5vh;
-  color: rgba(60, 25, 240, 0.8)
+  color: rgba(60, 25, 240, 0.8);
 }
 
 .paper-info-default-no-info {
@@ -541,7 +540,7 @@ h1 {
   width: 25vw;
   font-family: Courier New, monospace;
   color: rgba(3, 3, 3, 0.2);
-  margin-top: 20vh
+  margin-top: 20vh;
 }
 
 /* Footer */
