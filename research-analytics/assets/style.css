@@ -52,19 +52,20 @@ a {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .logo-banner h3 {
   font-size: 1.3rem;
   font-weight: 400;
   white-space: nowrap;
-  padding: 0px 15px;
+  margin-left: -2rem;
 }
 
 .logo-banner img {
   display: inline;
-  width: 4rem;
+  width: 10rem;
+  margin-left: -3rem;
 }
 
 /* Title */
@@ -98,6 +99,10 @@ h1 {
   margin-bottom: 50px;
 }
 
+.search-wrapper h1 {
+  color: #13070C;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;
@@ -125,11 +130,418 @@ h1 {
   /* background-color: #262629; */
 }
 
+/* Start Page */
+
+.start-page {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: center
+}
+
+.start-page hr {
+  order: 1;
+  width: 60%;
+  margin-top: -14vh
+}
+
+.start-page p {
+  order: 2;
+  text-align: center;
+  font-size: 2.5vh;
+  color: #13070C
+}
+
+.blog-posts {
+  order: 3;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 7vh
+}
+
+.blog-post-1 {
+  order: 1;
+  margin-top: 5vh;
+  margin-bottom: -5vh
+}
+
+.blog-post-2 {
+  order: 2;
+  margin-top: 5vh;
+  margin-left: 5vw;
+  margin-bottom: -5vh
+}
+
+.tabs-container {
+  width: 85vw;
+  height: 6vh;
+  display: flex;
+  margin-left: 15vw;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  text-align: center
+}
+
+.tabs {
+  height: 6vh;
+  width: 87vw;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-left: 2rem;
+}
+
+.single-tab {
+  order: 1;
+  background-color: white;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans serif;
+  color: black;
+  border: 1px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin-right: 2vw
+}
+
+.single-tab-selected {
+  background-color: #fe88fc !important;
+}
+
+/* Graphs Tab 1 */
+
+.keywords-graph {
+  order: 1;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
+}
+
+.accessibility-graph {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  height: 35vh;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  align-items: center;
+  background-color: white;
+  margin-right: 1vw;
+  margin: auto;
+  margin-left: 4vw
+}
+
+.fields-pie-graph {
+  order: 2;
+  background-color: white;
+  border-radius: 5px;
+  height: 35vh;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  margin-left: 1vw
+}
+
+.fields-pie-and-dropdown {
+  order: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center
+}
+
+.tab-1-upper-graphs {
+  width: 95%;
+  height: 30%;
+  display: flex;
+  width: 80vw;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 3vh;
+  justify-content: space-evenly
+}
+
+.active-authors-graph {
+  order: 2;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin-left: 2vw
+}
+
+.citations-graph {
+  order: 1;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin-right: 2vw
+}
+
+.tab-1-lower-graphs {
+  width: 95%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  margin: auto;
+  width: 80vw;
+  margin-bottom: 3vh;
+  justify-content: space-evenly
+}
+
+.tab-1 {
+  width: 85vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  margin-bottom: 3vh
+}
+
+/* Cytoscape Tab 2 */
+
+.dropdown-and-button-cyto-1 {
+  order: 2;
+  display: flex;
+  width: 44vw;
+  flex-direction: row;
+  justify-content: space-between
+}
+
+.cyto-1 {
+  order: 3;
+  height: 58vh;
+  width: 44vw;
+  margin: auto;
+  margin-top: 5vh
+}
+
+.cyto-1-and-button-container {
+  order: 1;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55vw;
+  height: 65vh;
+  margin-bottom: 2vh;
+  float: left;
+  border-radius: 5px
+}
+
+.author-info {
+  width: 95%;
+  height: 90%;
+  margin: auto;
+  margin-left: 5vh;
+  text-align: left;
+}
+
+.author-info-container {
+  order: 3;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  justify-content: space-around
+}
+
+.author-info-big-container {
+  order: 3;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 65vh;
+  float: left;
+  border-radius: 5px;
+  margin: auto
+}
+
+.tab-2 {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 85vw;
+  justify-content: space-between;
+  min-height: 70vh;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  border-radius: 5px;
+  margin-bottom: 3vh
+}
+
+/* Cytoscape Tab 3 */
+
+.cyto-2 {
+  order: 2;
+  height: 58vh;
+  width: 50vw
+}
+
+.cyto-2-and-button-container {
+  order: 1;
+  width: 55vw;
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3vh;
+  border-radius: 5px
+}
+
+.paper-info {
+  width: 95%;
+  height: 90%;
+  margin: auto
+}
+
+.paper-info-container {
+  order: 2;
+  width: 95%;
+  height: 45vh;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 5px
+}
+
+.paper-info-big-container {
+  order: 3;
+  width: 30vw;
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3vh;
+  border-radius: 5px;
+  margin: auto
+}
+
+.tab-3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  justify-content: space-between;
+  min-height: 70vh;
+  width: 85vw;
+  margin: auto;
+  border-radius: 5px;
+  margin-bottom: 3vh
+}
 /* Vertical line */
 
 .vl {
   border-left: 1px solid black;
   height: 50vh;
+}
+
+/* Callbacks */
+
+.keywords-plotly {
+  width: 40vw;
+  height: 35vh;
+  border-radius: 5px
+}
+
+.access-pie-plotly {
+  order: 1;
+  border-radius: 5px;
+  width: 20vw;
+  height: 35vh
+}
+
+.pub-graph-plotly {
+  width: 40vw;
+  height: 45vh;
+  border-radius: 5px;
+  margin: 5
+}
+
+.fields-pie-plotly {
+  width: 20vw;
+  height: 40vh;
+  border-radius: 5px
+}
+
+.author-info-text {
+  color: black;
+  font-size: 3vh
+}
+
+.author-info-text b {
+  font-size: 3vh;
+  color: rgba(60, 25, 240, 0.8)
+}
+
+.author-info-text span {
+  font-size: 2vh;
+  color: black
+}
+
+.author-info-text a {
+  font-size: 2vh;
+  color: rgba(60, 25, 240, 0.8)
+}
+
+.author-info-default-text {
+  order: 2;
+  font-size: 2vh;
+  text-align: center;
+  width: 25vw;
+  margin-top: -10vh;
+  font-family: Courier New, monospace;
+  color: rgba(3, 3, 3, 0.2);
+  margin: auto
+}
+
+.paper-info-text {
+  margin: auto
+}
+
+.paper-info-text b {
+  font-size: 3vh;
+  color: rgba(60, 25, 240, 0.8)
+}
+
+.paper-info-text span {
+  font-size: 1.5vh;
+  color: black
+}
+
+.paper-info-text li {
+  color: black;
+  font-size: 1.5vh
+}
+
+.paper-info-text a {
+  font-size: 1.5vh;
+  color: rgba(60, 25, 240, 0.8)
+}
+
+.paper-info-default-no-info {
+  font-size: 1.5vh;
+  color: rgba(60, 25, 240, 0.8);
+  margin: auto
+}
+
+.paper-info-default-text {
+  order: 2;
+  font-size: 2vh;
+  text-align: center;
+  width: 25vw;
+  font-family: Courier New, monospace;
+  color: rgba(3, 3, 3, 0.2);
+  margin-top: 20vh
 }
 
 /* Footer */

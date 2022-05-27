@@ -4,14 +4,13 @@
 #--------------------------------------------------------------------------#
 
 # imports ------------------------------------------------------------------
-from cmath import nan
+from pydoc import classname
 import plots
 import utils
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
 import requests
 import pandas as pd
-import plotly.express as px
 import dash
 import dash_cytoscape as cyto
 from dash import dcc
@@ -27,7 +26,6 @@ app = dash.Dash(
     __name__, suppress_callback_exceptions = True,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1", 'charSet':'“UTF-8”'}])
 
-
 app.title = "Research Intelligence"
 
 # Layout --------------------------------------------------------------------
@@ -40,9 +38,9 @@ app.layout = html.Div(
                     [
                         html.Img(
                             src="/assets/web.png",
-                            alt="research intelligence", style = {'width': '10vw', 'margin-left': '-3vw'}
+                            alt="research intelligence"
                         ),
-                        html.H3("research analytics", style= {'margin-left': '-3vw'}),
+                        html.H3("research analytics")
                     ],
                     href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
                     target='_blank',
@@ -72,7 +70,7 @@ app.layout = html.Div(
         
         html.Div(
             [
-                html.H1(id='topic', children=[], style = {'color': '#13070C'}),
+                html.H1(id='topic', children=[]),
                 html.Div(
                     [
                         html.Img(
@@ -163,26 +161,24 @@ def store_references_data(data):
 def render_content(data):
     if data != None:
         return (html.Div([
-            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', style = {'height': '6vh', 'width': '85vw', 'text-align':'center','display':'flex', 'flex-direction':'row', 'margin': 'auto'},
+            dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', className= "tabs",
                         children=[
                 dcc.Tab(label='📊  Search results  📊', value='tab-1-example-graph',
-                        style = {'order': '1', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'},
-                        selected_style = {'order': '1', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'}),
+                        className= "single-tab", selected_className= "single-tab-selected"),
                 dcc.Tab(label='🤝  Author network  🤝', value='tab-2-example-graph',
-                        style = {'order': '2', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'},
-                        selected_style = {'order': '2', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'margin': 'auto', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'}),
+                        className= "single-tab", selected_className= "single-tab-selected"),
                 dcc.Tab(label='🌐  Paper network  🌐', value='tab-3-example-graph',
-                        style = {'order': '3', 'background-color': 'white', 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'color':'black', 'border': '1px', 'border-radius': '5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'},
-                        selected_style = {'order': '3', 'background-color': px.colors.sequential.Plotly3[9], 'font-weight': 'bold', 'text-align':'center', 'font-family':'Arial, sans serif', 'border': '1px', 'border-radius': '5px', 'border-color':'white', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'})])],
-                        style = {'width': '85vw', 'height': '6vh', 'display': 'flex', 'margin-left':'8vw',
-                                 'flex-direction': 'row', 'margin' : 'auto', 'align-items': 'center', 'text-align':'center'}),
+                        className= "single-tab", selected_className= "single-tab-selected")
+                ])
+            ],
+                        className= "tabs-container"),
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
         return html.Div(
             [
-                html.Hr(style={'order':'1', 'width': '60%', 'margin-top': '-14vh'}),
-                html.P("👇  Or check out the latest blog posts about data-driven academia  👇", style={'order':'2', 'text-align': 'center', 'font-size':'2.5vh', 'color': '#13070C'}), html.Br(),
+                html.Hr(),
+                html.P("👇  Or check out the latest blog posts about data-driven academia  👇"), html.Br(),
                 html.Div([
                 html.A(
                         href="https://medium.com/@juhartz/are-scholarly-papers-really-the-best-way-to-disseminate-research-f8d85d3eee62",
@@ -192,7 +188,7 @@ def render_content(data):
                                 src="assets/blogpost_1.png",
                                 className="zoom"
                             )
-                        ], target= '_blank', style = {'order': '1', 'margin-top': '5vh', 'margin-bottom': '-5vh'}
+                        ], target= '_blank', className= "blog-post-1"
                     ),
                 html.A(
                         href="https://medium.com/@juhartz/what-makes-a-research-paper-impactful-a40f33206fd1",
@@ -202,11 +198,10 @@ def render_content(data):
                                 src="assets/blogpost_2.png",
                                 className='zoom'
                             )
-                        ], target= '_blank', style = {'order': '2', 'margin-top': '5vh', 'margin-left': '5vw', 'margin-bottom': '-5vh'}
+                        ], target= '_blank', className= "blog-post-2"
                     )
-            ],
-            style={'order':'3', 'display':'flex', 'flex-direction':'row', 'text-align':'center', 'margin': 'auto', 'margin-bottom': '7vh'})],
-            style = {'min-height':'300px', 'display':'flex', 'flex-direction':'column', 'text-align':'center'})
+                        ],className= "blog-posts")],
+            className= "start-page")
     
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
@@ -215,39 +210,31 @@ def render_tab_content(tab):
         return html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)'})], type = 'default'),
+                children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default'),
             
             html.Div(id = 'accessibility-pie-all', children = [
                 
                 html.Div([
                     html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
-                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})], style = {'order': '1', 'display':'flex', 'flex-direction':'column', 'border-radius':'5px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-                                                                                                                       'border-radius':'5px', 'align-items':'center', 'backgroundColor': 'white', 'margin-right': '1vw', 'margin': 'auto', 'margin-left': '4vw'}),
+                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
+                         className= "accessibility-graph"),
                     
-                html.Div(id = 'fields-pie-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'5px', 'height': '35vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin': 'auto', 'margin-left': '1vw'})],
+                html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
                      
-                     style = {'order': '2', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center',
-                              'align-content':'center'})],
+                     className= "fields-pie-and-dropdown")],
                  
-            style={'width': '95%', 'height':'30%', 'display': 'flex', 'width':'80vw',
-                    'flex-direction': 'row', 'align-items': 'center',
-                    'margin-top': '3vh','justify-content': 'space-evenly'}),
+            className= "tab-1-upper-graphs"),
         
         html.Br(),
         html.Br(),
         
         html.Div([
-            html.Div(id = 'active-authors-graph-all', children = [], style = {'order': '2', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-left': '2vw'}),
-            html.Div(id = 'citations-graph-all', children = [], style = {'order': '1', 'backgroundColor': 'white', 'border-radius':'5px', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)', 'margin-right': '2vw'})],
-            style={'width': '95%', 'height':'30%', 'display': 'flex',
-                'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'width':'80vw',
-                'margin-bottom': '3vh', 'justify-content': 'space-evenly'}),
-
+            html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
+            html.Div(id = 'citations-graph-all', children = [], className= "citations-graph")],
+            className= "tab-1-lower-graphs"),
         ],
         
-        style = {'width': '85vw', 'display': 'flex',
-                'flex-direction': 'column', 'align-items': 'center', 'margin': 'auto',
-                'justify-content': 'space-evenly', 'border-radius': '5px', 'margin-bottom': '3vh'})
+        className= "tab-1")
     
     if tab == 'tab-2-example-graph':
         return html.Div([
@@ -255,11 +242,12 @@ def render_tab_content(tab):
                 
                     html.Div([
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
-                    html.Div(id = 'dp-access-cytoscape', children = [], style={'order':'2'})], style={'order':'2', 'display':'flex', 'width':'44vw', 'flex-direction':'row', 'justify-content': 'space-between'}),
+                    html.Div(id = 'dp-access-cytoscape', children = [], style={'order':'2'})],
+                             className= "dropdown-and-button-cyto-1"),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'random', 'height': '58vh', 'width': '44vw'},
-                        style = {'order': '3', 'height': '58vh', 'width': '44vw', 'margin': 'auto', 'margin-top': '5vh'},
+                        className= "cyto-1",
                         stylesheet = [
                             {
                                 'selector': 'label',
@@ -298,22 +286,18 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '1', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column',
-                         'align-items': 'center', 'width': '55vw', 'height': '65vh', 'margin-bottom': '2vh', 'float': 'left', 'border-radius': '5px'}),
+                className= "cyto-1-and-button-container"),
             
             html.Div(className= 'vl', style = {'order': '2'}),
             
             html.Div([
                     html.Div([
-                            html.Div(id = 'author-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto', 'margin-left':'5vh', 'text-align': 'left'})],
-                             style = {'order':'3', 'width':'95%', 'display': 'flex', 'flex-direction': 'row', 'align-items': 'center', 'margin': 'auto', 'justify-content': 'space-around'})],
+                            html.Div(id = 'author-info-1', className= "author-info")],
+                             className= "author-info-container")],
                     
-                style = {'order': '3', 'backgroundColor': 'white', 'display': 'flex', 'flex-direction': 'column', 'align-items': 'center',
-                        'width': '30vw', 'height': '65vh', 'float': 'left', 'border-radius': '5px', 'margin': 'auto'})
+                className= "author-info-big-container")
     
-    ], style={'backgroundColor': 'white','display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'width': '85vw',
-              'justify-content':'space-between', 'min-height':'70vh', 'box-shadow': '0px 0px 15px rgba(0, 0, 0, 0.2)',
-              'margin': 'auto', 'border-radius': '5px', 'margin-bottom': '3vh'})
+    ], className= "tab-2")
         
     if tab == 'tab-3-example-graph':
         return html.Div([
@@ -324,7 +308,7 @@ def render_tab_content(tab):
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-2',
                         layout={'name': 'random', 'height': '58vh', 'width': '50vw'},
-                        style={'order': '2', 'height': '58vh', 'width': '50vw'},
+                        className= "cyto-2",
                         stylesheet = [
                             {
                                 'selector': 'node',
@@ -361,24 +345,18 @@ def render_tab_content(tab):
                             }
                             ])],
                     
-                style = {'order': '1', 'width':'55vw', 'height': '65vh', 'display': 'flex',
-                        'flex-direction': 'column', 'align-items': 'center',
-                        'margin-bottom': '3vh', 'border-radius': '5px'}),
+                className= "cyto-2-and-button-container"),
                 
                 html.Div(className= 'vl', style = {'order': '2'}),
 
                 html.Div([
                         html.Div([
-                            html.Div(id = 'paper-info-1', style = {'width': '95%', 'height': '90%', 'margin':'auto'})],
-                        style = {'order': '2', 'width': '95%', 'height': '45vh', "margin": "auto", 'overflow-y':'auto', 'border-radius': '5px'})],
+                            html.Div(id = 'paper-info-1', className= "paper-info")],
+                        className= "paper-info-container")],
                     
-                style = {'order': '3', 'width':'30vw', 'height': '65vh', 'display': 'flex',
-                        'flex-direction': 'column', 'align-items': 'center',
-                        'margin-bottom': '3vh', 'border-radius': '5px', 'margin':'auto'})],
+                className= "paper-info-big-container")],
             
-            style = {'display': 'flex', 'flex-direction': 'row', 'align-items':'center', 'backgroundColor': 'white',
-                     'justify-content':'space-between', 'min-height':'70vh', 'width': '85vw',
-                     'margin': 'auto', 'border-radius': '5px', 'margin-bottom': '3vh'})
+            className= "tab-3")
 
 # Topic title
 @app.callback(
@@ -390,63 +368,8 @@ def display_topic(value):
     else:
         return "Welcome researcher!"
 
-# Top flashcards -----------------------------------------------
-@app.callback(
-    Output('earliest-pub-results', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_earliest_pub_res(data):
-    dff = pd.DataFrame(data['data'])
-    return int(dff.year.min())
-
-@app.callback(
-    Output('earliest-pub-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_earliest_pub_ref(data):
-    dff = pd.DataFrame(data)
-    return int(dff.year.min())
-
-@app.callback(
-    Output('latest-pub-results', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_latest_pub_res(data):
-    dff = pd.DataFrame(data['data'])
-    return int(dff.year.max())
-
-@app.callback(
-    Output('latest-pub-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_latest_pub_ref(data):
-    dff = pd.DataFrame(data)
-    return int(dff.year.max())
-
-@app.callback(
-    Output('total-results', 'children'),
-    Input('store-initial-query-response', 'data'))
-def get_total_results(data):
-    return int(data['total'])
-
 # Plots and graphs ----------------------------------------------
 # keywords
-@app.callback(
-    Output('keywords-graph-res', 'children'),
-    Input('store-initial-query-response', 'data'),
-    Input('search-query', 'value'))
-def create_top_key_words_res(data, query):
-    dff = pd.DataFrame(data['data'])
-    dff = data_preprocess.extract_key_words(dff)
-    fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px'})
-
-@app.callback(
-    Output('keywords-graph-ref', 'children'),
-    Input('store-references-query-response', 'data'),
-    Input('search-query', 'value'))
-def create_top_key_words_ref(data, query):
-    dff = pd.DataFrame(data)
-    dff = data_preprocess.extract_key_words(dff)
-    fig = plots.make_top_key_words(dff, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
 @app.callback(
     Output('keywords-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
@@ -461,7 +384,7 @@ def create_top_key_words_all(data_res, data_ref, query):
     dff_ref = data_preprocess.extract_key_words(dff_ref)
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_top_key_words(dff_all, query)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'35vh', 'border-radius': '5px'})
+    return dcc.Graph(figure=fig, className= "keywords-plotly")
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -471,21 +394,6 @@ def create_top_key_words_all(data_res, data_ref, query):
               Input('keywords-graph-ref', 'children'))
 
 # accessibility
-@app.callback(
-    Output('accessibility-pie-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_accessibility_pie_res(data):
-    dff = pd.DataFrame(data['data'])
-    fig = plots.make_access_pie(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
-@app.callback(
-    Output('accessibility-pie-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_accessibility_pie_ref(data):
-    dff = pd.DataFrame(data)
-    fig = plots.make_access_pie(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
 
 # Generate the dropdown menu according to all fields of study in data
 @app.callback(
@@ -502,7 +410,9 @@ def create_accessibility_pie_all(data_res, data_ref):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-piie')
+    return dcc.Dropdown(id = 'dp-access-component', value = 'All',
+                        options = options, clearable=False,
+                        placeholder= 'Select a field of study', className= 'dp-access-piie')
 
 
 @app.callback(
@@ -526,25 +436,9 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
                     index_list.append(index)
         dff_filtered = dff_all.loc[index_list]
         fig = plots.make_access_pie(dff_filtered)
-    return dcc.Graph(className = 'access-pie', figure = fig, style={'order':'1', 'border-radius': '5px', 'width': '20vw', 'height':'35vh'})
+    return dcc.Graph(figure = fig, className= "access-pie-plotly")
 
 # publications per year
-@app.callback(
-    Output('publication-graph-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_publication_graph_res(data):
-    dff = pd.DataFrame(data['data'])
-    fig = plots.make_pub_per_year_line(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
-@app.callback(
-    Output('publication-graph-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_publication_graph_ref(data):
-    dff = pd.DataFrame(data)
-    fig = plots.make_pub_per_year_line(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
 @app.callback(
     Output('publication-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
@@ -556,17 +450,9 @@ def create_publication_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_pub_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
+    return dcc.Graph(figure=fig, className= "pub-graph-plotly")
 
 # citations per year
-@app.callback(
-    Output('citations-graph-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_citations_graph_res(data):
-    dff = pd.DataFrame(data['data'])
-    fig = plots.make_citations_per_year_line(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
 @app.callback(
     Output('citations-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
@@ -578,33 +464,9 @@ def create_citations_graph_all(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_citations_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
-
-@app.callback(
-    Output('citations-graph-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_citations_graph_ref(data):
-    dff = pd.DataFrame(data)
-    fig = plots.make_citations_per_year_line(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
+    return dcc.Graph(figure=fig, className= "pub-graph-plotly")
 
 # fields of study
-@app.callback(
-    Output('fields-pie-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_fields_pie_res(data):
-    dff = pd.DataFrame(data['data'])
-    fig = plots.make_fields_pie(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
-@app.callback(
-    Output('fields-pie-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_citations_graph_ref(data):
-    dff = pd.DataFrame(data)
-    fig = plots.make_fields_pie(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
 @app.callback(
     Output('fields-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
@@ -616,25 +478,9 @@ def create_fields_pie_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_fields_pie(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'20vw', 'height':'40vh', 'border-radius': '5px'})
+    return dcc.Graph(figure=fig, className= "fields-pie-plotly")
 
 # most active authors
-@app.callback(
-    Output('active-authors-graph-res', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_active_authors_graph_res(data):
-    dff = pd.DataFrame(data['data'])
-    fig = plots.make_active_authors(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
-@app.callback(
-    Output('active-authors-graph-ref', 'children'),
-    Input('store-references-query-response', 'data'))
-def create_citations_graph_ref_ref(data):
-    dff = pd.DataFrame(data)
-    fig = plots.make_active_authors(dff)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh'})
-
 @app.callback(
     Output('active-authors-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
@@ -646,7 +492,7 @@ def create_active_authors_graph_res(data_res, data_ref):
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
     fig = plots.make_active_authors(dff_all)
-    return dcc.Graph(figure=fig, style = {'width':'40vw', 'height':'45vh', 'border-radius': '5px', 'margin': 5})
+    return dcc.Graph(figure=fig, className = "pub-graph-plotly")
 
 # Cytoscapes -------------------------------------------------------------------
 @app.callback(
@@ -659,7 +505,9 @@ def create_accessibility_pie_all(data_res):
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
     options = ['All'] + list(set(flat_list_fields))
-    return dcc.Dropdown(id = 'dp-access-component_cytoscape', value = 'All', options = options, clearable=False, placeholder= 'Select a field of study', className= 'dp-access-pie')
+    return dcc.Dropdown(id = 'dp-access-component_cytoscape', value = 'All',
+                        options = options, clearable=False,
+                        placeholder= 'Select a field of study', className= 'dp-access-pie')
 
 @app.callback(
     Output('cytoscape-event-callbacks-1', 'elements'),
@@ -714,16 +562,16 @@ def displayTapNodeData(data):
         print(data)
         author_info = semantic_api.get_author_info(data['id'])
         paragraph = html.Div([
-                     html.B(author_info['name'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),
-                     html.Span("Published ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['paperCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" papers.", style = {'font-size': '2vh', 'color': 'black'}), html.Br(),html.Br(),
-                     html.Span("Received ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['citationCount'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '2vh', 'color': 'black'}), html.Br(),html.Br(),
-                     html.Span(f"h index: ", style = {'font-size': '2vh', 'color': 'black'}), html.B(author_info['hIndex'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(), html.Br(),
-                     html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank', style = {'font-size': '2vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '3vh'}),
+                     html.B(author_info['name']), html.Br(),html.Br(),
+                     html.Span("Published "), html.B(author_info['paperCount']), html.Span(" papers."), html.Br(),html.Br(),
+                     html.Span("Received "), html.B(author_info['citationCount']), html.Span(" citations."), html.Br(),html.Br(),
+                     html.Span(f"h index: "), html.B(author_info['hIndex']), html.Br(), html.Br(),
+                     html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank')],
+                             className = "author-info-text"),
         return paragraph
     else:
         return html.P("Click on a node to display information about an author",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw', 'margin-top': '-10vh',
-                                    'font-family': 'Courier New, monospace', 'color': 'rgba(3, 3, 3, 0.2)', 'margin': 'auto'})
+                           className= "author-info-default-text")
 
 # Retrieves info on paper
 @app.callback(Output('paper-info-1', 'children'),
@@ -738,21 +586,21 @@ def displayTapNodeData(data):
                 oa = 'NOT'
             if paper_info['abstract'] == None:
                 paper_info['abstract'] = 'No abstract available for this paper.'
-            paragraph = html.Div([html.Br(), html.B(paper_info['title'], style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),html.Br(),
-                                html.Li([html.Span("Published in ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['year'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '1.5vh'}),
-                                html.Li([html.Span("Includes ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['referenceCount'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" references.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
-                                html.Li([html.Span("Received ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(paper_info['citationCount'], style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" citations.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
-                                html.Li([html.Span("Is ", style = {'font-size': '1.5vh', 'color': 'black'}), html.B(oa, style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Span(" open access.", style = {'font-size': '1.5vh', 'color': 'black'})], style = {'color': 'black', 'font-size': '1.5vh'}),
-                                html.Li([html.A(' Semantic Scholar URL', href = paper_info['url'], target = '_blank', style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)'})], style = {'color': 'black', 'font-size': '1.5vh'}), html.Br(),
-                                html.B("Abstract", style = {'font-size': '3vh', 'color': 'rgba(60, 25, 240, 0.8)'}), html.Br(),
-                                html.Span(paper_info['abstract'], style = {'font-size': '2vh', 'color': 'black'})], style = {'margin': 'auto'})
+            paragraph = html.Div([html.Br(), html.B(paper_info['title']), html.Br(),html.Br(),
+                                html.Li([html.Span("Published in "), html.B(paper_info['year'])]),
+                                html.Li([html.Span("Includes "), html.B(paper_info['referenceCount']), html.Span(" references.")]),
+                                html.Li([html.Span("Received "), html.B(paper_info['citationCount']), html.Span(" citations.")]),
+                                html.Li([html.Span("Is "), html.B(oa), html.Span(" open access.", style = {'font-size': '1.5vh', 'color': 'black'})]),
+                                html.Li([html.A(' Semantic Scholar URL', href = paper_info['url'], target = '_blank')]), html.Br(),
+                                html.B("Abstract"), html.Br(),
+                                html.Span(paper_info['abstract'])],
+                                className= "paper-info-text")
         else:
-            paragraph = html.P("No info available for this paper", style = {'font-size': '1.5vh', 'color': 'rgba(60, 25, 240, 0.8)', 'margin': 'auto'})
+            paragraph = html.P("No info available for this paper", className= "paper-info-default-no-info")
         return paragraph
     else:
         return html.P("Click on a node to display information about a paper",
-                           style = {'order': '2', 'font-size': '2vh', 'text-align':'center', 'width': '25vw',
-                                    'font-family': 'Courier New, monospace', 'color': 'rgba(3, 3, 3, 0.2)', 'margin-top': '20vh'})
+                           className= "paper-info-default-text")
 
 if __name__ == '__main__':
     app.run_server(debug=False, use_reloader=False)
