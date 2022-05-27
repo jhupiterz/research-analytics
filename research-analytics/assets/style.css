@@ -216,6 +216,7 @@ h1 {
 
 .keywords-graph {
   order: 1;
+  width: 40vw;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
@@ -227,6 +228,7 @@ h1 {
   flex-direction: column;
   border-radius: 5px;
   height: 35vh;
+  width: 20vw;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   align-items: center;
@@ -241,6 +243,7 @@ h1 {
   background-color: white;
   border-radius: 5px;
   height: 35vh;
+  width: 19vw;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   margin: auto;
   margin-left: 1vw;
@@ -447,15 +450,19 @@ h1 {
 /* Callbacks */
 
 .keywords-plotly {
-  width: 40vw;
+  width: 39vw;
   height: 35vh;
   border-radius: 5px;
+}
+
+.loading-keywords {
+  width: 100vw
 }
 
 .access-pie-plotly {
   order: 1;
   border-radius: 5px;
-  width: 20vw;
+  width: 21vw;
   height: 35vh;
 }
 
@@ -634,7 +641,7 @@ footer a {
 
 .access-pie {
   order: 1;
-  width: 40vw;
+  width: 39vw;
   height: 45vh;
 }
 

@@ -210,7 +210,7 @@ def render_tab_content(tab):
         return html.Div([
         html.Div([
             dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default'),
+                children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default', className= "loading-keywords"),
             
             html.Div(id = 'accessibility-pie-all', children = [
                 
@@ -604,4 +604,4 @@ def displayTapNodeData(data):
                            className= "paper-info-default-text")
 
 if __name__ == '__main__':
-    app.run_server(debug=False, use_reloader=False)
+    app.run_server(debug=True, use_reloader=False)
