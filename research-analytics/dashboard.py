@@ -4,13 +4,16 @@
 #--------------------------------------------------------------------------#
 
 # imports ------------------------------------------------------------------
-from pydoc import classname
 import plots
 import utils
+import timeit
+
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
+
 import requests
 import pandas as pd
+
 import dash
 import dash_cytoscape as cyto
 from dash import dcc
@@ -42,7 +45,8 @@ app.layout = html.Div(
                         ),
                         html.H3("research analytics")
                     ],
-                    href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb",
+                    href="https://jhupiterz.notion.site/Welcome-to-research-intelligence-\
+                          a36796f418b040f6ade944f9c54e87cb",
                     target='_blank',
                     className="logo-banner",
                 ),
@@ -68,6 +72,7 @@ app.layout = html.Div(
             className="banner",
         ),
         
+        # Search bar ------------------------------------------------------------
         html.Div(
             [
                 html.H1(id='topic', children=[]),
@@ -103,9 +108,10 @@ app.layout = html.Div(
         dcc.Store(id='store-initial-query-response', storage_type='memory'),
         dcc.Store(id='store-references-query-response', storage_type='memory'),
         
+        # Main content ----------------------------------------------------------
         html.Div(id='start-page', children=[]),
         
-        # Footer -----------------------------------------------------------
+        # Footer ----------------------------------------------------------------
         html.Footer(
             [
                 html.P(
@@ -136,7 +142,12 @@ def store_primary_data(n_submit, value):
     if n_submit > 0:
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={value}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"
         response = requests.get(url).json()
-        return response
+        df = pd.DataFrame(response['data'])
+        df = data_preprocess.extract_key_words(df)
+        print(df)
+        return {
+                     'data': df.to_dict("records")
+                }
 
 # Store dictionary of references of all initial papers
 @app.callback(
@@ -155,10 +166,14 @@ def store_references_data(data):
                 ref_dict.append(cited_paper['citedPaper'])
         return ref_dict
 
+# Displays start page
 @app.callback(
     Output('start-page', 'children'),
     Input('store-initial-query-response', 'data'))
 def render_content(data):
+    """ Returns the content of start page.
+        If there is data then returns tabs
+        Else, returns default content of start page (blog posts)"""
     if data != None:
         return (html.Div([
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', className= "tabs",
@@ -202,7 +217,8 @@ def render_content(data):
                     )
                         ],className= "blog-posts")],
             className= "start-page")
-    
+
+# Returns content of each tab when sleected
 @app.callback(Output('tabs-content-example-graph', 'children'),
               Input('tabs-example-graph', 'value'))
 def render_tab_content(tab):
@@ -230,7 +246,7 @@ def render_tab_content(tab):
         
         html.Div([
             html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
-            html.Div(id = 'citations-graph-all', children = [], className= "citations-graph")],
+            html.Div(id = 'publication-graph-all', children = [], className= "citations-graph")],
             className= "tab-1-lower-graphs"),
         ],
         
@@ -359,15 +375,12 @@ def render_tab_content(tab):
             
             className= "tab-3")
 
-# Topic title
+# Welcome title
 @app.callback(
     Output('topic', 'children'),
     Input('search-query', 'value'))
 def display_topic(value):
-    if value != None:
-        return "Welcome researcher!"
-    else:
-        return "Welcome researcher!"
+    return "Welcome researcher!"
 
 # Plots and graphs ----------------------------------------------
 # keywords
@@ -377,15 +390,13 @@ def display_topic(value):
     Input('store-references-query-response', 'data'),
     Input('search-query', 'value'))
 def create_top_key_words_all(data_res, data_ref, query):
-    dff_res = pd.DataFrame(data_res['data'])
-    dff_res['result'] = 'direct'
-    dff_res = data_preprocess.extract_key_words(dff_res)
-    dff_ref = pd.DataFrame(data_ref)
-    dff_ref['result'] = 'reference'
-    dff_ref = data_preprocess.extract_key_words(dff_ref)
-    dff_all = pd.concat([dff_res, dff_ref])
-    fig = plots.make_top_key_words(dff_all, query)
-    return dcc.Graph(figure=fig, className= "keywords-plotly")
+    """Returns keywords graph as dcc.Graph component
+       Only displays it when all data is retrieved"""
+    if data_ref != None:
+        dff_res = pd.DataFrame(data_res['data'])
+        dff_res['result'] = 'direct'
+        fig = plots.make_top_key_words(dff_res, query)
+        return dcc.Graph(figure=fig, className= "keywords-plotly")
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -394,14 +405,14 @@ def create_top_key_words_all(data_res, data_ref, query):
 @app.callback(Output('loading-icon-2', 'children'),
               Input('keywords-graph-ref', 'children'))
 
-# accessibility
-
-# Generate the dropdown menu according to all fields of study in data
+# Accessibility
 @app.callback(
     Output('dp-access', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
-def create_accessibility_pie_all(data_res, data_ref):
+def create_accessibility_pie_dorpdown(data_res, data_ref):
+    """Returns the dropdown menu according to all fields of study in data
+       as a dcc.Dropdown component"""
     dff_res = pd.DataFrame(data_res)
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
@@ -415,13 +426,14 @@ def create_accessibility_pie_all(data_res, data_ref):
                         options = options, clearable=False,
                         placeholder= 'Select a field of study', className= 'dp-access-piie')
 
-
 @app.callback(
     Output('access-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'),
     Input('dp-access-component', 'value'))
-def create_accessibility_pie_all(data_res, data_ref, filter):
+def create_accessibility_pie(data_res, data_ref, filter):
+    """Returns the accessibility pie graph for all data
+       as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res)
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
@@ -439,40 +451,28 @@ def create_accessibility_pie_all(data_res, data_ref, filter):
         fig = plots.make_access_pie(dff_filtered)
     return dcc.Graph(figure = fig, className= "access-pie-plotly")
 
-# publications per year
+# Publications & citations per year
 @app.callback(
     Output('publication-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
 def create_publication_graph_all(data_res, data_ref):
+    """Returns the pubs + citations graph as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
-    fig = plots.make_pub_per_year_line(dff_all)
+    fig = plots.make_pubs_cites_per_year_line(dff_all)
     return dcc.Graph(figure=fig, className= "pub-graph-plotly")
 
-# citations per year
-@app.callback(
-    Output('citations-graph-all', 'children'),
-    Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_citations_graph_all(data_res, data_ref):
-    dff_res = pd.DataFrame(data_res['data'])
-    dff_res['result'] = 'direct'
-    dff_ref = pd.DataFrame(data_ref)
-    dff_ref['result'] = 'reference'
-    dff_all = pd.concat([dff_res, dff_ref])
-    fig = plots.make_citations_per_year_line(dff_all)
-    return dcc.Graph(figure=fig, className= "pub-graph-plotly")
-
-# fields of study
+# Fields of study
 @app.callback(
     Output('fields-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
 def create_fields_pie_res(data_res, data_ref):
+    """Returns the fields pie as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
@@ -481,12 +481,13 @@ def create_fields_pie_res(data_res, data_ref):
     fig = plots.make_fields_pie(dff_all)
     return dcc.Graph(figure=fig, className= "fields-pie-plotly")
 
-# most active authors
+# Most active authors
 @app.callback(
     Output('active-authors-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'))
 def create_active_authors_graph_res(data_res, data_ref):
+    """Returns the most active authors graph as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
@@ -499,7 +500,9 @@ def create_active_authors_graph_res(data_res, data_ref):
 @app.callback(
     Output('dp-access-cytoscape', 'children'),
     Input('store-initial-query-response', 'data'))
-def create_accessibility_pie_all(data_res):
+def create_dropdown_cytoscape(data_res):
+    """Returns the dropdown menu according to all fields
+       of study as a dcc.Dropdown component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     fields_of_study = dff_res['fieldsOfStudy'].tolist()
@@ -518,6 +521,7 @@ def create_accessibility_pie_all(data_res):
     Input('dp-access-component_cytoscape', 'value'),
     Input('cytoscape-event-callbacks-1', 'zoom'))
 def generate_collaboration_network(data_res, n_clicks, filter, zoom):
+    """Returns the elements of the collaboaration cytoscape in tab 2"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     if filter == 'All':
@@ -544,6 +548,7 @@ def generate_collaboration_network(data_res, n_clicks, filter, zoom):
     Input('bt-reset-papers', 'n_clicks'),
     Input('cytoscape-event-callbacks-2', 'zoom'))
 def generate_citation_network(data_ref, data_res, n_clicks, zoom):
+    """Returns the elements of the citation cytoscape in tab 3"""
     ref_df = pd.DataFrame(data_ref)
     ref_df['reference'] = semantic_api.build_references(ref_df)
     res_df = pd.DataFrame(data_res['data'])
@@ -559,6 +564,7 @@ def generate_citation_network(data_ref, data_res, n_clicks, zoom):
 @app.callback(Output('author-info-1', 'children'),
               Input('cytoscape-event-callbacks-1', 'tapNodeData'))
 def displayTapNodeData(data):
+    """Requests and returns the info about an author when node is clicked on"""
     if data:
         print(data)
         author_info = semantic_api.get_author_info(data['id'])
@@ -578,6 +584,7 @@ def displayTapNodeData(data):
 @app.callback(Output('paper-info-1', 'children'),
               Input('cytoscape-event-callbacks-2', 'tapNodeData'))
 def displayTapNodeData(data):
+    """Requests and returns the info about a paper when node is clicked on"""
     if data:
         paper_info = semantic_api.get_paper_info(data['id'])
         if 'paperId' in paper_info:
@@ -603,5 +610,6 @@ def displayTapNodeData(data):
         return html.P("Click on a node to display information about a paper",
                            className= "paper-info-default-text")
 
+# Runs the app ------------------------------------------------------------
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
