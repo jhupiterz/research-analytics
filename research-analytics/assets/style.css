@@ -130,6 +130,13 @@ h1 {
   /* background-color: #262629; */
 }
 
+/* Main body */
+
+.main-body {
+  margin-bottom: 7vh;
+}
+
+
 /* Start Page */
 
 .start-page {
@@ -554,6 +561,10 @@ h1 {
 
 footer {
   display: flex;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;

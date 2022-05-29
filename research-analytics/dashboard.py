@@ -109,7 +109,7 @@ app.layout = html.Div(
         dcc.Store(id='store-references-query-response', storage_type='memory'),
         
         # Main content ----------------------------------------------------------
-        html.Div(id='start-page', children=[]),
+        html.Div(id='start-page', children=[], className = 'main-body'),
         
         # Footer ----------------------------------------------------------------
         html.Footer(
