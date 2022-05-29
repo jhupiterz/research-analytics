@@ -144,7 +144,6 @@ def store_primary_data(n_submit, value):
         response = requests.get(url).json()
         df = pd.DataFrame(response['data'])
         df = data_preprocess.extract_key_words(df)
-        print(df)
         return {
                      'data': df.to_dict("records")
                 }
@@ -220,8 +219,9 @@ def render_content(data):
 
 # Returns content of each tab when sleected
 @app.callback(Output('tabs-content-example-graph', 'children'),
-              Input('tabs-example-graph', 'value'))
-def render_tab_content(tab):
+              Input('tabs-example-graph', 'value'),
+              Input('store-references-query-response', 'data'))
+def render_tab_content(tab, data_ref):
     if tab == 'tab-1-example-graph':
         return html.Div([
         html.Div([
@@ -233,12 +233,12 @@ def render_tab_content(tab):
                 html.Div([
                     html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
                     html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
-                         className= "accessibility-graph"),
+                        className= "accessibility-graph"),
                     
                 html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
-                     
-                     className= "fields-pie-and-dropdown")],
-                 
+                    
+                    className= "fields-pie-and-dropdown")],
+                
             className= "tab-1-upper-graphs"),
         
         html.Br(),
@@ -251,6 +251,10 @@ def render_tab_content(tab):
         ],
         
         className= "tab-1")
+            
+        # return html.Div([html.P("Retrieving info about 1000s of papers, please git it a few seconds :)",
+        #                         style = {"font-size": '2rem', 'align-items': 'center'})],
+        #                 className= "tab-1")
     
     if tab == 'tab-2-example-graph':
         return html.Div([
@@ -259,7 +263,7 @@ def render_tab_content(tab):
                     html.Div([
                     html.Button('Reset view', id='bt-reset', className= 'reset-button'),
                     html.Div(id = 'dp-access-cytoscape', children = [], style={'order':'2'})],
-                             className= "dropdown-and-button-cyto-1"),
+                            className= "dropdown-and-button-cyto-1"),
                     cyto.Cytoscape(
                         id='cytoscape-event-callbacks-1',
                         layout={'name': 'random', 'height': '58vh', 'width': '44vw'},
@@ -309,7 +313,7 @@ def render_tab_content(tab):
             html.Div([
                     html.Div([
                             html.Div(id = 'author-info-1', className= "author-info")],
-                             className= "author-info-container")],
+                            className= "author-info-container")],
                     
                 className= "author-info-big-container")
     
@@ -387,16 +391,14 @@ def display_topic(value):
 @app.callback(
     Output('keywords-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'),
     Input('search-query', 'value'))
-def create_top_key_words_all(data_res, data_ref, query):
+def create_top_key_words_all(data_res, query):
     """Returns keywords graph as dcc.Graph component
        Only displays it when all data is retrieved"""
-    if data_ref != None:
-        dff_res = pd.DataFrame(data_res['data'])
-        dff_res['result'] = 'direct'
-        fig = plots.make_top_key_words(dff_res, query)
-        return dcc.Graph(figure=fig, className= "keywords-plotly")
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    fig = plots.make_top_key_words(dff_res, query)
+    return dcc.Graph(figure=fig, className= "keywords-plotly")
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -566,7 +568,6 @@ def generate_citation_network(data_ref, data_res, n_clicks, zoom):
 def displayTapNodeData(data):
     """Requests and returns the info about an author when node is clicked on"""
     if data:
-        print(data)
         author_info = semantic_api.get_author_info(data['id'])
         paragraph = html.Div([
                      html.B(author_info['name']), html.Br(),html.Br(),

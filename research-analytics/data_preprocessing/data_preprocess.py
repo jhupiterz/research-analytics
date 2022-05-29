@@ -22,20 +22,11 @@ def extract_key_words(df):
     for i in range(len(df)):
         text = df['title'][i]
         text = text.lower()
-        start_remove_punct = timeit.default_timer()
         text = text.translate(str.maketrans('','',string.punctuation))
-        stop_remove_punct = timeit.default_timer()
-        print(f"Execution time of remove punct = {stop_remove_punct - start_remove_punct} seconds")
-        start_remove_sw = timeit.default_timer()
         text_tokens = word_tokenize(text)
         tokens_without_sw = [word for word in text_tokens if not word in stopwords.words()]
-        stop_remove_sw = timeit.default_timer()
-        print(f"Execution time of remove sw = {stop_remove_sw - start_remove_sw} seconds")
         key_words.append(tokens_without_sw)
     df['key_words'] = key_words
-    stop = timeit.default_timer()
-    execution_time = stop - start
-    print(f"Execution time of extract_key_words = {execution_time} seconds")
     return df
 
 def extract_pub_info(df):
