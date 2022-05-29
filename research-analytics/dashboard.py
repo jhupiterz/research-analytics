@@ -168,12 +168,12 @@ def store_references_data(data):
 # Displays start page
 @app.callback(
     Output('start-page', 'children'),
-    Input('store-initial-query-response', 'data'))
-def render_content(data):
+    Input('search-query', 'n_submit'))
+def render_content(n_submit):
     """ Returns the content of start page.
         If there is data then returns tabs
         Else, returns default content of start page (blog posts)"""
-    if data != None:
+    if n_submit > 0:
         return (html.Div([
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', className= "tabs",
                         children=[
@@ -217,43 +217,48 @@ def render_content(data):
                         ],className= "blog-posts")],
             className= "start-page")
 
-# Returns content of each tab when sleected
+# Returns content of each tab when selected
 @app.callback(Output('tabs-content-example-graph', 'children'),
-              Input('tabs-example-graph', 'value'))
-def render_tab_content(tab):
+              Input('tabs-example-graph', 'value'),
+              Input('store-references-query-response', 'data'))
+def render_tab_content(tab, data_ref = None):
     if tab == 'tab-1-example-graph':
-        return html.Div([
-        html.Div([
-            dcc.Loading(id = "loading-icon-1",
-                children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default', className= "loading-keywords"),
-            
-            html.Div(id = 'accessibility-pie-all', children = [
+        if data_ref != None:
+            return html.Div([
+            html.Div([
+                dcc.Loading(id = "loading-icon-1",
+                    children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default', className= "loading-keywords"),
                 
-                html.Div([
-                    html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
-                    html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
-                        className= "accessibility-graph"),
+                html.Div(id = 'accessibility-pie-all', children = [
                     
-                html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
+                    html.Div([
+                        html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
+                        html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
+                            className= "accessibility-graph"),
+                        
+                    html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
+                        
+                        className= "fields-pie-and-dropdown")],
                     
-                    className= "fields-pie-and-dropdown")],
-                
-            className= "tab-1-upper-graphs"),
-        
-        html.Br(),
-        html.Br(),
-        
-        html.Div([
-            html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
-            html.Div(id = 'publication-graph-all', children = [], className= "citations-graph")],
-            className= "tab-1-lower-graphs"),
-        ],
-        
-        className= "tab-1")
+                className= "tab-1-upper-graphs"),
             
-        # return html.Div([html.P("Retrieving info about 1000s of papers, please git it a few seconds :)",
-        #                         style = {"font-size": '2rem', 'align-items': 'center'})],
-        #                 className= "tab-1")
+            html.Br(),
+            html.Br(),
+            
+            html.Div([
+                html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
+                html.Div(id = 'publication-graph-all', children = [], className= "citations-graph")],
+                className= "tab-1-lower-graphs"),
+            ],
+            
+            className= "tab-1")
+        else:  
+            return html.Div([html.P("Retrieving info about 1000s of papers, please give it a few seconds",
+                                    style = {'order': '1', 'font-size': '1.5rem', 'color':'rgba(3, 3, 3, 0.2)',
+                                            'text-align': 'center', 'margin-top': '10vh'}),
+                             html.Img(src='/assets/spinner.gif', style= {'order':'2', 'margin': 'auto'})],
+                            style= {'display': 'flex', 'flex-direction':'column', 'justify-content': 'center',
+                                    'align-items': 'center', 'min-height': '400px', 'width':'60vw', 'margin': 'auto'})
     
     if tab == 'tab-2-example-graph':
         return html.Div([
