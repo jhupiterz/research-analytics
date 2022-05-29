@@ -219,9 +219,8 @@ def render_content(data):
 
 # Returns content of each tab when sleected
 @app.callback(Output('tabs-content-example-graph', 'children'),
-              Input('tabs-example-graph', 'value'),
-              Input('store-references-query-response', 'data'))
-def render_tab_content(tab, data_ref):
+              Input('tabs-example-graph', 'value'))
+def render_tab_content(tab):
     if tab == 'tab-1-example-graph':
         return html.Div([
         html.Div([
