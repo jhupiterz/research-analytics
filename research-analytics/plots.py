@@ -5,7 +5,6 @@
 # imports ------------------------------------------------------------------
 from numpy.lib import utils
 import utils
-import timeit
 from datetime import date
 import pandas as pd
 from collections import Counter
