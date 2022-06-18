@@ -29,7 +29,9 @@ app = dash.Dash(
     __name__, suppress_callback_exceptions = True,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1", 'charSet':'“UTF-8”'}])
 
-app.title = "Research Intelligence"
+server = app.server
+
+app.title = "Research Analytics"
 
 # Layout --------------------------------------------------------------------
 app.layout = html.Div(
@@ -227,7 +229,13 @@ def render_tab_content(tab, data_ref = None):
             return html.Div([
             html.Div([
                 dcc.Loading(id = "loading-icon-1",
-                    children=[html.Div(id = 'keywords-graph-all', children= [], className= "keywords-graph")], type = 'default', className= "loading-keywords"),
+                    children=[
+                        html.Div([
+                            html.Div(id = 'dp-keywords', children= [], className = "keywords-dropdown"),
+                            html.Div(id = 'keywords-graph-all', children= [], className= "keywords-plot")],
+                        className = "keywords-graph")],
+                    
+                    type = 'default', className= "loading-keywords"),
                 
                 html.Div(id = 'accessibility-pie-all', children = [
                     
@@ -395,14 +403,40 @@ def display_topic(value):
 @app.callback(
     Output('keywords-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('search-query', 'value'))
-def create_top_key_words_all(data_res, query):
+    Input('search-query', 'value'),
+    Input('dp-keywords-component', 'value'))
+def create_top_key_words_all(data_res, query, filter):
     """Returns keywords graph as dcc.Graph component
        Only displays it when all data is retrieved"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
-    fig = plots.make_top_key_words(dff_res, query)
+    if filter == 'All':
+        fig = plots.make_top_key_words(dff_res, query)
+    else:
+        index_list = []
+        for index, row in dff_res.iterrows():
+            if isinstance(row.fieldsOfStudy, list):
+                if filter in row.fieldsOfStudy:
+                    index_list.append(index)
+        dff_filtered = dff_res.loc[index_list]
+        fig = plots.make_top_key_words(dff_filtered,query)
     return dcc.Graph(figure=fig, className= "keywords-plotly")
+
+@app.callback(
+    Output('dp-keywords', 'children'),
+    Input('store-initial-query-response', 'data'))
+def create_keywords_dorpdown(data_res):
+    """Returns the dropdown menu according to all fields of study in data
+       as a dcc.Dropdown component"""
+    dff_res = pd.DataFrame(data_res['data'])
+    dff_res['result'] = 'direct'
+    fields_of_study = dff_res['fieldsOfStudy'].tolist()
+    res = [field for field in fields_of_study if isinstance(field, list)]
+    flat_list_fields = utils.flatten_list(res)
+    options = ['All'] + list(set(flat_list_fields))
+    return dcc.Dropdown(id = 'dp-keywords-component', value = 'All',
+                        options = options, clearable=False,
+                        placeholder= 'Select a field of study', className= 'dp-access-piie')
 
 # loading states for keyword graphs
 @app.callback(Output('loading-icon-1', 'children'),
@@ -419,7 +453,7 @@ def create_top_key_words_all(data_res, query):
 def create_accessibility_pie_dorpdown(data_res, data_ref):
     """Returns the dropdown menu according to all fields of study in data
        as a dcc.Dropdown component"""
-    dff_res = pd.DataFrame(data_res)
+    dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
@@ -440,7 +474,7 @@ def create_accessibility_pie_dorpdown(data_res, data_ref):
 def create_accessibility_pie(data_res, data_ref, filter):
     """Returns the accessibility pie graph for all data
        as a dcc.Graph component"""
-    dff_res = pd.DataFrame(data_res)
+    dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
@@ -617,4 +651,4 @@ def displayTapNodeData(data):
 
 # Runs the app ------------------------------------------------------------
 if __name__ == '__main__':
-    app.run_server(debug=False, use_reloader=False)
+    app.run_server(debug=True, use_reloader=False)
