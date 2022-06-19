@@ -372,6 +372,11 @@ h1 {
   margin: auto;
 }
 
+.upper-filters p {
+  font-size: 1.4rem;
+  color: black;
+}
+
 /* Cytoscape Tab 2 */
 
 .dropdown-and-button-cyto-1 {

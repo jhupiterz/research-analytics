@@ -57,31 +57,34 @@ def make_fields_pie(df):
     plot_bgcolor = "rgba(104, 207, 247,0.0)")
     return fig
 
-def make_pubs_cites_per_year_line(df):
-  #print(df.groupby(['year', 'result'], as_index=False).sum())
-  fig = make_subplots(specs=[[{"secondary_y": True}]])
-  
-  fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).sum().year,
-              y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], name = "# citations", line=dict(color='rgba(60, 25, 240, 0.8)', width=2)) , secondary_y=False)
-  
-  fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).count().year,
-              y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color=px.colors.sequential.Plotly3[9], width=2)) , secondary_y=True)
-  
-  fig.update_layout(title = "<span style='font-size: 22px;'><b>Yearly activity<b></span>",
+def make_pubs_cites_per_year_line(df, filter_values):
+    start = int(filter_values[0])
+    end = int(filter_values[1])
+    if end == 2030:
+        end = date.today().year + 5
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).sum().year,
+                y=df.groupby(['year', 'result'], as_index=False).sum()['citationCount'], name = "# citations", line=dict(color='rgba(60, 25, 240, 0.8)', width=2)) , secondary_y=False)
+
+    fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).count().year,
+                y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color=px.colors.sequential.Plotly3[9], width=2)) , secondary_y=True)
+
+    fig.update_layout(title = "<span style='font-size: 22px;'><b>Yearly activity<b></span>",
                     title_x=0.5,
                     font=dict(
-                              family="Courier New, monospace",
-                              size=12,
-                              color="#13070C"),
+                                family="Courier New, monospace",
+                                size=12,
+                                color="#13070C"),
                     legend_x= 0, legend_y=1,
                     paper_bgcolor = "rgba(104, 207, 247,0.0)",
                     plot_bgcolor = "rgba(104, 207, 247,0.0)")
-    
-  #fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
-  fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
-  fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()], secondary_y=False, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
-  fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()], secondary_y=True, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
-  return fig
+
+    #fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
+    fig.update_xaxes(title="Year", range= [start-5, end])
+    fig.update_yaxes(title="Number of Citations", range= [0, 1.1* df[df.year>1950].groupby('year').sum()['citationCount'].max()], secondary_y=False, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
+    fig.update_yaxes(title="Number of Publications", range= [0, 1.1 * df[df.year>1950].groupby('year').count()['citationCount'].max()], secondary_y=True, showgrid = True, gridcolor = "rgba(162, 162, 162, 0.2)")
+    return fig
 
 def make_active_authors(df):
     authors_list = []

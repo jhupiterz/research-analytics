@@ -230,12 +230,10 @@ def render_tab_content(tab, data_ref = None):
             return (
             html.Div([
                 html.Div([
-                    html.P("Filter results in time ", style = {'color': 'black', 'font-size': '1.5rem'}),
-                    dcc.RangeSlider(1920, 2030, 10, value=[1920, 2030], id='time-range-slider',
+                    html.P("Filter results in time "),
+                    dcc.RangeSlider(1940, 2030, 10, value=[1940, 2030], id='time-range-slider',
                                     allowCross=False, className= "range-slider",
                                     marks={
-                                            1920: {'label': '1920', 'style': {'color': 'black'}},
-                                            1930: {'label': '1930', 'style': {'color': 'black'}},
                                             1940: {'label': '1940', 'style': {'color': 'black'}},
                                             1950: {'label': '1950', 'style': {'color': 'black'}},
                                             1960: {'label': '1960', 'style': {'color': 'black'}},
@@ -427,20 +425,23 @@ def render_tab_content(tab, data_ref = None):
 def display_topic(value):
     return "Welcome researcher!"
 
+# Download data as CSV button
 @app.callback(
     Output("download-csv", "data"),
     Input("btn-download-data", "n_clicks"),
     Input("store-initial-query-response", "data"),
     Input("store-references-query-response", "data"),
+    Input("time-range-slider", "value"),
     prevent_initial_call=True,
 )
-def func(n_clicks, data_res, data_ref):
+def func(n_clicks, data_res, data_ref, filter_values):
     if data_ref:
         dff_res = pd.DataFrame(data_res['data'])
         dff_res['result'] = 'direct'
         dff_ref = pd.DataFrame(data_ref)
         dff_ref['result'] = 'reference'
         dff_all = pd.concat([dff_res, dff_ref])
+        dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
         if n_clicks > 0:
             return dcc.send_data_frame(dff_all.to_csv, "research_data.csv")
 
@@ -450,12 +451,14 @@ def func(n_clicks, data_res, data_ref):
     Output('keywords-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('search-query', 'value'),
-    Input('dp-keywords-component', 'value'))
-def create_top_key_words_all(data_res, query, filter):
+    Input('dp-keywords-component', 'value'),
+    Input('time-range-slider', 'value'))
+def create_top_key_words_all(data_res, query, filter, filter_values):
     """Returns keywords graph as dcc.Graph component
        Only displays it when all data is retrieved"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
+    dff_res = data_preprocess.filter_data_by_time(dff_res, filter_values)
     if filter == 'All':
         fig = plots.make_top_key_words(dff_res, query)
     else:
@@ -470,12 +473,14 @@ def create_top_key_words_all(data_res, query, filter):
 
 @app.callback(
     Output('dp-keywords', 'children'),
-    Input('store-initial-query-response', 'data'))
-def create_keywords_dorpdown(data_res):
+    Input('store-initial-query-response', 'data'),
+    Input('time-range-slider', 'value'))
+def create_keywords_dorpdown(data_res, filter_values):
     """Returns the dropdown menu according to all fields of study in data
        as a dcc.Dropdown component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
+    dff_res = data_preprocess.filter_data_by_time(dff_res, filter_values)
     fields_of_study = dff_res['fieldsOfStudy'].tolist()
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
@@ -495,8 +500,9 @@ def create_keywords_dorpdown(data_res):
 @app.callback(
     Output('dp-access', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_accessibility_pie_dorpdown(data_res, data_ref):
+    Input('store-references-query-response', 'data'),
+    Input('time-range-slider', 'value'))
+def create_accessibility_pie_dorpdown(data_res, data_ref, filter_values):
     """Returns the dropdown menu according to all fields of study in data
        as a dcc.Dropdown component"""
     dff_res = pd.DataFrame(data_res['data'])
@@ -504,6 +510,7 @@ def create_accessibility_pie_dorpdown(data_res, data_ref):
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
+    dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
     fields_of_study = dff_all['fieldsOfStudy'].tolist()
     res = [field for field in fields_of_study if isinstance(field, list)]
     flat_list_fields = utils.flatten_list(res)
@@ -516,8 +523,9 @@ def create_accessibility_pie_dorpdown(data_res, data_ref):
     Output('access-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
     Input('store-references-query-response', 'data'),
-    Input('dp-access-component', 'value'))
-def create_accessibility_pie(data_res, data_ref, filter):
+    Input('dp-access-component', 'value'),
+    Input('time-range-slider', 'value'))
+def create_accessibility_pie(data_res, data_ref, filter, filter_values):
     """Returns the accessibility pie graph for all data
        as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
@@ -525,6 +533,7 @@ def create_accessibility_pie(data_res, data_ref, filter):
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
+    dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
     if filter == 'All':
         fig = plots.make_access_pie(dff_all)
     else:
@@ -541,29 +550,33 @@ def create_accessibility_pie(data_res, data_ref, filter):
 @app.callback(
     Output('publication-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_publication_graph_all(data_res, data_ref):
+    Input('store-references-query-response', 'data'),
+    Input('time-range-slider', 'value'))
+def create_publication_graph_all(data_res, data_ref, filter_values):
     """Returns the pubs + citations graph as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
-    fig = plots.make_pubs_cites_per_year_line(dff_all)
+    dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
+    fig = plots.make_pubs_cites_per_year_line(dff_all, filter_values)
     return dcc.Graph(figure=fig, className= "pub-graph-plotly")
 
 # Fields of study
 @app.callback(
     Output('fields-pie-all', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_fields_pie_res(data_res, data_ref):
+    Input('store-references-query-response', 'data'),
+    Input('time-range-slider', 'value'))
+def create_fields_pie_res(data_res, data_ref, filter_values):
     """Returns the fields pie as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
+    dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
     fig = plots.make_fields_pie(dff_all)
     return dcc.Graph(figure=fig, className= "fields-pie-plotly")
 
@@ -571,14 +584,16 @@ def create_fields_pie_res(data_res, data_ref):
 @app.callback(
     Output('active-authors-graph-all', 'children'),
     Input('store-initial-query-response', 'data'),
-    Input('store-references-query-response', 'data'))
-def create_active_authors_graph_res(data_res, data_ref):
+    Input('store-references-query-response', 'data'),
+    Input('time-range-slider', 'value'))
+def create_active_authors_graph_res(data_res, data_ref, filter_values):
     """Returns the most active authors graph as a dcc.Graph component"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_ref = pd.DataFrame(data_ref)
     dff_ref['result'] = 'reference'
     dff_all = pd.concat([dff_res, dff_ref])
+    dff_all = data_preprocess.filter_data_by_time(dff_all, filter_values)
     fig = plots.make_active_authors(dff_all)
     return dcc.Graph(figure=fig, className = "pub-graph-plotly")
 

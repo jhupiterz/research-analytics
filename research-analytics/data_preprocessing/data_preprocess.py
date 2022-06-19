@@ -16,7 +16,6 @@ def extract_key_words(df):
        argument: takes a dataframe as argument
        returns: the same dataframe with an extra 'key_words' column
        Attention: the df parameter MUST have a ["title"] column"""
-    start = timeit.default_timer()
     
     key_words = []
     for i in range(len(df)):
@@ -56,3 +55,9 @@ def extract_pub_info(df):
     df["pub_info"] = pub_info
     df["year"] = year
     return df
+
+def filter_data_by_time(dataframe, filter_values):
+    start = int(filter_values[0])
+    end = int(filter_values[1])
+    dataframe = dataframe[(dataframe['year'] >= start) & (dataframe['year'] <= end)]
+    return dataframe
