@@ -6,7 +6,6 @@
 # imports ------------------------------------------------------------------
 import plots
 import utils
-import timeit
 
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
@@ -176,7 +175,9 @@ def render_content(n_submit):
         If there is data then returns tabs
         Else, returns default content of start page (blog posts)"""
     if n_submit > 0:
-        return (html.Div([
+        return (
+        
+        html.Div([
             dcc.Tabs(id="tabs-example-graph", value = 'tab-1-example-graph', className= "tabs",
                         children=[
                 dcc.Tab(label='📊  Search results  📊', value='tab-1-example-graph',
@@ -186,8 +187,8 @@ def render_content(n_submit):
                 dcc.Tab(label='🌐  Paper network  🌐', value='tab-3-example-graph',
                         className= "single-tab", selected_className= "single-tab-selected")
                 ])
-            ],
-                        className= "tabs-container"),
+            ], className= "tabs-container"),
+
         html.Br(),
         html.Div(id='tabs-content-example-graph'))
     else:
@@ -226,40 +227,50 @@ def render_content(n_submit):
 def render_tab_content(tab, data_ref = None):
     if tab == 'tab-1-example-graph':
         if data_ref != None:
-            return html.Div([
+            return (
             html.Div([
-                dcc.Loading(id = "loading-icon-1",
-                    children=[
-                        html.Div([
-                            html.Div(id = 'dp-keywords', children= [], className = "keywords-dropdown"),
-                            html.Div(id = 'keywords-graph-all', children= [], className= "keywords-plot")],
-                        className = "keywords-graph")],
+                html.Div([html.Button(
+                            "Download data",
+                            className="doc-link-download",
+                            id = "btn-download-data",
+                            n_clicks= 0
+                        ),
+                        dcc.Download(id="download-csv")]),
+            
+                html.Div([
+                    html.Div([
+                        dcc.Loading(id = "loading-icon-1",
+                            children=[
+                                html.Div([
+                                    html.Div(id = 'dp-keywords', children= [], className = "keywords-dropdown"),
+                                    html.Div(id = 'keywords-graph-all', children= [], className= "keywords-plot")],
+                                className = "keywords-graph")],
+                            
+                            type = 'default', className= "loading-keywords"),
+                        
+                        html.Div(id = 'accessibility-pie-all', children = [
+                            
+                            html.Div([
+                                html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
+                                html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
+                                    className= "accessibility-graph"),
+                                
+                            html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
+                                
+                                className= "fields-pie-and-dropdown")],
+                            
+                        className= "tab-1-upper-graphs"),
                     
-                    type = 'default', className= "loading-keywords"),
-                
-                html.Div(id = 'accessibility-pie-all', children = [
+                    html.Br(),
+                    html.Br(),
                     
                     html.Div([
-                        html.Div(id = 'dp-access', children=[], style = {'order': '2'}),
-                        html.Div(id = 'access-pie-all', children= [], style = {'order': '1', 'margin': 'auto'})],
-                            className= "accessibility-graph"),
-                        
-                    html.Div(id = 'fields-pie-all', children = [], className= "fields-pie-graph")],
-                        
-                        className= "fields-pie-and-dropdown")],
+                        html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
+                        html.Div(id = 'publication-graph-all', children = [], className= "citations-graph")],
+                        className= "tab-1-lower-graphs"),
+                    ],
                     
-                className= "tab-1-upper-graphs"),
-            
-            html.Br(),
-            html.Br(),
-            
-            html.Div([
-                html.Div(id = 'active-authors-graph-all', children = [], className= "active-authors-graph"),
-                html.Div(id = 'publication-graph-all', children = [], className= "citations-graph")],
-                className= "tab-1-lower-graphs"),
-            ],
-            
-            className= "tab-1")
+                    className= "tab-1")], className= "tab-1-with-download"))
         else:  
             return html.Div([html.P("Retrieving info about 1000s of papers, please give it a few seconds",
                                     style = {'order': '1', 'font-size': '1.5rem', 'color':'rgba(3, 3, 3, 0.2)',
@@ -397,6 +408,23 @@ def render_tab_content(tab, data_ref = None):
     Input('search-query', 'value'))
 def display_topic(value):
     return "Welcome researcher!"
+
+@app.callback(
+    Output("download-csv", "data"),
+    Input("btn-download-data", "n_clicks"),
+    Input("store-initial-query-response", "data"),
+    Input("store-references-query-response", "data"),
+    prevent_initial_call=True,
+)
+def func(n_clicks, data_res, data_ref):
+    if data_ref:
+        dff_res = pd.DataFrame(data_res['data'])
+        dff_res['result'] = 'direct'
+        dff_ref = pd.DataFrame(data_ref)
+        dff_ref['result'] = 'reference'
+        dff_all = pd.concat([dff_res, dff_ref])
+        if n_clicks > 0:
+            return dcc.send_data_frame(dff_all.to_csv, "research_data.csv")
 
 # Plots and graphs ----------------------------------------------
 # keywords

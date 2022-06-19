@@ -93,6 +93,27 @@ h1 {
   color: #13070C;
 }
 
+.doc-link-download {
+  order: 1;
+  border: 1px solid black;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 1vw 1vw;
+  margin-left: 84.5vw;
+  color: black;
+  font-size: 16px;
+  width: 140px;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  text-align: center;
+}
+
+.doc-link-download:hover {
+  border: 1px solid #13070C;
+  background-color: white;
+  color: #13070C;
+}
+
 /* Search bar */
 
 .search-wrapper {
@@ -321,6 +342,7 @@ h1 {
 }
 
 .tab-1 {
+  order: 2;
   width: 85vw;
   display: flex;
   flex-direction: column;
@@ -328,6 +350,11 @@ h1 {
   margin: auto;
   justify-content: space-evenly;
   border-radius: 5px;
+}
+
+.tab-1-with-download {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Cytoscape Tab 2 */

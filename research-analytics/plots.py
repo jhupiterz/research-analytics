@@ -67,9 +67,15 @@ def make_pubs_cites_per_year_line(df):
   fig.add_trace(go.Scatter(x=df.groupby(['year', 'result'], as_index=False).count().year,
               y=df.groupby(['year', 'result'], as_index=False).count()['citationCount'], name = "# publications", line=dict(color=px.colors.sequential.Plotly3[9], width=2)) , secondary_y=True)
   
-  fig.update_layout(legend_x= 0, legend_y=1,
-      paper_bgcolor = "rgba(104, 207, 247,0.0)",
-      plot_bgcolor = "rgba(104, 207, 247,0.0)")
+  fig.update_layout(title = "<span style='font-size: 22px;'><b>Yearly activity<b></span>",
+                    title_x=0.5,
+                    font=dict(
+                              family="Courier New, monospace",
+                              size=12,
+                              color="#13070C"),
+                    legend_x= 0, legend_y=1,
+                    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+                    plot_bgcolor = "rgba(104, 207, 247,0.0)")
     
   #fig.update_traces(marker_color='#6BF178', line_color = '#6BF178')
   fig.update_xaxes(title="Year", range= [1950, date.today().year + 5])
