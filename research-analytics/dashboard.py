@@ -247,7 +247,7 @@ def render_tab_content(tab, data_ref = None):
                                                 2030: {'label': '2030', 'style': {'color': 'black'}},
                                             })], className = "global-time-filter"),
                     html.Div([html.Button(
-                                "Download data",
+                                "Download data (.CSV)",
                                 title = "Downloads data as .CSV file",
                                 id = "btn-download-data",
                                 className="doc-link-download",
@@ -261,7 +261,13 @@ def render_tab_content(tab, data_ref = None):
                         dcc.Loading(id = "loading-icon-1",
                             children=[
                                 html.Div([
-                                    html.Div(id = 'dp-keywords', children= [], className = "keywords-dropdown"),
+                                    html.Div([
+                                        html.Div(id = 'dp-keywords', children= [], className = "keywords-dropdown"),
+                                        html.Div(id = 'dp-access-keywords', children = [
+                                            dcc.Dropdown(id = 'dp-access-keywords-component', value = 'All',
+                                                        options = ['All', 'Open', 'Restricted'], clearable=False,
+                                                        placeholder= 'Select accessibility', className = 'dp-access-piie')
+                                        ], className = "keywords-dropdown")], className = 'keywords-dropdowns'),
                                     html.Div(id = 'keywords-graph-all', children= [], className= "keywords-plot")],
                                 className = "keywords-graph")],
                             
@@ -455,13 +461,20 @@ def func(n_clicks, data_res, data_ref, filter_values):
     Input('store-initial-query-response', 'data'),
     Input('search-query', 'value'),
     Input('dp-keywords-component', 'value'),
-    Input('time-range-slider', 'value'))
-def create_top_key_words_all(data_res, query, filter, filter_values):
+    Input('time-range-slider', 'value'),
+    Input('dp-access-keywords-component', 'value'))
+def create_top_key_words_all(data_res, query, filter, filter_values, access_filter):
     """Returns keywords graph as dcc.Graph component
        Only displays it when all data is retrieved"""
     dff_res = pd.DataFrame(data_res['data'])
     dff_res['result'] = 'direct'
     dff_res = data_preprocess.filter_data_by_time(dff_res, filter_values)
+    if access_filter == 'Open':
+        dff_res = dff_res[dff_res['isOpenAccess'] == True]
+    elif access_filter == 'Restricted':
+        dff_res = dff_res[dff_res['isOpenAccess'] == False]
+    else:
+        dff_res = dff_res
     if filter == 'All':
         fig = plots.make_top_key_words(dff_res, query)
     else:
