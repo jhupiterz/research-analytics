@@ -98,12 +98,11 @@ h1 {
   border: 1px solid black;
   padding: 10px 15px;
   border-radius: 5px;
-  margin: 1vw 1vw;
-  margin-right: 0vw;
+  margin-right: 0px;
   color: black;
   font-size: 16px;
   width: 140px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: white;
   cursor: pointer;
   text-align: center;
 }
@@ -115,8 +114,10 @@ h1 {
 }
 
 .range-slider {
+  order: 2;
   width: 60vw;
-  margin-top: 1vh;
+  margin-top: 2vh;
+  margin-left: 1.5vw;
 }
 
 /* Search bar */
@@ -252,7 +253,6 @@ h1 {
   margin-top: 5.5vh;
   margin-left: 0.5vw;
   margin-bottom: -5vh;
-  background-color: grey;
 }
 
 .keywords-plot {
@@ -362,18 +362,32 @@ h1 {
   flex-direction: column;
 }
 
+.global-time-filter {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-left: 0px;
+  width: 74vw;
+  height: 7vh;
+  border-radius: 5px;
+}
+
 .upper-filters {
   order : 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0);
   justify-content: space-between;
   width: 85vw;
-  margin: auto;
 }
 
 .upper-filters p {
-  font-size: 1.4rem;
+  order: 1;
+  font-size: 1.1rem;
+  margin-top: 2.5vh;
+  margin-left: 1vw;
   color: black;
 }
 

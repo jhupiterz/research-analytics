@@ -230,28 +230,31 @@ def render_tab_content(tab, data_ref = None):
             return (
             html.Div([
                 html.Div([
-                    html.P("Filter results in time "),
-                    dcc.RangeSlider(1940, 2030, 10, value=[1940, 2030], id='time-range-slider',
-                                    allowCross=False, className= "range-slider",
-                                    marks={
-                                            1940: {'label': '1940', 'style': {'color': 'black'}},
-                                            1950: {'label': '1950', 'style': {'color': 'black'}},
-                                            1960: {'label': '1960', 'style': {'color': 'black'}},
-                                            1970: {'label': '1970', 'style': {'color': 'black'}},
-                                            1980: {'label': '1980', 'style': {'color': 'black'}},
-                                            1990: {'label': '1990', 'style': {'color': 'black'}},
-                                            2000: {'label': '2000', 'style': {'color': 'black'}},
-                                            2010: {'label': '2010', 'style': {'color': 'black'}},
-                                            2020: {'label': '2020', 'style': {'color': 'black'}},
-                                            2030: {'label': '2030', 'style': {'color': 'black'}},
-                                        },),
+                    html.Div([
+                        html.P("Filter results in time "),
+                        dcc.RangeSlider(1940, 2030, 10, value=[1940, 2030], id='time-range-slider',
+                                        allowCross=False, className= "range-slider",
+                                        marks={
+                                                1940: {'label': '1940', 'style': {'color': 'black'}},
+                                                1950: {'label': '1950', 'style': {'color': 'black'}},
+                                                1960: {'label': '1960', 'style': {'color': 'black'}},
+                                                1970: {'label': '1970', 'style': {'color': 'black'}},
+                                                1980: {'label': '1980', 'style': {'color': 'black'}},
+                                                1990: {'label': '1990', 'style': {'color': 'black'}},
+                                                2000: {'label': '2000', 'style': {'color': 'black'}},
+                                                2010: {'label': '2010', 'style': {'color': 'black'}},
+                                                2020: {'label': '2020', 'style': {'color': 'black'}},
+                                                2030: {'label': '2030', 'style': {'color': 'black'}},
+                                            })], className = "global-time-filter"),
                     html.Div([html.Button(
                                 "Download data",
-                                className="doc-link-download",
+                                title = "Downloads data as .CSV file",
                                 id = "btn-download-data",
+                                className="doc-link-download",
                                 n_clicks= 0
                             ),
-                            dcc.Download(id="download-csv")])], className= "upper-filters"),
+                            dcc.Download(id="download-csv")], style = {'order': '2'})],
+                        className= "upper-filters"),
             
                 html.Div([
                     html.Div([
