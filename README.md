@@ -7,7 +7,7 @@ For a full project description please visit [Research Analytics](https://jhupite
 
 ### App preview 👁️
 
-<img src="/images/research-analytics.gif" alt="app sample" />
+<img src="/images/research-analytics.gif" alt="app sample">
 
 ### Package installation 🔽
 
