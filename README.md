@@ -1,17 +1,13 @@
 # Welcome to Research Analytics 🧠
 
-**Research Analytics** is an Open Source project helping academic researchers and students with their daily research activities. 
-Contributors to the project build tools to help streamline the research process.
+**Research Analytics** is an Open Source project helping academic researchers and students with their daily research activities.
+The app can be accessed [here](https://research-analytics.herokuapp.com/).
 
 For a full project description please visit [Research Analytics](https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb).
 
-## Research analytics 📊
-
-The first tool developed by the project is a research analytics web app built with [Plotly Dash](https://plotly.com/dash/) in Python 🐍
-
 ### App preview 👁️
 
-<img src="/images/dash_RA.gif" alt="app sample" />
+<img src="/images/research-analytics.gif" alt="app sample" />
 
 ### Package installation 🔽
 
