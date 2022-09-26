@@ -408,8 +408,8 @@ def render_tab_content(tab, data_ref = None):
                             {
                                 'selector': '.citation',
                                 'style': {
-                                    'line-color': '#737373',
-                                    'width': 1
+                                    'line-color': 'rgba(115, 115, 115, 0.5)',
+                                    'width': 0.8
                                 }
                             }
                             ])],
