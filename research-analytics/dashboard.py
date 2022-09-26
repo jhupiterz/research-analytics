@@ -32,6 +32,19 @@ server = app.server
 
 app.title = "Research Analytics"
 
+buy_me_a_coffee_button = html.A(
+                    [
+                        html.Img(
+                            src="/assets/buy_me_a_coffee.png",
+                            alt="Support my work",
+                            style={"width": "15vh", 'border-radius': '10px'},
+                        )
+                    ],
+                    href="https://www.buymeacoffee.com/juliehartz",
+                    target='_blank',
+                    style = {'margin-left':'-33vw', 'margin-right': '29vw'}
+                )
+
 # Layout --------------------------------------------------------------------
 app.layout = html.Div(
     [
@@ -115,6 +128,7 @@ app.layout = html.Div(
         # Footer ----------------------------------------------------------------
         html.Footer(
             [
+                buy_me_a_coffee_button,
                 html.P(
                     [
                         "Built with ", 
