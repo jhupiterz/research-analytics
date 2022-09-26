@@ -24,7 +24,7 @@ def make_access_pie(df):
   
   fig.update_layout(
     showlegend=False,
-    title = "<span style='font-size: 22px;'><b>Open access publications<b></span>", title_x=0.5,
+    title = "<span style='font-size: 20px;'><b>Open access publications<b></span>", title_x=0.5,
     font=dict(
         family="Courier New, monospace",
         size=14,
@@ -210,13 +210,13 @@ def generate_graph_elements_network(df1, df2):
     ref_network_df = generate_ref_network_df(df1, df2)
     unique_refs = list(set(ref_network_df.ref1.unique().tolist()))
     unique_results = list(set(ref_network_df.ref2.unique().tolist()))
-    nodes_refs = [{'data': {'id': unique_refs[0][1], 'label': unique_refs[0][0], 'classes': 'ref'}}]
-    nodes_results = [{'data': {'id': unique_results[0][1], 'label': unique_results[0][0], 'classes': 'res'}}]
+    nodes_refs = [{'data': {'id': unique_refs[0][1], 'label': unique_refs[0][0]}, 'classes': 'ref'}]
+    nodes_results = [{'data': {'id': unique_results[0][1], 'label': unique_results[0][0]}, 'classes': 'res'}]
     nodes_list = nodes_refs + nodes_results
     for element in unique_refs[1:]:
-        nodes_list.append({'data': {'id': element[1], 'label': element[0], 'classes': 'ref'}})
+        nodes_list.append({'data': {'id': element[1], 'label': element[0]}, 'classes': 'ref'})
     for element in unique_results[1:]:
-        nodes_list.append({'data': {'id': element[1], 'label': element[0], 'classes': 'res'}})
+        nodes_list.append({'data': {'id': element[1], 'label': element[0]}, 'classes': 'res'})
     edges_list = [{'data': {'source': ref_network_df['ref1'][0][1], 'target': ref_network_df['ref2'][0][1]}, 'classes': 'citation'}]
     for index, row in ref_network_df.iterrows():
         edges_list.append({'data': {'source': row.ref1[1], 'target': row.ref2[1]}, 'classes': 'citation'})

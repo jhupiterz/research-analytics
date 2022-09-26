@@ -231,7 +231,7 @@ def render_tab_content(tab, data_ref = None):
             html.Div([
                 html.Div([
                     html.Div([
-                        html.P("Filter results in time "),
+                        html.P("Filter results in time", style = {'font-size': '16px', 'padding-top': '-0.2vh'}),
                         dcc.RangeSlider(1940, 2030, 10, value=[1940, 2030], id='time-range-slider',
                                         allowCross=False, className= "range-slider",
                                         marks={
@@ -390,26 +390,26 @@ def render_tab_content(tab, data_ref = None):
                             {
                                 'selector': '.res',
                                 'style': {
-                                    'background-color': 'green',
-                                    'color': 'red',
-                                    'height': '1.2vh',
-                                    'width': '1.2vh'
+                                    'background-color': '#fe88fc',
+                                    #'color': 'red',
+                                    'height': '9vh',
+                                    'width': '9vh'
                                 }
                             },
                             {
                                 'selector': '.ref',
                                 'style': {
-                                    'background-color': 'white',
-                                    'color': 'white',
-                                    'height': '0.8vh',
-                                    'width': '0.8vh'
+                                    'background-color': 'blue',
+                                    #'color': 'white',
+                                    'height': '6vh',
+                                    'width': '6vh'
                                 }
                             },
                             {
                                 'selector': '.citation',
                                 'style': {
                                     'line-color': 'rgba(115, 115, 115, 0.5)',
-                                    'width': 0.8
+                                    'width': 0.3
                                 }
                             }
                             ])],
