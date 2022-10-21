@@ -5,7 +5,7 @@
 # imports ------------------------------------------------------------------
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import utils
+from research_analytics import utils
 import requests
 import re
 import pandas as pd
