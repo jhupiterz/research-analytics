@@ -40,4 +40,4 @@ def test_filter_data_by_time():
 def test_get_self_citation_ratios():
     author_id = "1741101"
     citation_expected = data_preprocess.get_self_citation_ratios(author_id, test=True)
-    assert citation_expected == [0, 0, 0]
+    assert citation_expected == [0, 0, 18]
