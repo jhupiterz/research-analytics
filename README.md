@@ -7,7 +7,7 @@ For a full project description please visit [Research Analytics](https://jhupite
 
 ### App preview 👁️
 
-<img src="https://jhupiterz.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe0b6d34b-f90f-4fe0-ab4b-be9cd3e3a94d%2FUntitled.gif?table=block&id=3f2c8ef2-228b-46ab-9802-ca05251f4f8e&spaceId=3fe7ee6d-37f9-402d-9de6-1c1af8ec2bb1&userId=&cache=v2" alt="app">
+<img src="research-analytics.gif" alt="app">
 
 ### Package installation 🔽
 
