@@ -3,17 +3,37 @@
 #--------------------------------------------------------------------------#
 
 # imports ------------------------------------------------------------------
+from turtle import width
 from numpy.lib import utils
 import utils
 from datetime import date
 import pandas as pd
 from collections import Counter
+from data_preprocessing import data_preprocess
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 
 # function definitions -----------------------------------------------------
 # function names are self-explanatory --------------------------------------
+
+def plot_self_citation_ratios(author_id):
+    df_to_plot = pd.DataFrame()
+    df_to_plot['citation'] = ['self_citation', 'coauthor_citation', 'nonself_citation']
+    df_to_plot['n_citations'] = data_preprocess.get_self_citation_ratios(author_id)
+    fig = px.pie(df_to_plot, values='n_citations', names='citation', title='self-citing ratios',
+                 color_discrete_sequence= ['rgba(60, 25, 240, 0.8)', px.colors.sequential.Plotly3[9]])
+    fig.update_layout(
+    showlegend=False,
+    title = "<span style='font-size: 20px;'><b>Self-citing ratios<b></span>", title_x=0.5,
+    font=dict(
+        family="Courier New, monospace",
+        size=14,
+        color="#13070C"
+    ),
+    paper_bgcolor = "rgba(104, 207, 247,0.0)",
+    plot_bgcolor = "rgba(104, 207, 247,0.0)")
+    return fig
 
 def make_access_pie(df):
   oa_publications = df.groupby('isOpenAccess').count()

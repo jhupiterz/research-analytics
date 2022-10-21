@@ -6,6 +6,7 @@
 # imports ------------------------------------------------------------------
 import plots
 import utils
+import json
 
 from data_collection import semantic_api
 from data_preprocessing import data_preprocess
@@ -157,11 +158,14 @@ def store_primary_data(n_submit, value):
     if n_submit > 0:
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={value}&limit=30&fields=url,title,abstract,authors,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy"
         response = requests.get(url).json()
-        df = pd.DataFrame(response['data'])
-        df = data_preprocess.extract_key_words(df)
-        return {
-                     'data': df.to_dict("records")
-                }
+        if response == 200:
+            data = response.json()
+        #data = json.loads(response_content)
+            df = pd.DataFrame(data['data'])
+            df = data_preprocess.extract_key_words(df)
+            return {
+                        'data': df.to_dict("records")
+                    }
 
 # Store dictionary of references of all initial papers
 @app.callback(
@@ -173,11 +177,14 @@ def store_references_data(data):
         for paper in data['data']:
             paper_id = paper['paperId']
             url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references?limit=50&fields=intents,isInfluential,paperId,url,title,abstract,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy,authors"
-            response = requests.get(url).json()
-            ref_data = response['data']
-            for cited_paper in ref_data:
-                cited_paper['citedPaper']['citedBy'] = paper_id
-                ref_dict.append(cited_paper['citedPaper'])
+            response = requests.get(url)
+            if response == 200:
+                data = response.json()
+                #data = json.loads(response)
+                ref_data = data['data']
+                for cited_paper in ref_data:
+                    cited_paper['citedPaper']['citedBy'] = paper_id
+                    ref_dict.append(cited_paper['citedPaper'])
         return ref_dict
 
 # Displays start page
@@ -703,7 +710,8 @@ def displayTapNodeData(data):
                      html.Span("Published "), html.B(author_info['paperCount']), html.Span(" papers."), html.Br(),html.Br(),
                      html.Span("Received "), html.B(author_info['citationCount']), html.Span(" citations."), html.Br(),html.Br(),
                      html.Span(f"h index: "), html.B(author_info['hIndex']), html.Br(), html.Br(),
-                     html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank')],
+                     html.A("Semantic Scholar profile", href = author_info['url'], target= '_blank'),
+                     dcc.Graph(figure = plots.plot_self_citation_ratios(data['id']))],
                              className = "author-info-text"),
         return paragraph
     else:
