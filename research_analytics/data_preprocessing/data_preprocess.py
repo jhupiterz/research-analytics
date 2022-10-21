@@ -5,6 +5,8 @@
 # imports ------------------------------------------------------------------
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import nltk
+nltk.download('punkt')
 from research_analytics import utils
 import requests
 import re
