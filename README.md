@@ -1,3 +1,5 @@
+![example workflow](https://github.com/jhupiterz/research-analytics/actions/workflows/build.yml/badge.svg)
+
 # Welcome to Research Analytics 🧠
 
 **Research Analytics** is an Open Source project helping academic researchers and students with their daily research activities.
