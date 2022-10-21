@@ -63,12 +63,16 @@ def filter_data_by_time(dataframe, filter_values):
     dataframe = dataframe[(dataframe['year'] >= start) & (dataframe['year'] <= end)]
     return dataframe
 
-def get_citations_for_one_paper(paper_id):
+def get_citations_for_one_paper(paper_id, test=False):
+    if test == True:
+        url_ref = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations?fields=authors&limit=1"
     url_ref = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations?fields=authors&limit=100"
     references = requests.get(url_ref).json()
     return references['data']
 
-def get_papers_for_one_author(author_id):
+def get_papers_for_one_author(author_id, test=False):
+    if test == True:
+        url = f"https://api.semanticscholar.org/graph/v1/author/{author_id}?fields=name,paperCount,citationCount,hIndex,papers.referenceCount,papers.paperId,papers.citationCount&limit=1"
     url = f"https://api.semanticscholar.org/graph/v1/author/{author_id}?fields=name,paperCount,citationCount,hIndex,papers.referenceCount,papers.paperId,papers.citationCount"
     papers_by_author = requests.get(url).json()
     papers_df = pd.DataFrame(papers_by_author['papers']).sort_values("citationCount", ascending=False)
@@ -76,14 +80,14 @@ def get_papers_for_one_author(author_id):
     sample_papers_df = papers_df.sample(20)
     return sample_papers_df
 
-def get_self_citation_ratios(author_id):
+def get_self_citation_ratios(author_id, test=False):
     self_citation = 0
     coauthor_citation = 0
     nonself_citation = 0
-    test_df = get_papers_for_one_author(author_id)
+    test_df = get_papers_for_one_author(author_id, test)
     test_df.shape
     for _, row in test_df.iterrows():
-        citations = get_citations_for_one_paper(row['paperId'])
+        citations = get_citations_for_one_paper(row['paperId'], test)
         for citation in citations:
             authors = citation['citingPaper']['authors']
             author_list = [x['authorId'] for x in authors]

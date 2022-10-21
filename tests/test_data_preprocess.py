@@ -1,7 +1,5 @@
-import pytest
 import numpy as np
 import pandas as pd
-import utils
 from research_analytics.data_preprocessing import data_preprocess
 
 def test_extract_key_words_on_normal_argument():
@@ -32,15 +30,27 @@ def test_extract_key_words_on_wrong_df_format():
     assert type(df) == pd.DataFrame
     assert ("title" in df.columns) == False
 
-def test_extract_pub_info():
-    """what it does: extracts author(s), year, and pub_info from full_citation
-       arguments: takes a df as argument
-       returns: the same df with 'authors', 'pub_info', 'year' columns
-       Attention: df should have a 'full_citation' column"""
-    df = pd.DataFrame({"full_citation": ["George and . Teece . 2020"]})
-    assert type(df) == pd.DataFrame
-    assert "full_citation" in df.columns
-    df_expected = data_preprocess.extract_pub_info(df)
-    assert "authors" in df_expected.columns
-    assert "pub_info" in df_expected.columns
-    assert "year" in df_expected.columns
+# def test_extract_pub_info():
+#     """what it does: extracts author(s), year, and pub_info from full_citation
+#        arguments: takes a df as argument
+#        returns: the same df with 'authors', 'pub_info', 'year' columns
+#        Attention: df should have a 'full_citation' column"""
+#     df = pd.DataFrame({"full_citation": ["George and . Teece . 2020"]})
+#     assert type(df) == pd.DataFrame
+#     assert "full_citation" in df.columns
+#     df_expected = data_preprocess.extract_pub_info(df)
+#     assert "authors" in df_expected.columns
+#     assert "pub_info" in df_expected.columns
+#     assert "year" in df_expected.columns
+
+def test_filter_data_by_time():
+    start = int(1940)
+    end = int(1990)
+    df = pd.DataFrame({"year": [1918, 1923, 1948, 1978, 1989]})
+    df_expected = data_preprocess.filter_data_by_time(df, [start, end])
+    assert df_expected.shape == (3, 1)
+
+def test_get_self_citation_ratios():
+    author_id = "1741101"
+    citation_expected = data_preprocess.get_self_citation_ratios(author_id, test=True)
+    assert citation_expected == [0, 0, 0]
