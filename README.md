@@ -1,5 +1,6 @@
 ![example workflow](https://github.com/jhupiterz/research-analytics/actions/workflows/build.yml/badge.svg)
 
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="99" height="20">
     <linearGradient id="b" x2="0" y2="100%">
@@ -21,6 +22,7 @@
         <text x="80" y="14">24%</text>
     </g>
 </svg>
+```
 
 # Welcome to Research Analytics 🧠
 
