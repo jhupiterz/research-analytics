@@ -5,10 +5,10 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* open-research/*.py
+	@flake8 scripts/* research-analytics/*.py
 
 black:
-	@black scripts/* open-research/*.py
+	@black scripts/* research-analytics/*.py
 
 test:
 	@coverage run -m pytest tests/test_*.py
@@ -22,8 +22,8 @@ clean:
 	@rm -f .coverage
 	@rm -fr */__pycache__ */*.pyc __pycache__
 	@rm -fr build dist
-	@rm -fr open-research-*.dist-info
-	@rm -fr open-research.egg-info
+	@rm -fr research-analytics-*.dist-info
+	@rm -fr research-analytics.egg-info
 
 install:
 	@pip install . -U
