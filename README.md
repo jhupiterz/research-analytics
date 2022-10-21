@@ -1,4 +1,5 @@
-![example workflow](https://github.com/jhupiterz/research-analytics/actions/workflows/build.yml/badge.svg)
+![CI](https://github.com/jhupiterz/research-analytics/actions/workflows/build.yml/badge.svg)
+![test coverage](https://shields.io/static/v1?label=coverage&message=24%&color=yellow)
 
 # Welcome to Research Analytics 🧠
 
