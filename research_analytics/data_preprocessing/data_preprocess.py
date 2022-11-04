@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
-import utils
+from research_analytics import utils
 import requests
 import re
 import pandas as pd
