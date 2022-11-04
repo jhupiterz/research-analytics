@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
-from research_analytics import utils
+import utils
 import requests
 import re
 import pandas as pd
@@ -82,7 +82,10 @@ def get_papers_for_one_author(author_id, test=False):
     papers_by_author = requests.get(url).json()
     papers_df = pd.DataFrame(papers_by_author['papers']).sort_values("citationCount", ascending=False)
     papers_df = papers_df[papers_df['referenceCount'] != 0]
-    sample_papers_df = papers_df.sample(20)
+    if len(papers_df) >= 20:
+        sample_papers_df = papers_df.sample(20)
+    else:
+        sample_papers_df = papers_df
     return sample_papers_df
 
 def get_self_citation_ratios(author_id, test=False):
