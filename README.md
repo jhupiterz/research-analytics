@@ -6,7 +6,7 @@
 **Research Analytics** is an Open Source project helping academic researchers and students with their daily research activities.
 The app can be accessed [here](https://research-analytics.herokuapp.com/).
 
-For a full project description please visit [Research Analytics](https://jhupiterz.notion.site/Welcome-to-research-intelligence-a36796f418b040f6ade944f9c54e87cb).
+For a full project description please visit [Research Analytics](https://alien-research.notion.site/Research-Analytics-127bde4dda1c4b4cb98f262621726f1d).
 
 ### App preview 👁️
 
